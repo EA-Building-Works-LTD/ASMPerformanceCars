@@ -82,6 +82,8 @@
     "@types/nodemailer": "^6.4.17",
     "@types/react": "^19",
     "@types/react-dom": "^19",
+    "@typescript-eslint/eslint-plugin": "^8.31.0",
+    "@typescript-eslint/parser": "^8.31.0",
     "autoprefixer": "^10.4.21",
     "axios": "^1.8.4",
     "cli-progress": "^3.12.0",
