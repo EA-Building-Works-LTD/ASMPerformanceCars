@@ -9,22 +9,22 @@ import { Toaster } from "@/components/ui/toaster";
 const saira = localFont({
   src: [
     {
-      path: '../assets/fonts/Saira-Light.ttf',
+      path: '../../public/assets/fonts/Saira-Light.ttf',
       weight: '300',
       style: 'normal',
     },
     {
-      path: '../assets/fonts/Saira-Regular.ttf',
+      path: '../../public/assets/fonts/Saira-Regular.ttf',
       weight: '400',
       style: 'normal',
     },
     {
-      path: '../assets/fonts/Saira-Medium.ttf',
+      path: '../../public/assets/fonts/Saira-Medium.ttf',
       weight: '500',
       style: 'normal',
     },
     {
-      path: '../assets/fonts/Saira-SemiBold.ttf',
+      path: '../../public/assets/fonts/Saira-SemiBold.ttf',
       weight: '600',
       style: 'normal',
     },
@@ -35,7 +35,7 @@ const saira = localFont({
 
 // Configure Agency Bold as the heading font
 const agencyBold = localFont({
-  src: '../assets/fonts/AGENCYB.ttf',
+  src: '../../public/assets/fonts/AGENCYB.ttf',
   variable: '--font-agency',
   display: 'swap'
 });
