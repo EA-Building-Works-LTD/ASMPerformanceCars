@@ -35,7 +35,7 @@ const saira = localFont({
 
 // Configure Agency Bold as the heading font
 const agencyBold = localFont({
-  src: '../assets/fonts/AGENCYB.TTF',
+  src: '../assets/fonts/AGENCYB.ttf',
   variable: '--font-agency',
   display: 'swap'
 });
