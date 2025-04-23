@@ -73,7 +73,7 @@ module.exports = {
       loc: path,
       changefreq,
       priority,
-      lastmod: config.autoLastmod ? new Date().toISOString() : undefined,
+      lastmod: config.autoLastmod ? new Date().toISOString().split('T')[0] : undefined,
       alternateRefs: config.alternateRefs ?? [],
     };
   },

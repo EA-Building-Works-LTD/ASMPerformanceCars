@@ -4,6 +4,9 @@ import fs from 'fs';
 import path from 'path';
 import { glob } from 'glob';
 
+// Configure this route as static for compatibility with Vercel deployment
+export const dynamic = 'force-static';
+
 // Add cache control for this route (revalidate every 12 hours)
 export const revalidate = 43200;
 

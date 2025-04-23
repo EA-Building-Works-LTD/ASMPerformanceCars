@@ -1,6 +1,9 @@
 import { getServerSideSitemap } from 'next-sitemap';
 import { getAllVehicles } from '@/sanity/lib/client';
 
+// Configure this route as static for compatibility with Vercel deployment
+export const dynamic = 'force-static';
+
 // Add cache control for this route (revalidate every 4 hours)
 export const revalidate = 14400;
 
@@ -13,7 +16,7 @@ export async function GET() {
     const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://asmperformancecars.co.uk';
     
     // Create sitemap entries for each vehicle
-    const sitemapEntries = vehicles.map((vehicle: unknown) => {
+    const sitemapEntries = vehicles.map((vehicle: any) => {
       // Determine the correct URL path based on vehicle type
       let categoryPath = '';
       

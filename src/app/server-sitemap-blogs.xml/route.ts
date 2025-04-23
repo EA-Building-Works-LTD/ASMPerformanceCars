@@ -1,6 +1,9 @@
 import { getServerSideSitemap } from 'next-sitemap';
 import { client } from '@/sanity/lib/client';
 
+// Configure this route as static for compatibility with Vercel deployment
+export const dynamic = 'force-static';
+
 // Add cache control for this route (revalidate every 4 hours)
 export const revalidate = 14400;
 

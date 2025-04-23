@@ -1,6 +1,6 @@
 "use client"
 
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, Suspense } from 'react'
 import { useSearchParams, useRouter } from 'next/navigation'
 import { CarFront, Newspaper, CalendarDays, Filter, X, Search, FileText } from 'lucide-react'
 import { Button } from '@/components/ui/button'
@@ -394,12 +394,16 @@ function SearchClient() {
   )
 }
 
-// Export a server component that uses Suspense
-import { Suspense } from 'react'
-
 export default function SearchPage() {
   return (
-    <Suspense fallback={<div className="p-28 text-center">Loading search...</div>}>
+    <Suspense fallback={
+      <main className="bg-gray-50 min-h-screen pt-28 pb-20">
+        <div className="container mx-auto px-4 text-center">
+          <div className="w-16 h-16 border-4 border-t-red-600 border-red-200 rounded-full animate-spin mx-auto mb-4"></div>
+          <h2 className="text-2xl font-semibold">Loading search results...</h2>
+        </div>
+      </main>
+    }>
       <SearchClient />
     </Suspense>
   )

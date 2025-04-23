@@ -1,6 +1,6 @@
 "use client"
 
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, Suspense } from 'react'
 import FAQHero from '@/components/faq/FAQHero'
 import FAQSearch from '@/components/faq/FAQSearch'
 import FAQCategories from '@/components/faq/FAQCategories'
@@ -8,7 +8,7 @@ import FAQSearchResults from '@/components/faq/FAQSearchResults'
 import { useRouter, useSearchParams } from 'next/navigation'
 import { searchFaqs, FAQItem } from '@/lib/algolia-search'
 
-export default function FAQPage() {
+function FAQContent() {
   const router = useRouter()
   const searchParams = useSearchParams()
   const [searchTerm, setSearchTerm] = useState(searchParams?.get('q') || '')
@@ -113,5 +113,17 @@ export default function FAQPage() {
         </p>
       </section>
     </>
+  )
+}
+
+export default function FAQPage() {
+  return (
+    <Suspense fallback={
+      <div className="min-h-screen flex items-center justify-center">
+        <p className="text-lg">Loading FAQs...</p>
+      </div>
+    }>
+      <FAQContent />
+    </Suspense>
   )
 } 

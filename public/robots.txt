@@ -1,0 +1,15 @@
+# *
+User-agent: *
+Allow: /
+Disallow: /api/*
+Disallow: /admin/*
+Disallow: /_next/*
+Disallow: /404
+Disallow: /500
+
+# Host
+Host: https://asmperformancecars.co.uk
+
+# Sitemaps
+Sitemap: https://asmperformancecars.co.uk/sitemap-index.xml
+Sitemap: https://asmperformancecars.co.uk/static-sitemap.xml
