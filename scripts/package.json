@@ -1,0 +1,10 @@
+{
+  "name": "sanity-scripts",
+  "version": "1.0.0",
+  "description": "Scripts for Sanity CMS operations",
+  "type": "module",
+  "dependencies": {
+    "@sanity/client": "^6.1.0",
+    "dotenv": "^16.3.1"
+  }
+} 

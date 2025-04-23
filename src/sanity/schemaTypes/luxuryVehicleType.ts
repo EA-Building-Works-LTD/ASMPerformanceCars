@@ -1,0 +1,472 @@
+import { defineField, defineType } from 'sanity'
+
+export const luxuryVehicleType = defineType({
+  name: 'luxuryVehicle',
+  title: 'Luxury & Supercar',
+  type: 'document',
+  fields: [
+    defineField({
+      name: 'title',
+      title: 'Title',
+      type: 'string',
+      description: 'Full vehicle name (e.g., "2021 Porsche 911 Turbo S")',
+      validation: (Rule) => Rule.required(),
+    }),
+    defineField({
+      name: 'extendedInfo',
+      title: 'Extended Info',
+      type: 'string',
+      description: 'Extended model information (e.g., "3.8L Twin-Turbo PDK")',
+    }),
+    defineField({
+      name: 'highlightedSpec',
+      title: 'Highlighted Spec',
+      type: 'string',
+      description: 'Key specifications to highlight (e.g., "640 BHP | Carbon Package | Sport Chrono")',
+    }),
+    defineField({
+      name: 'slug',
+      title: 'Slug',
+      type: 'slug',
+      options: {
+        source: 'title',
+        maxLength: 200,
+      },
+      description: 'Vehicle URL will be: /our-cars/luxury-supercars-for-sale/[slug]. TIP: Include the year at the beginning of the slug (e.g., "2023-porsche-911")',
+      validation: (Rule) => Rule.required(),
+    }),
+    defineField({
+      name: 'featured',
+      title: 'Featured Vehicle',
+      type: 'boolean',
+      description: 'Mark this vehicle as featured to highlight it on the homepage',
+      initialValue: true,
+    }),
+    defineField({
+      name: 'mainImage',
+      title: 'Main Image',
+      type: 'image',
+      options: {
+        hotspot: true,
+      },
+      validation: (Rule) => Rule.required(),
+    }),
+    defineField({
+      name: 'galleryImages',
+      title: 'Gallery Images',
+      type: 'array',
+      of: [{ type: 'image', options: { hotspot: true } }],
+      validation: (Rule) => Rule.min(5).error('Luxury vehicles require at least 5 high-quality images'),
+    }),
+    defineField({
+      name: 'videoTour',
+      title: 'Video Tour URL',
+      type: 'url',
+      description: 'URL to a video tour of the vehicle (YouTube, Vimeo, etc.)',
+    }),
+    defineField({
+      name: 'price',
+      title: 'Price',
+      type: 'number',
+      description: 'Vehicle price in GBP',
+      validation: (Rule) => Rule.required(),
+    }),
+    defineField({
+      name: 'priceOnApplication',
+      title: 'Price on Application',
+      type: 'boolean',
+      description: 'Set to true to hide price and show "POA" instead',
+      initialValue: false,
+    }),
+    defineField({
+      name: 'mileage',
+      title: 'Mileage',
+      type: 'number',
+      description: 'Vehicle mileage in miles',
+      validation: (Rule) => Rule.required(),
+    }),
+    defineField({
+      name: 'year',
+      title: 'Year',
+      type: 'number',
+      description: 'Year of manufacture',
+      validation: (Rule) => Rule.required(),
+    }),
+    defineField({
+      name: 'make',
+      title: 'Make',
+      type: 'string',
+      description: 'Vehicle manufacturer (e.g., "Porsche", "Lamborghini")',
+      options: {
+        list: [
+          { title: 'Aston Martin', value: 'Aston Martin' },
+          { title: 'Bentley', value: 'Bentley' },
+          { title: 'Ferrari', value: 'Ferrari' },
+          { title: 'Lamborghini', value: 'Lamborghini' },
+          { title: 'McLaren', value: 'McLaren' },
+          { title: 'Porsche', value: 'Porsche' },
+          { title: 'Rolls-Royce', value: 'Rolls-Royce' },
+          { title: 'Other', value: 'Other' },
+        ],
+      },
+      validation: (Rule) => Rule.required(),
+    }),
+    defineField({
+      name: 'model',
+      title: 'Model',
+      type: 'string',
+      description: 'Vehicle model (e.g., "911", "Huracan")',
+      validation: (Rule) => Rule.required(),
+    }),
+    defineField({
+      name: 'specification',
+      title: 'Specification',
+      type: 'string',
+      description: 'Vehicle specification (e.g., "Turbo S", "Performante")',
+    }),
+    defineField({
+      name: 'luxuryFeatures',
+      title: 'Luxury Features',
+      type: 'array',
+      of: [{ type: 'string' }],
+      description: 'List premium features that make this vehicle special',
+      validation: (Rule) => Rule.min(3).error('Please add at least 3 luxury features'),
+    }),
+    defineField({
+      name: 'rarity',
+      title: 'Rarity',
+      type: 'object',
+      fields: [
+        defineField({
+          name: 'limited',
+          title: 'Limited Edition',
+          type: 'boolean',
+          initialValue: false,
+        }),
+        defineField({
+          name: 'limitedCount',
+          title: 'Limited Count',
+          type: 'number',
+          description: 'Total number of units produced (e.g., "500")',
+        }),
+        defineField({
+          name: 'editionNumber',
+          title: 'Edition Number',
+          type: 'string',
+          description: 'This unit\'s number in the limited run (e.g., "123 of 500")',
+        }),
+        defineField({
+          name: 'specialEdition',
+          title: 'Special Edition Name',
+          type: 'string',
+          description: 'Name of special edition if applicable',
+        }),
+      ],
+    }),
+    defineField({
+      name: 'performance',
+      title: 'Performance',
+      type: 'object',
+      fields: [
+        defineField({
+          name: 'horsepower',
+          title: 'Horsepower',
+          type: 'number',
+          description: 'Engine power in HP',
+          validation: (Rule) => Rule.required(),
+        }),
+        defineField({
+          name: 'torque',
+          title: 'Torque',
+          type: 'number',
+          description: 'Engine torque in lb-ft',
+        }),
+        defineField({
+          name: 'acceleration',
+          title: '0-60 mph',
+          type: 'number',
+          description: '0-60 mph time in seconds',
+        }),
+        defineField({
+          name: 'topSpeed',
+          title: 'Top Speed',
+          type: 'number',
+          description: 'Top speed in mph',
+        }),
+      ],
+      validation: (Rule) => Rule.required(),
+    }),
+    defineField({
+      name: 'modifications',
+      title: 'Modifications',
+      type: 'object',
+      description: 'Details about any modifications or upgrades to the vehicle',
+      fields: [
+        defineField({
+          name: 'items',
+          title: 'Modification Items',
+          type: 'array',
+          of: [
+            {
+              type: 'object',
+              fields: [
+                defineField({
+                  name: 'category',
+                  title: 'Category',
+                  type: 'string',
+                  options: {
+                    list: [
+                      { title: 'Performance', value: 'performance' },
+                      { title: 'Exterior', value: 'exterior' },
+                      { title: 'Interior', value: 'interior' },
+                      { title: 'Wheels & Suspension', value: 'wheels-suspension' },
+                      { title: 'Audio & Electronics', value: 'audio-electronics' },
+                      { title: 'Other', value: 'other' },
+                    ],
+                  },
+                  validation: (Rule) => Rule.required(),
+                }),
+                defineField({
+                  name: 'name',
+                  title: 'Name',
+                  type: 'string',
+                  validation: (Rule) => Rule.required(),
+                }),
+                defineField({
+                  name: 'description',
+                  title: 'Description',
+                  type: 'text',
+                }),
+                defineField({
+                  name: 'brand',
+                  title: 'Brand',
+                  type: 'string',
+                }),
+                defineField({
+                  name: 'cost',
+                  title: 'Cost',
+                  type: 'number',
+                  description: 'Cost of this modification in GBP',
+                }),
+                defineField({
+                  name: 'images',
+                  title: 'Images',
+                  type: 'array',
+                  of: [{ type: 'image', options: { hotspot: true } }],
+                }),
+              ],
+            },
+          ],
+        }),
+        defineField({
+          name: 'totalCost',
+          title: 'Total Modification Cost',
+          type: 'number',
+          description: 'Total cost of all modifications in GBP',
+        }),
+        defineField({
+          name: 'warranty',
+          title: 'Modification Warranty',
+          type: 'string',
+          description: 'Details about warranty coverage for modifications',
+        }),
+        defineField({
+          name: 'dynoGraph',
+          title: 'Dyno Graph',
+          type: 'image',
+          description: 'Upload dyno graph image if available',
+          options: {
+            hotspot: true,
+          },
+        }),
+      ],
+    }),
+    defineField({
+      name: 'fuelType',
+      title: 'Fuel Type',
+      type: 'string',
+      options: {
+        list: [
+          { title: 'Petrol', value: 'petrol' },
+          { title: 'Diesel', value: 'diesel' },
+          { title: 'Hybrid', value: 'hybrid' },
+          { title: 'Electric', value: 'electric' },
+        ],
+      },
+      validation: (Rule) => Rule.required(),
+    }),
+    defineField({
+      name: 'transmission',
+      title: 'Transmission',
+      type: 'string',
+      options: {
+        list: [
+          { title: 'Automatic', value: 'automatic' },
+          { title: 'Manual', value: 'manual' },
+          { title: 'Semi-Automatic', value: 'semi-automatic' },
+          { title: 'Dual Clutch (PDK/DCT)', value: 'dual-clutch' },
+        ],
+      },
+      validation: (Rule) => Rule.required(),
+    }),
+    defineField({
+      name: 'engineSize',
+      title: 'Engine Size',
+      type: 'string',
+      description: 'Engine size in litres (e.g., "3.0", "4.0")',
+      validation: (Rule) => Rule.required(),
+    }),
+    defineField({
+      name: 'color',
+      title: 'Color',
+      type: 'object',
+      fields: [
+        defineField({
+          name: 'exterior',
+          title: 'Exterior Color',
+          type: 'string',
+          validation: (Rule) => Rule.required(),
+        }),
+        defineField({
+          name: 'interior',
+          title: 'Interior Color',
+          type: 'string',
+          validation: (Rule) => Rule.required(),
+        }),
+        defineField({
+          name: 'specialPaint',
+          title: 'Special Paint Option',
+          type: 'boolean',
+          description: 'Is this a premium or special paint option?',
+          initialValue: false,
+        }),
+        defineField({
+          name: 'paintDetails',
+          title: 'Paint Details',
+          type: 'string',
+          description: 'Details about special paint (e.g., "Factory Matte Finish")',
+        }),
+      ],
+      validation: (Rule) => Rule.required(),
+    }),
+    defineField({
+      name: 'bodyType',
+      title: 'Body Type',
+      type: 'string',
+      options: {
+        list: [
+          { title: 'Coupe', value: 'coupe' },
+          { title: 'Convertible', value: 'convertible' },
+          { title: 'Saloon', value: 'saloon' },
+          { title: 'SUV', value: 'suv' },
+          { title: 'Roadster', value: 'roadster' },
+        ],
+      },
+      validation: (Rule) => Rule.required(),
+    }),
+    defineField({
+      name: 'doors',
+      title: 'Doors',
+      type: 'number',
+      options: {
+        list: [2, 3, 4, 5],
+      },
+      validation: (Rule) => Rule.required(),
+    }),
+    defineField({
+      name: 'provenance',
+      title: 'Provenance',
+      type: 'object',
+      fields: [
+        defineField({
+          name: 'owners',
+          title: 'Previous Owners',
+          type: 'number',
+          initialValue: 0,
+          validation: (Rule) => Rule.required(),
+        }),
+        defineField({
+          name: 'serviceHistory',
+          title: 'Service History',
+          type: 'string',
+          options: {
+            list: [
+              { title: 'Full Main Dealer History', value: 'full-main-dealer' },
+              { title: 'Full Service History', value: 'full' },
+              { title: 'Partial Service History', value: 'partial' },
+            ],
+          },
+          validation: (Rule) => Rule.required(),
+        }),
+        defineField({
+          name: 'warrantyRemaining',
+          title: 'Factory Warranty Remaining',
+          type: 'boolean',
+          initialValue: false,
+        }),
+        defineField({
+          name: 'warrantyDetails',
+          title: 'Warranty Details',
+          type: 'string',
+        }),
+        defineField({
+          name: 'noteworthy',
+          title: 'Noteworthy History',
+          type: 'text',
+          description: 'Any noteworthy history or provenance (e.g., celebrity ownership)',
+        }),
+      ],
+    }),
+    defineField({
+      name: 'description',
+      title: 'Description',
+      type: 'blockContent',
+      description: 'Full description of the vehicle including features and history',
+      validation: (Rule) => Rule.required(),
+    }),
+    defineField({
+      name: 'status',
+      title: 'Status',
+      type: 'string',
+      options: {
+        list: [
+          { title: 'Available', value: 'available' },
+          { title: 'Sold', value: 'sold' },
+          { title: 'Reserved', value: 'reserved' },
+          { title: 'Coming Soon', value: 'coming-soon' },
+        ],
+      },
+      initialValue: 'available',
+      validation: (Rule) => Rule.required(),
+    }),
+    defineField({
+      name: 'categories',
+      title: 'Categories',
+      type: 'array',
+      of: [{ type: 'reference', to: { type: 'category' } }],
+    }),
+    defineField({
+      name: 'publishedAt',
+      title: 'Published at',
+      type: 'datetime',
+      initialValue: () => new Date().toISOString(),
+    }),
+  ],
+  preview: {
+    select: {
+      title: 'title',
+      media: 'mainImage',
+      price: 'price',
+      poa: 'priceOnApplication',
+      make: 'make',
+      model: 'model',
+    },
+    prepare({ title, media, price, poa, make, model }) {
+      return {
+        title,
+        media,
+        subtitle: poa ? `POA | ${make} ${model}` : `£${price?.toLocaleString()} | ${make} ${model}`,
+      }
+    },
+  },
+}) 

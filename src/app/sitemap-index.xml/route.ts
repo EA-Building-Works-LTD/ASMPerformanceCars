@@ -1,0 +1,16 @@
+import { getServerSideSitemapIndex } from 'next-sitemap';
+
+export async function GET() {
+  // Base URL for the site - use the production URL in a production environment
+  const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://asmperformancecars.co.uk';
+  
+  // Create the sitemap index with references to all other sitemaps
+  return getServerSideSitemapIndex([
+    // Reference to the dynamic pages sitemap (replaces static-sitemap.xml)
+    `${baseUrl}/server-sitemap-pages.xml`,
+    // Reference to the dynamic car listings sitemap
+    `${baseUrl}/server-sitemap-cars.xml`,
+    // Reference to the dynamic blog posts sitemap
+    `${baseUrl}/server-sitemap-blogs.xml`,
+  ]);
+} 

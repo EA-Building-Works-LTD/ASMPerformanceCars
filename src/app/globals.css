@@ -1,26 +1,778 @@
 @import "tailwindcss";
+@import "tw-animate-css";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
+@custom-variant dark (&:is(.dark *));
 
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
+  --color-sidebar-ring: var(--sidebar-ring);
+  --color-sidebar-border: var(--sidebar-border);
+  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
+  --color-sidebar-accent: var(--sidebar-accent);
+  --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
+  --color-sidebar-primary: var(--sidebar-primary);
+  --color-sidebar-foreground: var(--sidebar-foreground);
+  --color-sidebar: var(--sidebar);
+  --color-chart-5: var(--chart-5);
+  --color-chart-4: var(--chart-4);
+  --color-chart-3: var(--chart-3);
+  --color-chart-2: var(--chart-2);
+  --color-chart-1: var(--chart-1);
+  --color-ring: var(--ring);
+  --color-input: var(--input);
+  --color-border: var(--border);
+  --color-destructive: var(--destructive);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-accent: var(--accent);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-muted: var(--muted);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-secondary: var(--secondary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-primary: var(--primary);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-popover: var(--popover);
+  --color-card-foreground: var(--card-foreground);
+  --color-card: var(--card);
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+:root {
+  --radius: 0.625rem;
+  --background: oklch(1 0 0);
+  --foreground: oklch(0.141 0.005 285.823);
+  --card: oklch(1 0 0);
+  --card-foreground: oklch(0.141 0.005 285.823);
+  --popover: oklch(1 0 0);
+  --popover-foreground: oklch(0.141 0.005 285.823);
+  --primary: oklch(0.21 0.006 285.885);
+  --primary-foreground: oklch(0.985 0 0);
+  --secondary: oklch(0.967 0.001 286.375);
+  --secondary-foreground: oklch(0.21 0.006 285.885);
+  --muted: oklch(0.967 0.001 286.375);
+  --muted-foreground: oklch(0.552 0.016 285.938);
+  --accent: oklch(0.967 0.001 286.375);
+  --accent-foreground: oklch(0.21 0.006 285.885);
+  --destructive: oklch(0.577 0.245 27.325);
+  --border: oklch(0.92 0.004 286.32);
+  --input: oklch(0.92 0.004 286.32);
+  --ring: oklch(0.705 0.015 286.067);
+  --chart-1: oklch(0.646 0.222 41.116);
+  --chart-2: oklch(0.6 0.118 184.704);
+  --chart-3: oklch(0.398 0.07 227.392);
+  --chart-4: oklch(0.828 0.189 84.429);
+  --chart-5: oklch(0.769 0.188 70.08);
+  --sidebar: oklch(0.985 0 0);
+  --sidebar-foreground: oklch(0.141 0.005 285.823);
+  --sidebar-primary: oklch(0.21 0.006 285.885);
+  --sidebar-primary-foreground: oklch(0.985 0 0);
+  --sidebar-accent: oklch(0.967 0.001 286.375);
+  --sidebar-accent-foreground: oklch(0.21 0.006 285.885);
+  --sidebar-border: oklch(0.92 0.004 286.32);
+  --sidebar-ring: oklch(0.705 0.015 286.067);
+  --scroll-position: 0px; /* CSS variable for scroll position */
+}
+
+.dark {
+  --background: oklch(0.141 0.005 285.823);
+  --foreground: oklch(0.985 0 0);
+  --card: oklch(0.21 0.006 285.885);
+  --card-foreground: oklch(0.985 0 0);
+  --popover: oklch(0.21 0.006 285.885);
+  --popover-foreground: oklch(0.985 0 0);
+  --primary: oklch(0.92 0.004 286.32);
+  --primary-foreground: oklch(0.21 0.006 285.885);
+  --secondary: oklch(0.274 0.006 286.033);
+  --secondary-foreground: oklch(0.985 0 0);
+  --muted: oklch(0.274 0.006 286.033);
+  --muted-foreground: oklch(0.705 0.015 286.067);
+  --accent: oklch(0.274 0.006 286.033);
+  --accent-foreground: oklch(0.985 0 0);
+  --destructive: oklch(0.704 0.191 22.216);
+  --border: oklch(1 0 0 / 10%);
+  --input: oklch(1 0 0 / 15%);
+  --ring: oklch(0.552 0.016 285.938);
+  --chart-1: oklch(0.488 0.243 264.376);
+  --chart-2: oklch(0.696 0.17 162.48);
+  --chart-3: oklch(0.769 0.188 70.08);
+  --chart-4: oklch(0.627 0.265 303.9);
+  --chart-5: oklch(0.645 0.246 16.439);
+  --sidebar: oklch(0.21 0.006 285.885);
+  --sidebar-foreground: oklch(0.985 0 0);
+  --sidebar-primary: oklch(0.488 0.243 264.376);
+  --sidebar-primary-foreground: oklch(0.985 0 0);
+  --sidebar-accent: oklch(0.274 0.006 286.033);
+  --sidebar-accent-foreground: oklch(0.985 0 0);
+  --sidebar-border: oklch(1 0 0 / 10%);
+  --sidebar-ring: oklch(0.552 0.016 285.938);
+}
+
+@layer base {
+  /* Set Saira as the default font for everything */
+  * {
+    @apply border-border outline-ring/50;
+    font-family: var(--font-saira);
+  }
+
+  /* Default body text - Regular (400) */
+  body {
+    @apply bg-background text-foreground;
+    font-family: var(--font-saira);
+    font-weight: 400;
+  }
+
+  /* Headings use Agency Bold */
+  h1, h2, h3, h4, h5, h6 {
+    font-family: var(--font-agency);
+    letter-spacing: 0.03em;
+  }
+
+  /* Ensure all text elements use Saira */
+  p, span, div, a, button, input, textarea, select, label {
+    font-family: var(--font-saira) !important;
+  }
+
+  /* Paragraphs and general content - Regular (400) */
+  p, article, .content {
+    font-family: var(--font-saira);
+    font-weight: 400;
+  }
+
+  /* Medium weight (500) for enhanced readability in certain contexts */
+  .text-medium {
+    font-weight: 500;
+  }
+
+  /* Semi-bold (600) for buttons and important UI elements */
+  button, 
+  .btn,
+  label,
+  .font-semibold {
+    font-weight: 600;
+  }
+
+  /* Light weight (300) for subtle text */
+  .text-subtle,
+  .caption,
+  .help-text,
+  .text-light {
+    font-weight: 300;
   }
 }
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: 0 0% 100%;
+    --foreground: 222.2 84% 4.9%;
+    --card: 0 0% 100%;
+    --card-foreground: 222.2 84% 4.9%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 222.2 84% 4.9%;
+    --primary: 0 83.2% 53.3%;
+    --primary-foreground: 210 40% 98%;
+    --secondary: 0 40% 96.1%;
+    --secondary-foreground: 0 47.4% 11.2%;
+    --muted: 0 40% 96.1%;
+    --muted-foreground: 0 16.3% 46.9%;
+    --accent: 0 40% 96.1%;
+    --accent-foreground: 0 47.4% 11.2%;
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 210 40% 98%;
+    --border: 0 31.8% 91.4%;
+    --input: 0 31.8% 91.4%;
+    --ring: 0 83.2% 53.3%;
+    --radius: 0.5rem;
+  }
+
+  .dark {
+    --background: 222.2 84% 4.9%;
+    --foreground: 210 40% 98%;
+    --card: 222.2 84% 4.9%;
+    --card-foreground: 210 40% 98%;
+    --popover: 222.2 84% 4.9%;
+    --popover-foreground: 210 40% 98%;
+    --primary: 0 91.2% 59.8%;
+    --primary-foreground: 0 47.4% 11.2%;
+    --secondary: 0 32.6% 17.5%;
+    --secondary-foreground: 210 40% 98%;
+    --muted: 0 32.6% 17.5%;
+    --muted-foreground: 0 20.2% 65.1%;
+    --accent: 0 32.6% 17.5%;
+    --accent-foreground: 210 40% 98%;
+    --destructive: 0 62.8% 30.6%;
+    --destructive-foreground: 210 40% 98%;
+    --border: 0 32.6% 17.5%;
+    --input: 0 32.6% 17.5%;
+    --ring: 0 76.3% 48%;
+  }
+
+  /* Headings use Agency Bold */
+  h1, h2, h3, h4, h5, h6 {
+    font-family: var(--font-agency);
+    letter-spacing: 0.03em;
+  }
+
+  /* Default body text - Regular (400) */
+  body {
+    font-family: var(--font-saira);
+    font-weight: 400;
+  }
+
+  /* Paragraphs and general content - Regular (400) */
+  p, article, .content {
+    font-weight: 400;
+  }
+
+  /* Medium weight (500) for enhanced readability in certain contexts */
+  .text-medium {
+    font-weight: 500;
+  }
+
+  /* Semi-bold (600) for buttons and important UI elements */
+  button, 
+  .btn,
+  label,
+  .font-semibold {
+    font-weight: 600;
+  }
+
+  /* Light weight (300) for subtle text */
+  .text-subtle,
+  .caption,
+  .help-text,
+  .text-light {
+    font-weight: 300;
+  }
 }
+
+/* Custom styles */
+.text-balance {
+  text-wrap: balance;
+}
+
+/* Animation for hero slider */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes fadeOut {
+  from { opacity: 1; }
+  to { opacity: 0; }
+}
+
+/* Custom animation classes */
+.animate-fadeIn {
+  animation: fadeIn 0.5s ease-out forwards;
+}
+
+.animate-fadeOut {
+  animation: fadeOut 0.3s ease-in forwards;
+}
+
+/* Custom scroll behavior */
+html {
+  scroll-behavior: smooth;
+  height: 100%;
+}
+
+body {
+  min-height: 100%;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  overscroll-behavior-y: none; /* Prevents pull-to-refresh on mobile */
+}
+
+/* This pseudo-element trick forces browser to repaint */
+body:after {
+  content: "";
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 1px;
+  height: 1px;
+  transform: translateZ(0);
+  opacity: 0.01;
+  pointer-events: none;
+  /* Use the scroll position to force repaints */
+  top: var(--scroll-position);
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+::-webkit-scrollbar-track {
+  @apply bg-gray-100 dark:bg-zinc-900;
+}
+
+::-webkit-scrollbar-thumb {
+  @apply bg-gray-300 dark:bg-zinc-700 rounded-full;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  @apply bg-gray-400 dark:bg-zinc-600;
+}
+
+/* Custom styling for forms */
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus {
+  @apply shadow-[0_0_0_30px_white_inset] dark:shadow-[0_0_0_30px_#1a1a1a_inset];
+  -webkit-text-fill-color: inherit;
+}
+
+/* Prevent the blue highlight on mobile tap */
+@media (max-width: 767px) {
+  * {
+    -webkit-tap-highlight-color: transparent;
+  }
+}
+
+/* Override Tailwind classes to use red instead of blue */
+.bg-blue-50 { @apply bg-red-50; }
+.bg-blue-100 { @apply bg-red-100; }
+.bg-blue-200 { @apply bg-red-200; }
+.bg-blue-300 { @apply bg-red-300; }
+.bg-blue-400 { @apply bg-red-400; }
+.bg-blue-500 { @apply bg-red-500; }
+.bg-blue-600 { @apply bg-red-600; }
+.bg-blue-700 { @apply bg-red-700; }
+.bg-blue-800 { @apply bg-red-800; }
+.bg-blue-900 { @apply bg-red-900; }
+.bg-blue-950 { @apply bg-red-950; }
+
+.text-blue-50 { @apply text-red-50; }
+.text-blue-100 { @apply text-red-100; }
+.text-blue-200 { @apply text-red-200; }
+.text-blue-300 { @apply text-red-300; }
+.text-blue-400 { @apply text-red-400; }
+.text-blue-500 { @apply text-red-500; }
+.text-blue-600 { @apply text-red-600; }
+.text-blue-700 { @apply text-red-700; }
+.text-blue-800 { @apply text-red-800; }
+.text-blue-900 { @apply text-red-900; }
+.text-blue-950 { @apply text-red-950; }
+
+.border-blue-50 { @apply border-red-50; }
+.border-blue-100 { @apply border-red-100; }
+.border-blue-200 { @apply border-red-200; }
+.border-blue-300 { @apply border-red-300; }
+.border-blue-400 { @apply border-red-400; }
+.border-blue-500 { @apply border-red-500; }
+.border-blue-600 { @apply border-red-600; }
+.border-blue-700 { @apply border-red-700; }
+.border-blue-800 { @apply border-red-800; }
+.border-blue-900 { @apply border-red-900; }
+.border-blue-950 { @apply border-red-950; }
+
+.hover\:bg-blue-50:hover { @apply hover:bg-red-50; }
+.hover\:bg-blue-100:hover { @apply hover:bg-red-100; }
+.hover\:bg-blue-200:hover { @apply hover:bg-red-200; }
+.hover\:bg-blue-300:hover { @apply hover:bg-red-300; }
+.hover\:bg-blue-400:hover { @apply hover:bg-red-400; }
+.hover\:bg-blue-500:hover { @apply hover:bg-red-500; }
+.hover\:bg-blue-600:hover { @apply hover:bg-red-600; }
+.hover\:bg-blue-700:hover { @apply hover:bg-red-700; }
+.hover\:bg-blue-800:hover { @apply hover:bg-red-800; }
+.hover\:bg-blue-900:hover { @apply hover:bg-red-900; }
+.hover\:bg-blue-950:hover { @apply hover:bg-red-950; }
+
+.hover\:text-blue-50:hover { @apply hover:text-red-50; }
+.hover\:text-blue-100:hover { @apply hover:text-red-100; }
+.hover\:text-blue-200:hover { @apply hover:text-red-200; }
+.hover\:text-blue-300:hover { @apply hover:text-red-300; }
+.hover\:text-blue-400:hover { @apply hover:text-red-400; }
+.hover\:text-blue-500:hover { @apply hover:text-red-500; }
+.hover\:text-blue-600:hover { @apply hover:text-red-600; }
+.hover\:text-blue-700:hover { @apply hover:text-red-700; }
+.hover\:text-blue-800:hover { @apply hover:text-red-800; }
+.hover\:text-blue-900:hover { @apply hover:text-red-900; }
+.hover\:text-blue-950:hover { @apply hover:text-red-950; }
+
+.hover\:border-blue-50:hover { @apply hover:border-red-50; }
+.hover\:border-blue-100:hover { @apply hover:border-red-100; }
+.hover\:border-blue-200:hover { @apply hover:border-red-200; }
+.hover\:border-blue-300:hover { @apply hover:border-red-300; }
+.hover\:border-blue-400:hover { @apply hover:border-red-400; }
+.hover\:border-blue-500:hover { @apply hover:border-red-500; }
+.hover\:border-blue-600:hover { @apply hover:border-red-600; }
+.hover\:border-blue-700:hover { @apply hover:border-red-700; }
+.hover\:border-blue-800:hover { @apply hover:border-red-800; }
+.hover\:border-blue-900:hover { @apply hover:border-red-900; }
+.hover\:border-blue-950:hover { @apply hover:border-red-950; }
+
+.ring-blue-50 { @apply ring-red-50; }
+.ring-blue-100 { @apply ring-red-100; }
+.ring-blue-200 { @apply ring-red-200; }
+.ring-blue-300 { @apply ring-red-300; }
+.ring-blue-400 { @apply ring-red-400; }
+.ring-blue-500 { @apply ring-red-500; }
+.ring-blue-600 { @apply ring-red-600; }
+.ring-blue-700 { @apply ring-red-700; }
+.ring-blue-800 { @apply ring-red-800; }
+.ring-blue-900 { @apply ring-red-900; }
+.ring-blue-950 { @apply ring-red-950; }
+
+/* Apply Agency Bold font to headings */
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-agency);
+  letter-spacing: 0.03em;
+}
+
+/* Use Agency Bold for specific UI elements like buttons and section titles */
+.font-heading {
+  font-family: var(--font-agency);
+  letter-spacing: 0.03em;
+}
+
+/* Apply the font to specific elements like "Selling Your Car" */
+.selling-title {
+  font-family: var(--font-agency);
+  letter-spacing: 0.05em;
+}
+
+/* Utility classes for font weights */
+@layer utilities {
+  .font-light {
+    font-weight: 300;
+  }
+  
+  .font-regular {
+    font-weight: 400;
+  }
+  
+  .font-medium {
+    font-weight: 500;
+  }
+  
+  .font-semibold {
+    font-weight: 600;
+  }
+}
+
+/* Add this animation before the blog-content section */
+@keyframes slideDown {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+    max-height: 0;
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+    max-height: 1000px;
+  }
+}
+
+.animate-slideDown {
+  animation: slideDown 0.3s ease-out forwards;
+}
+
+/* Blog content styling */
+.blog-content {
+  font-size: 1.125rem;
+  line-height: 1.75;
+  color: #1a1a1a;
+}
+
+.dark .blog-content {
+  color: #f3f4f6;
+}
+
+.blog-content h1,
+.blog-content h2,
+.blog-content h3,
+.blog-content h4 {
+  font-weight: 700;
+  color: #111827;
+  margin-top: 2rem;
+  margin-bottom: 1rem;
+  line-height: 1.3;
+}
+
+.dark .blog-content h1,
+.dark .blog-content h2,
+.dark .blog-content h3,
+.dark .blog-content h4 {
+  color: #f9fafb;
+}
+
+.blog-content h1 {
+  font-size: 2rem;
+  margin-top: 2.5rem;
+  margin-bottom: 1.25rem;
+}
+
+.blog-content h2 {
+  font-size: 1.75rem;
+  margin-top: 2.25rem;
+  margin-bottom: 1.15rem;
+}
+
+.blog-content h3 {
+  font-size: 1.5rem;
+  margin-top: 2rem;
+  margin-bottom: 1rem;
+}
+
+.blog-content h4 {
+  font-size: 1.25rem;
+  margin-top: 1.75rem;
+  margin-bottom: 0.85rem;
+}
+
+.blog-content p {
+  margin-bottom: 1.5rem;
+  line-height: 1.8;
+}
+
+.blog-content ul,
+.blog-content ol {
+  margin: 1.5rem 0;
+  padding-left: 2rem;
+}
+
+.blog-content ul {
+  list-style-type: disc;
+}
+
+.blog-content ol {
+  list-style-type: decimal;
+}
+
+.blog-content li {
+  margin-bottom: 0.75rem;
+}
+
+.blog-content blockquote {
+  border-left: 4px solid #ef4444;
+  padding-left: 1.25rem;
+  margin: 2rem 0;
+  font-style: italic;
+  color: #4b5563;
+}
+
+.dark .blog-content blockquote {
+  color: #9ca3af;
+}
+
+.blog-content a {
+  color: #ef4444;
+  text-decoration: none;
+}
+
+.blog-content a:hover {
+  text-decoration: underline;
+}
+
+.blog-content hr {
+  margin: 2.5rem 0;
+  border: 0;
+  border-top: 1px solid #e5e7eb;
+}
+
+.dark .blog-content hr {
+  border-top: 1px solid #374151;
+}
+
+/* Additional spacing between sections */
+.blog-content h1 + p,
+.blog-content h2 + p,
+.blog-content h3 + p,
+.blog-content h4 + p {
+  margin-top: 1rem;
+}
+
+.blog-content p + h1,
+.blog-content p + h2,
+.blog-content p + h3,
+.blog-content p + h4 {
+  margin-top: 2.5rem;
+}
+
+/* Prose styling for rich text content */
+.prose a {
+  color: theme('colors.red.600');
+  text-decoration: underline;
+  text-underline-offset: 2px;
+  transition: all 0.2s ease;
+}
+
+.prose a:hover {
+  color: theme('colors.red.800');
+}
+
+.dark .prose a {
+  color: theme('colors.red.400');
+}
+
+.dark .prose a:hover {
+  color: theme('colors.red.300');
+}
+
+/* Custom animations for No Longer Available page */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-fadeIn {
+  animation: fadeIn 0.5s ease-out forwards;
+}
+
+.animate-fadeInUp {
+  animation: fadeInUp 0.5s ease-out forwards;
+}
+
+.sticky-header {
+  position: fixed !important;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 9999 !important;
+  width: 100%;
+  -webkit-transform: translate3d(0,0,0) !important;
+  transform: translate3d(0,0,0) !important;
+  will-change: transform;
+  -webkit-backface-visibility: hidden !important;
+  backface-visibility: hidden !important;
+  -webkit-perspective: 1000 !important;
+  perspective: 1000 !important;
+  -webkit-transform-style: preserve-3d !important;
+  transform-style: preserve-3d !important;
+}
+
+.header-spacer {
+  width: 100%;
+  display: block;
+  transition: height 0.3s ease;
+}
+
+/* Fix for Safari */
+@supports (-webkit-overflow-scrolling: touch) {
+  .sticky-header {
+    position: sticky !important;
+    -webkit-overflow-scrolling: touch;
+  }
+}
+
+/* Fix for iOS Safari */
+@media screen and (max-width: 767px) {
+  html, body {
+    -webkit-overflow-scrolling: touch !important;
+    overflow: auto !important;
+  }
+  
+  .sticky-header {
+    -webkit-transform: translate3d(0,0,0) !important;
+    transform: translate3d(0,0,0) !important;
+    position: fixed !important;
+    top: 0 !important;
+    transform: translateY(0) !important;
+  }
+}
+
+/* Additional fix for iOS scrolling */
+@supports (-webkit-touch-callout: none) {
+  .sticky-header {
+    -webkit-backface-visibility: hidden !important;
+    backface-visibility: hidden !important;
+    -webkit-transform: translate3d(0,0,0) !important;
+    transform: translate3d(0,0,0) !important;
+  }
+}
+
+/* Fix for Chrome on Android */
+@media screen and (-webkit-min-device-pixel-ratio: 0) {
+  .sticky-header {
+    transform: translate3d(0,0,0) !important;
+    -webkit-transform: translate3d(0,0,0) !important;
+  }
+}
+
+/* Fix header display on mobile */
+html {
+  scroll-behavior: smooth;
+  height: 100%;
+}
+
+body {
+  min-height: 100%;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  overscroll-behavior-y: none; /* Prevents pull-to-refresh on mobile */
+}
+
+/* This pseudo-element trick forces browser to repaint */
+body:after {
+  content: "";
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 1px;
+  height: 1px;
+  transform: translateZ(0);
+  opacity: 0.01;
+  pointer-events: none;
+  /* Use the scroll position to force repaints */
+  top: var(--scroll-position);
+}
+
+/* Mobile menu submenu transitions */
+.mobile-submenu {
+  transition: max-height 0.3s ease, opacity 0.3s ease;
+  max-height: 0;
+  opacity: 0;
+  overflow: hidden;
+}
+
+.mobile-submenu.open {
+  max-height: 500px;
+  opacity: 1;
+}
+
+.mobile-submenu a {
+  transition: transform 0.2s ease, opacity 0.2s ease;
+  transform: translateY(-5px);
+  opacity: 0;
+}
+
+.mobile-submenu.open a {
+  transform: translateY(0);
+  opacity: 1;
+}
+
+/* Apply staggered delays to child items */
+.mobile-submenu.open a:nth-child(1) { transition-delay: 0.05s; }
+.mobile-submenu.open a:nth-child(2) { transition-delay: 0.1s; }
+.mobile-submenu.open a:nth-child(3) { transition-delay: 0.15s; }
+.mobile-submenu.open a:nth-child(4) { transition-delay: 0.2s; }
+.mobile-submenu.open a:nth-child(5) { transition-delay: 0.25s; }
+.mobile-submenu.open a:nth-child(6) { transition-delay: 0.3s; }

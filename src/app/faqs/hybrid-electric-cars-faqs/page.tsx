@@ -1,0 +1,151 @@
+"use client"
+
+import React, { useState } from 'react'
+import FAQHero from '@/components/faq/FAQHero'
+import Link from 'next/link'
+import { Battery, ChevronDown, ChevronUp } from 'lucide-react'
+import { motion } from 'framer-motion'
+
+// Sample FAQ data for Hybrid/Electric Cars
+const hybridElectricFaqs = [
+  {
+    id: 'ev-1',
+    question: 'What\'s the difference between hybrid, plug-in hybrid, and fully electric vehicles?',
+    answer: 'The three main electrified vehicle categories differ in powertrain configuration and operation: Standard hybrids (sometimes called self-charging hybrids) combine a petrol or diesel engine with a small electric motor and battery, which cannot be plugged in. The battery charges through regenerative braking and the engine, with the electric motor providing assistance during acceleration and allowing short, low-speed electric-only driving. Plug-in hybrids (PHEVs) feature larger batteries that can be charged from an external power source, enabling longer electric-only driving ranges (typically 20-50 miles) before the combustion engine activates. Fully electric vehicles (EVs or BEVs) have no combustion engine, running entirely on battery power charged from external sources, offering ranges between 100-400+ miles depending on the model. While standard hybrids require no charging infrastructure but offer limited emissions benefits, EVs provide zero tailpipe emissions and lowest running costs but depend on charging infrastructure. PHEVs represent a middle ground, beneficial for drivers not yet ready to commit fully to electric.'
+  },
+  {
+    id: 'ev-2',
+    question: 'How long does it take to charge an electric car?',
+    answer: 'Electric vehicle charging times vary significantly based on three key factors: the car\'s battery size, the charger\'s power output, and the vehicle\'s maximum charging capability. Home charging typically uses 7kW wallboxes, which fully charge most EVs overnight (8-12 hours). Public fast chargers (22-50kW) can provide 80% charge in 1-2 hours. Rapid chargers (50-150kW) available at motorway services and dedicated charging hubs can deliver 80% charge in 30-60 minutes, while ultra-rapid chargers (150-350kW) can charge compatible vehicles to 80% in 20-30 minutes. Note that charging speed typically slows after 80% to protect battery health. Most modern EVs display estimated charging time on their dashboards, and many manufacturers offer smartphone apps to monitor charging remotely. Many drivers adopt a "top-up" approach to charging rather than always waiting for a full charge, integrating charging with daily activities like shopping or dining.'
+  },
+  {
+    id: 'ev-3',
+    question: 'What are the running costs of an electric vehicle compared to petrol/diesel?',
+    answer: 'Electric vehicles typically offer significantly lower running costs than petrol or diesel alternatives. Electricity costs approximately 7-10p per mile when charging at home (potentially less with an EV-specific tariff or solar panels), compared to 14-20p per mile for petrol or diesel vehicles. Maintenance costs are typically 30-50% lower due to fewer moving parts, no oil changes, reduced brake wear (from regenerative braking), and generally lower cooling system complexity. Road tax (VED) is currently £0 for fully electric vehicles, though this will change from 2025. Company car tax (Benefit-in-Kind) rates are substantially lower for EVs. Insurance costs can be slightly higher for EVs due to specialised repair needs and battery replacement costs, but this gap is narrowing as insurers gain more experience with electric vehicles. The greatest savings typically come in depreciation—modern EVs with practical ranges generally maintain value well compared to combustion engine equivalents. The total cost of ownership analysis usually favours EVs for drivers covering moderate to high annual mileage.'
+  },
+  {
+    id: 'ev-4',
+    question: 'How far can electric cars go on a single charge?',
+    answer: 'Modern electric vehicles offer real-world ranges from approximately 100 miles for smaller urban models to over 400 miles for premium vehicles with larger batteries. The average mainstream EV now delivers about 200-250 miles per charge in mixed driving conditions. Actual range varies based on several factors: driving style (aggressive acceleration and high speeds significantly reduce range); ambient temperature (cold weather can temporarily reduce range by 10-30%); use of climate control (heating in particular consumes considerable energy); topography (hilly routes require more energy); and battery age (gradual capacity reduction occurs over years of use). Most EVs feature sophisticated range management systems that provide increasingly accurate estimates considering these variables. For longer journeys, route planners (both in-vehicle and smartphone-based) can map appropriate charging stops. When considering range claims, note that the official WLTP range figures are generally optimistic; real-world range is typically 10-20% lower, particularly in winter or on motorways.'
+  },
+  {
+    id: 'ev-5',
+    question: 'How do I install a home charging point?',
+    answer: 'Installing a home charging point involves several key steps: First, confirm your property\'s suitability—you\'ll need off-street parking and adequate electrical capacity. Choose a government-approved charger and installer to access any available grants. A standard installation connects to your home\'s electricity supply and typically costs £800-£1,100 (including equipment and labour), though this may vary with complexity. The installation process takes 2-4 hours in most cases, involving mounting the charging unit, connecting it to your consumer unit (possibly requiring additional protective devices), and running cabling. Smart chargers—now required by regulations—offer features like scheduled charging to exploit off-peak electricity rates. For leasehold properties, obtain landlord permission before installation. If you live in a listed building or conservation area, check whether planning permission is required. For properties with limited electrical capacity or those without suitable parking, explore community charging schemes or rely on workplace and public charging infrastructure.'
+  },
+  {
+    id: 'ev-6',
+    question: 'Are electric cars really better for the environment?',
+    answer: 'Electric vehicles offer significant environmental advantages over petrol and diesel cars, though the full picture requires nuance. EVs produce zero tailpipe emissions, improving local air quality in urban areas. From a lifecycle perspective, while battery production creates higher manufacturing emissions, this "carbon debt" is typically recovered within 6,000-40,000 miles of driving (varying by vehicle size, grid carbon intensity, and study methodology). As electricity generation continues to decarbonise in the UK (with renewables now regularly exceeding 40% of supply), the operational advantages of EVs continue to improve. Modern EV batteries are highly recyclable, with valuɑble materials increasingly recovered for new battery production. The environmental impact varies regionally based on the electricity generation mix, but even in coal-dependent regions, research indicates EVs typically produce lower lifetime emissions than combustion vehicles. For maximum environmental benefit, consider charging during periods of high renewable generation or installing home solar panels, and keep vehicles in use longer to amortise production emissions.'
+  },
+  {
+    id: 'ev-7',
+    question: 'What government incentives are available for electric vehicles?',
+    answer: 'While the UK\'s Plug-in Car Grant for private buyers ended in 2022, several incentives remain for electric vehicle adoption: Vehicle Excise Duty (road tax) remains £0 for EVs until 2025 when standard rates will apply. Benefit-in-Kind (BIK) tax for company cars remains significantly lower for EVs (currently 2% compared to 20-37% for petrol/diesel). The Electric Vehicle Homecharge Scheme now focuses on flat-dwellers and rental properties, offering up to £350 towards installation costs. The Workplace Charging Scheme provides businesses up to £350 per socket (maximum 40 sockets) for employee and fleet charging points. Local incentives may include reduced parking fees, exemption from congestion or clean air zone charges, and access to bus lanes in some areas. Additionally, businesses can benefit from enhanced capital allowances when purchasing EVs, enabling deduction of the full cost from profits before tax. Local authorities often provide additional specific incentives, so check with your council for region-specific offers. Remember that available incentives change frequently with government policy updates.'
+  },
+  {
+    id: 'ev-8',
+    question: 'How long do electric car batteries last, and how much does replacement cost?',
+    answer: 'Modern electric vehicle batteries typically maintain 70-80% of their original capacity after 8-10 years or 100,000-150,000 miles of normal use. Manufacturers generally provide battery warranties covering this period (typically guaranteeing at least 70% capacity retention), with premium brands often offering longer coverage. Complete failure is extremely rare; gradual capacity reduction is the normal ageing process. When capacity eventually diminishes to a point affecting usability (usually after 10+ years), replacement costs vary significantly: from approximately £3,000-£5,000 for smaller EVs to £10,000-£20,000 for premium vehicles with larger batteries. However, these costs continue to decrease as manufacturing scale increases. Increasingly, rather than complete replacement, battery reconditioning or module replacement offers more cost-effective solutions. Additionally, "second life" applications for EV batteries in energy storage are developing rapidly, potentially providing residual value. Battery health is preserved by avoiding routine exposure to extreme temperatures, minimising time spent at 100% or near 0% charge, preferring standard charging speeds for regular use, and following manufacturer guidance on optimal charging practices.'
+  }
+];
+
+export default function HybridElectricCarsFAQsPage() {
+  const [openFAQ, setOpenFAQ] = useState<string | null>(null);
+
+  const toggleFAQ = (id: string) => {
+    setOpenFAQ(openFAQ === id ? null : id);
+  };
+
+  return (
+    <>
+      {/* Hero Section */}
+      <FAQHero 
+        title="Hybrid & Electric Cars FAQs" 
+        subtitle="Essential information about electric vehicles, charging, maintenance, and benefits"
+        backgroundImage="/images/electric-car-hero.jpg"
+      />
+      
+      {/* Content Section */}
+      <section className="py-16">
+        <div className="container mx-auto px-4 max-w-4xl">
+          <div className="flex items-center gap-3 mb-8">
+            <div className="bg-purple-600 rounded-full p-2">
+              <Battery className="w-6 h-6 text-white" />
+            </div>
+            <h2 className="text-3xl font-bold">Hybrid & Electric Cars</h2>
+          </div>
+          
+          <p className="text-lg text-gray-700 mb-10">
+            Our comprehensive guide covers everything you need to know about hybrid and electric vehicles, including charging infrastructure, range considerations, and maintenance requirements. Find answers to your most common questions below.
+          </p>
+          
+          {/* FAQ Accordion */}
+          <div className="space-y-4">
+            {hybridElectricFaqs.map((faq) => (
+              <motion.div 
+                key={faq.id}
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.5 }}
+                viewport={{ once: true }}
+                className="border border-gray-200 rounded-lg overflow-hidden"
+              >
+                <button
+                  onClick={() => toggleFAQ(faq.id)}
+                  className="w-full flex justify-between items-center p-5 bg-white hover:bg-gray-50 text-left"
+                >
+                  <h3 className="text-lg font-semibold pr-8">{faq.question}</h3>
+                  {openFAQ === faq.id ? (
+                    <ChevronUp className="w-5 h-5 text-gray-500 flex-shrink-0" />
+                  ) : (
+                    <ChevronDown className="w-5 h-5 text-gray-500 flex-shrink-0" />
+                  )}
+                </button>
+                
+                {openFAQ === faq.id && (
+                  <div className="p-5 bg-gray-50 border-t border-gray-200">
+                    <p className="text-gray-700 leading-relaxed">{faq.answer}</p>
+                  </div>
+                )}
+              </motion.div>
+            ))}
+          </div>
+          
+          {/* Navigation to other FAQ categories */}
+          <div className="mt-16 pt-8 border-t border-gray-200">
+            <h3 className="text-xl font-bold mb-4">Explore Other FAQ Categories</h3>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <Link href="/faqs/car-buying-selling-faqs" className="text-purple-600 hover:text-purple-800 flex items-center gap-2">
+                <span>Car Buying/Selling FAQs</span>
+              </Link>
+              <Link href="/faqs/car-insurance-faqs" className="text-purple-600 hover:text-purple-800 flex items-center gap-2">
+                <span>Car Insurance FAQs</span>
+              </Link>
+              <Link href="/faqs/modified-cars-faqs" className="text-purple-600 hover:text-purple-800 flex items-center gap-2">
+                <span>Modified Cars FAQs</span>
+              </Link>
+              <Link href="/faqs/used-cars-faqs" className="text-purple-600 hover:text-purple-800 flex items-center gap-2">
+                <span>Used Cars FAQs</span>
+              </Link>
+            </div>
+          </div>
+          
+          {/* Related Services Section */}
+          <div className="mt-16 bg-zinc-900 text-white p-8 rounded-xl">
+            <h3 className="text-2xl font-bold mb-4">Interested in Electric Vehicles?</h3>
+            <p className="mb-6">
+              Browse our inventory of premium electric and hybrid vehicles, or contact us to discuss specific models you're interested in.
+            </p>
+            <Link 
+              href="/our-cars" 
+              className="inline-flex items-center bg-purple-600 hover:bg-purple-700 text-white font-medium px-6 py-3 rounded-md transition-colors"
+            >
+              View Electric Vehicles
+            </Link>
+          </div>
+        </div>
+      </section>
+    </>
+  );
+} 

@@ -1,0 +1,1922 @@
+[
+  {
+    "id": "dealer-0",
+    "name": "Specialist Cars Group",
+    "location": "Birmingham",
+    "phone": "(07537) 165600",
+    "website": "http://www.specialistcarsgroup.co.uk/",
+    "slug": "specialist-cars-group"
+  },
+  {
+    "id": "dealer-1",
+    "name": "R A Motor Company",
+    "location": "Birmingham",
+    "phone": "(0121) 721 8380",
+    "website": "https://www.ramotorcompany.co.uk/",
+    "slug": "r-a-motor-company"
+  },
+  {
+    "id": "dealer-2",
+    "name": "Prestige Automotives",
+    "location": "Birmingham",
+    "phone": "(0121) 659 3275",
+    "website": "https://www.prestige-automotives.co.uk/",
+    "slug": "prestige-automotives"
+  },
+  {
+    "id": "dealer-3",
+    "name": "EMC Trade Centre",
+    "location": "Birmingham",
+    "phone": "(0121) 659 0756",
+    "website": "https://www.emctradecentre.co.uk/",
+    "slug": "emc-trade-centre"
+  },
+  {
+    "id": "dealer-4",
+    "name": "Mercedes-Benz of Birmingham",
+    "location": "Birmingham",
+    "phone": "(0121) 659 5941",
+    "website": "http://www.lshauto.co.uk/locations/1768/mercedes-benz-of-birmingham-used-cars/",
+    "slug": "mercedes-benz-of-birmingham"
+  },
+  {
+    "id": "dealer-5",
+    "name": "Mercedes Benz of Birmingham Vans",
+    "location": "Birmingham",
+    "phone": "(0121) 721 8537",
+    "website": "https://www.lshauto.co.uk/locations/1768/mercedes-benz-of-birmingham-used-cars/",
+    "slug": "mercedes-benz-of-birmingham-vans"
+  },
+  {
+    "id": "dealer-6",
+    "name": "Johnsons Skoda Birmingham",
+    "location": "Birmingham",
+    "phone": "(0121) 659 7881",
+    "website": "http://www.johnsonscars.co.uk/skoda/used-cars/?utm_source=11&utm_medium=3&utm_campaign=CM001572-1",
+    "slug": "johnsons-skoda-birmingham"
+  },
+  {
+    "id": "dealer-7",
+    "name": "Birmingham Van Centre",
+    "location": "Birmingham",
+    "phone": "(0121) 721 8348",
+    "website": "https://www.birminghamvancentre.co.uk/",
+    "slug": "birmingham-van-centre"
+  },
+  {
+    "id": "dealer-8",
+    "name": "M And H Motors",
+    "location": "Birmingham",
+    "phone": "(07537) 165738",
+    "website": "https://www.mandhmotors.co.uk/",
+    "slug": "m-and-h-motors"
+  },
+  {
+    "id": "dealer-9",
+    "name": "MW Motor Solutions Limited",
+    "location": "Birmingham",
+    "phone": "(0121) 659 8231",
+    "website": null,
+    "slug": "mw-motor-solutions-limited"
+  },
+  {
+    "id": "dealer-10",
+    "name": "Long Acre Car Sales",
+    "location": "Birmingham",
+    "phone": "(0121) 721 0456",
+    "website": null,
+    "slug": "long-acre-car-sales"
+  },
+  {
+    "id": "dealer-11",
+    "name": "XCCELERATE AUTOMOTIVE LTD",
+    "location": "Birmingham",
+    "phone": "(07537) 122126",
+    "website": "http://xccelerateautomotive.co.uk/",
+    "slug": "xccelerate-automotive-ltd"
+  },
+  {
+    "id": "dealer-12",
+    "name": "Lookers Car Hub Star City",
+    "location": "Birmingham",
+    "phone": "(0121) 721 8969",
+    "website": "http://www.lookers.co.uk/vauxhall/",
+    "slug": "lookers-car-hub-star-city"
+  },
+  {
+    "id": "dealer-13",
+    "name": "QC Trade Centre Birmingham",
+    "location": "Birmingham",
+    "phone": "(07868) 787986",
+    "website": "http://www.qctradecentrebirmingham.co.uk/",
+    "slug": "qc-trade-centre-birmingham"
+  },
+  {
+    "id": "dealer-14",
+    "name": "Fort Used Cars",
+    "location": "Birmingham",
+    "phone": "(0121) 659 5127",
+    "website": "http://www.fortauto.com/",
+    "slug": "fort-used-cars"
+  },
+  {
+    "id": "dealer-15",
+    "name": "Touchwood Motors",
+    "location": "Birmingham",
+    "phone": "(07537) 124040",
+    "website": "https://www.touchwoodmotors.co.uk/",
+    "slug": "touchwood-motors"
+  },
+  {
+    "id": "dealer-16",
+    "name": "Sutton Park Perry Barr",
+    "location": "Birmingham",
+    "phone": "(0121) 721 9677",
+    "website": "https://www.suttonparkgroup.co.uk/",
+    "slug": "sutton-park-perry-barr"
+  },
+  {
+    "id": "dealer-17",
+    "name": "The Motors",
+    "location": "Birmingham",
+    "phone": "(07418) 690171",
+    "website": null,
+    "slug": "the-motors"
+  },
+  {
+    "id": "dealer-18",
+    "name": "Sandhurst Motors",
+    "location": "Birmingham",
+    "phone": "(0121) 659 1201",
+    "website": null,
+    "slug": "sandhurst-motors"
+  },
+  {
+    "id": "dealer-19",
+    "name": "Audi Approved Erdington",
+    "location": "Birmingham",
+    "phone": "(0121) 721 9357",
+    "website": "https://www.stratstone.com/audi/used-cars/",
+    "slug": "audi-approved-erdington"
+  },
+  {
+    "id": "dealer-20",
+    "name": "Stratstone Land Rover Birmingham North",
+    "location": "Birmingham",
+    "phone": "(0121) 659 5965",
+    "website": "https://www.stratstone.com/land-rover/",
+    "slug": "stratstone-land-rover-birmingham-north"
+  },
+  {
+    "id": "dealer-21",
+    "name": "Stellantis &You Birmingham North",
+    "location": "Birmingham",
+    "phone": "(0121) 659 7917",
+    "website": "https://www.stellantisandyou.co.uk/used-vehicles/dealer/birmingham-north",
+    "slug": "stellantis-you-birmingham-north"
+  },
+  {
+    "id": "dealer-22",
+    "name": "Hayes Motor Group",
+    "location": "Birmingham",
+    "phone": "(07537) 123377",
+    "website": "http://www.hayesmotorgroup.co.uk/",
+    "slug": "hayes-motor-group"
+  },
+  {
+    "id": "dealer-23",
+    "name": "Motorpoint Birmingham",
+    "location": "Birmingham",
+    "phone": "(0121) 659 7837",
+    "website": "http://www.motorpoint.co.uk/",
+    "slug": "motorpoint-birmingham"
+  },
+  {
+    "id": "dealer-24",
+    "name": "Wixford Motor Company",
+    "location": "Birmingham",
+    "phone": "(0121) 659 0758",
+    "website": "https://www.wixfordmotorco.co.uk/",
+    "slug": "wixford-motor-company"
+  },
+  {
+    "id": "dealer-25",
+    "name": "G.W.C",
+    "location": "Birmingham",
+    "phone": "(0121) 659 7098",
+    "website": "http://gwconline.co.uk/",
+    "slug": "gwc"
+  },
+  {
+    "id": "dealer-26",
+    "name": "HRM Motors",
+    "location": "Birmingham",
+    "phone": "(0121) 659 3642",
+    "website": "https://www.hrmmotors.co.uk/",
+    "slug": "hrm-motors"
+  },
+  {
+    "id": "dealer-27",
+    "name": "IMV MOTORS LTD",
+    "location": "Sutton Coldfield",
+    "phone": "(07588) 768352",
+    "website": null,
+    "slug": "imv-motors-ltd"
+  },
+  {
+    "id": "dealer-28",
+    "name": "Steven Eagell Birmingham",
+    "location": "Birmingham",
+    "phone": "(0121) 659 3086",
+    "website": "https://www.steveneagell.co.uk/toyota",
+    "slug": "steven-eagell-birmingham"
+  },
+  {
+    "id": "dealer-29",
+    "name": "Lamborghini Birmingham",
+    "location": "Birmingham",
+    "phone": "(0121) 721 8277",
+    "website": "http://www.sytner.co.uk/lamborghini/car-search/birmingham?utm_medium=aggregator&utm_source=autotrader&utm_campaign=uvl_link",
+    "slug": "lamborghini-birmingham"
+  },
+  {
+    "id": "dealer-30",
+    "name": "Bentley Birmingham",
+    "location": "Birmingham",
+    "phone": "(0121) 721 8293",
+    "website": "https://www.sytner.co.uk/bentley/dealerships/birmingham/car-search/?utm_medium=aggregator&utm_source=autotrader&utm_campaign=uvl_link",
+    "slug": "bentley-birmingham"
+  },
+  {
+    "id": "dealer-31",
+    "name": "Lexus Birmingham",
+    "location": "Birmingham",
+    "phone": "(0121) 659 5139",
+    "website": "https://www.steveneagelllexus.co.uk/locations/7227/lexus-birmingham/",
+    "slug": "lexus-birmingham"
+  },
+  {
+    "id": "dealer-32",
+    "name": "DN Motors Birmingham",
+    "location": "Birmingham",
+    "phone": "(07441) 906361",
+    "website": null,
+    "slug": "dn-motors-birmingham"
+  },
+  {
+    "id": "dealer-33",
+    "name": "GENERAL MOTORS",
+    "location": "Birmingham",
+    "phone": "(07537) 125299",
+    "website": null,
+    "slug": "general-motors"
+  },
+  {
+    "id": "dealer-34",
+    "name": "Sutton Trade Carz",
+    "location": "Birmingham",
+    "phone": "(07537) 122434",
+    "website": "https://www.suttontradecarz.co.uk/",
+    "slug": "sutton-trade-carz"
+  },
+  {
+    "id": "dealer-35",
+    "name": "Eminence Motors Ltd",
+    "location": "Birmingham",
+    "phone": "(07537) 125040",
+    "website": "https://www.eminence-motors.co.uk/",
+    "slug": "eminence-motors-ltd"
+  },
+  {
+    "id": "dealer-36",
+    "name": "Ultra Line Cars Ltd",
+    "location": "Birmingham",
+    "phone": "(07308) 307499",
+    "website": null,
+    "slug": "ultra-line-cars-ltd"
+  },
+  {
+    "id": "dealer-37",
+    "name": "AMH CARS BHAM LTD",
+    "location": "Birmingham",
+    "phone": "(0121) 659 5039",
+    "website": "http://www.amhcars.co.uk/",
+    "slug": "amh-cars-bham-ltd"
+  },
+  {
+    "id": "dealer-38",
+    "name": "Group 7 Cars",
+    "location": "Birmingham",
+    "phone": "(0121) 659 9589",
+    "website": null,
+    "slug": "group-7-cars"
+  },
+  {
+    "id": "dealer-39",
+    "name": "Hillside Specialist Cars",
+    "location": "Birmingham",
+    "phone": "(07457) 401045",
+    "website": "https://hillsidespecialistcars.co.uk/",
+    "slug": "hillside-specialist-cars"
+  },
+  {
+    "id": "dealer-40",
+    "name": "XCLUSIVE AUTOMOTIVE GROUP LIMITED",
+    "location": "Birmingham",
+    "phone": "(07441) 900375",
+    "website": null,
+    "slug": "xclusive-automotive-group-limited"
+  },
+  {
+    "id": "dealer-41",
+    "name": "GHB Performance Ltd",
+    "location": "Birmingham",
+    "phone": "(07897) 071367",
+    "website": "https://www.ghbperformance.co.uk/",
+    "slug": "ghb-performance-ltd"
+  },
+  {
+    "id": "dealer-42",
+    "name": "Smart Motors",
+    "location": "Birmingham",
+    "phone": "(0121) 659 9256",
+    "website": "https://www.smart-motors.co.uk/",
+    "slug": "smart-motors"
+  },
+  {
+    "id": "dealer-43",
+    "name": "AMW Autos Birmingham Limited",
+    "location": "Birmingham",
+    "phone": "(07537) 122959",
+    "website": "http://www.amwautosbirmingham.co.uk/",
+    "slug": "amw-autos-birmingham-limited"
+  },
+  {
+    "id": "dealer-44",
+    "name": "Plaistow Cars",
+    "location": "Birmingham",
+    "phone": "(07537) 122307",
+    "website": null,
+    "slug": "plaistow-cars"
+  },
+  {
+    "id": "dealer-45",
+    "name": "Halesowen Trade Centre Ltd",
+    "location": "Birmingham",
+    "phone": "(07822) 001262",
+    "website": "http://halesowentradecentreltd.co.uk/",
+    "slug": "halesowen-trade-centre-ltd"
+  },
+  {
+    "id": "dealer-46",
+    "name": "ADDERLEY TRADE CENTRE LTD",
+    "location": "Birmingham",
+    "phone": "(07418) 690125",
+    "website": null,
+    "slug": "adderley-trade-centre-ltd"
+  },
+  {
+    "id": "dealer-47",
+    "name": "AGILE CARS LTD",
+    "location": "Birmingham",
+    "phone": "(07588) 858330",
+    "website": null,
+    "slug": "agile-cars-ltd"
+  },
+  {
+    "id": "dealer-48",
+    "name": "Premier Car Sales",
+    "location": "Birmingham",
+    "phone": "(07723) 520097",
+    "website": "http://www.premiercarsaleswestmidlands.co.uk/",
+    "slug": "premier-car-sales"
+  },
+  {
+    "id": "dealer-49",
+    "name": "Autobay",
+    "location": "Birmingham",
+    "phone": "(07723) 543816",
+    "website": "https://www.autobaydrive.co.uk/",
+    "slug": "autobay"
+  },
+  {
+    "id": "dealer-50",
+    "name": "Carwayss",
+    "location": "Birmingham",
+    "phone": "(07537) 124490",
+    "website": "https://www.carwayss.co.uk/",
+    "slug": "carwayss"
+  },
+  {
+    "id": "dealer-51",
+    "name": "Car 4 You Limited",
+    "location": "Birmingham",
+    "phone": "(07723) 070856",
+    "website": null,
+    "slug": "car-4-you-limited"
+  },
+  {
+    "id": "dealer-52",
+    "name": "Johnsons Volkswagen Sutton Coldfield",
+    "location": "Sutton Coldfield",
+    "phone": "(0121) 659 5954",
+    "website": "http://www.johnsonscars.co.uk/volkswagen/used-cars/?ito=LBC200602/?utm_source=11&utm_medium=3&utm_campaign=CM001572-1",
+    "slug": "johnsons-volkswagen-sutton-coldfield"
+  },
+  {
+    "id": "dealer-53",
+    "name": "Volkswagen Van Centre B'ham (Swansway Garages)",
+    "location": "Birmingham",
+    "phone": "(0121) 659 7694",
+    "website": "https://www.swanswaygarages.com/volkswagen-commercial/used-vans/",
+    "slug": "volkswagen-van-centre-bham-swansway-garages"
+  },
+  {
+    "id": "dealer-54",
+    "name": "Johnsons Hyundai Sutton Coldfield",
+    "location": "Sutton Coldfield",
+    "phone": "(0121) 659 7698",
+    "website": "http://www.johnsonscars.co.uk/hyundai",
+    "slug": "johnsons-hyundai-sutton-coldfield"
+  },
+  {
+    "id": "dealer-55",
+    "name": "Heartlands Motors Ltd",
+    "location": "Birmingham",
+    "phone": "(07537) 123579",
+    "website": null,
+    "slug": "heartlands-motors-ltd"
+  },
+  {
+    "id": "dealer-56",
+    "name": "BEST CHOICE HIRE LTD",
+    "location": "Birmingham",
+    "phone": "(07307) 539858",
+    "website": "https://www.bestchoicehire.co.uk/",
+    "slug": "best-choice-hire-ltd"
+  },
+  {
+    "id": "dealer-57",
+    "name": "JY Autos",
+    "location": "Birmingham",
+    "phone": "(07361) 617027",
+    "website": null,
+    "slug": "jy-autos"
+  },
+  {
+    "id": "dealer-58",
+    "name": "Trust Ford Birmingham",
+    "location": "Birmingham",
+    "phone": "(0121) 659 6199",
+    "website": "https://www.trustford.co.uk/locations/1854/birmingham-erdington/",
+    "slug": "trust-ford-birmingham"
+  },
+  {
+    "id": "dealer-59",
+    "name": "Trust Ford Birmingham Transit Centre",
+    "location": "Birmingham",
+    "phone": "(0121) 659 6198",
+    "website": "https://www.trustford.co.uk/transit-centre/locations/1855/birmingham-transit-centre/",
+    "slug": "trust-ford-birmingham-transit-centre"
+  },
+  {
+    "id": "dealer-60",
+    "name": "ZRZ Motors",
+    "location": "Birmingham",
+    "phone": "(07418) 690195",
+    "website": "https://zrzmotors.co.uk/store/",
+    "slug": "zrz-motors"
+  },
+  {
+    "id": "dealer-61",
+    "name": "Second City Cars & Commercials",
+    "location": "Birmingham",
+    "phone": "(07418) 690357",
+    "website": null,
+    "slug": "second-city-cars-commercials"
+  },
+  {
+    "id": "dealer-62",
+    "name": "ZAK MOTORING LTD",
+    "location": "Birmingham",
+    "phone": "(07441) 906182",
+    "website": null,
+    "slug": "zak-motoring-ltd"
+  },
+  {
+    "id": "dealer-63",
+    "name": "Drivers Choice Limited",
+    "location": "Birmingham",
+    "phone": "(07897) 079915",
+    "website": null,
+    "slug": "drivers-choice-limited"
+  },
+  {
+    "id": "dealer-64",
+    "name": "Paul Rigby MG",
+    "location": "Birmingham",
+    "phone": "(0121) 721 3698",
+    "website": "https://www.paulrigbygroup.co.uk/mg",
+    "slug": "paul-rigby-mg"
+  },
+  {
+    "id": "dealer-65",
+    "name": "Paul Rigby Birmingham",
+    "location": "Birmingham",
+    "phone": "(0121) 659 5649",
+    "website": "https://www.paulrigbygroup.co.uk/?utm_source=11&utm_medium=3&utm_campaign=CM008971-1",
+    "slug": "paul-rigby-birmingham"
+  },
+  {
+    "id": "dealer-66",
+    "name": "Kingstanding Car Sales",
+    "location": "Birmingham",
+    "phone": "(07537) 122049",
+    "website": "http://www.kingstandingcarsales.com/",
+    "slug": "kingstanding-car-sales"
+  },
+  {
+    "id": "dealer-67",
+    "name": "Newtown Autos Ltd",
+    "location": "Birmingham",
+    "phone": "(07441) 936683",
+    "website": null,
+    "slug": "newtown-autos-ltd"
+  },
+  {
+    "id": "dealer-68",
+    "name": "Car Sale House",
+    "location": "Birmingham",
+    "phone": "(07822) 001324",
+    "website": "https://www.carsalehouse.co.uk/",
+    "slug": "car-sale-house"
+  },
+  {
+    "id": "dealer-69",
+    "name": "A1 MOTOR GRAND LTD",
+    "location": "Birmingham",
+    "phone": "(07441) 900313",
+    "website": "https://www.a1mg.co.uk/",
+    "slug": "a1-motor-grand-ltd"
+  },
+  {
+    "id": "dealer-70",
+    "name": "JMC Sutton",
+    "location": "Sutton Coldfield",
+    "phone": "(07441) 911302",
+    "website": "http://www.jmcsutton.com/",
+    "slug": "jmc-sutton"
+  },
+  {
+    "id": "dealer-71",
+    "name": "Midlands Motors",
+    "location": "Birmingham",
+    "phone": "(0121) 721 8381",
+    "website": "http://www.midlandsmotorsltd.co.uk/",
+    "slug": "midlands-motors"
+  },
+  {
+    "id": "dealer-72",
+    "name": "Fame Cars Ltd",
+    "location": "Birmingham",
+    "phone": "(07360) 540263",
+    "website": "http://www.famecarsltd.co.uk/",
+    "slug": "fame-cars-ltd"
+  },
+  {
+    "id": "dealer-73",
+    "name": "Spring Motors Ltd",
+    "location": "Birmingham",
+    "phone": "(07537) 165047",
+    "website": null,
+    "slug": "spring-motors-ltd"
+  },
+  {
+    "id": "dealer-74",
+    "name": "WMG Trade Centre",
+    "location": "Birmingham",
+    "phone": "(0121) 659 1969",
+    "website": "https://www.wmgtradecentre.co.uk/",
+    "slug": "wmg-trade-centre"
+  },
+  {
+    "id": "dealer-75",
+    "name": "MI Motor Company",
+    "location": "Birmingham",
+    "phone": "(07822) 001235",
+    "website": null,
+    "slug": "mi-motor-company"
+  },
+  {
+    "id": "dealer-76",
+    "name": "Johnsons Volkswagen Birmingham",
+    "location": "Birmingham",
+    "phone": "(0121) 659 7667",
+    "website": "http://www.johnsonscars.co.uk/volkswagen/used-cars/?ito=LBC200602/?utm_source=11&utm_medium=3&utm_campaign=CM001572-1",
+    "slug": "johnsons-volkswagen-birmingham"
+  },
+  {
+    "id": "dealer-77",
+    "name": "A TO Z MOTORS SPECIALIST LTD",
+    "location": "Birmingham",
+    "phone": "(07379) 799425",
+    "website": "https://www.atozmotors.uk/",
+    "slug": "a-to-z-motors-specialist-ltd"
+  },
+  {
+    "id": "dealer-78",
+    "name": "CANAL SIDE MOTORS UK LTD",
+    "location": "Birmingham",
+    "phone": "(07418) 690402",
+    "website": "http://www.canalsidemotorsukltd.co.uk/",
+    "slug": "canal-side-motors-uk-ltd"
+  },
+  {
+    "id": "dealer-79",
+    "name": "A C DEALER LTD",
+    "location": "Birmingham",
+    "phone": "(0121) 659 1037",
+    "website": "https://alltoncars.co.uk/",
+    "slug": "a-c-dealer-ltd"
+  },
+  {
+    "id": "dealer-80",
+    "name": "DC Car Sales",
+    "location": "Birmingham",
+    "phone": "(07537) 145565",
+    "website": null,
+    "slug": "dc-car-sales"
+  },
+  {
+    "id": "dealer-81",
+    "name": "Exclusive Cars (GB) Limited",
+    "location": "Birmingham",
+    "phone": "(0121) 659 7991",
+    "website": "https://www.exclusivecarsgb.co.uk/",
+    "slug": "exclusive-cars-gb-limited"
+  },
+  {
+    "id": "dealer-82",
+    "name": "Autoemocion",
+    "location": "Birmingham",
+    "phone": "(07537) 165197",
+    "website": "http://www.autoemocion.co.uk/",
+    "slug": "autoemocion"
+  },
+  {
+    "id": "dealer-83",
+    "name": "Mid Car Trade Centre",
+    "location": "Birmingham",
+    "phone": "(07897) 073455",
+    "website": "https://midtradecentre.co.uk/",
+    "slug": "mid-car-trade-centre"
+  },
+  {
+    "id": "dealer-84",
+    "name": "USED CARS SUPERMARKET LTD",
+    "location": "Birmingham",
+    "phone": "(07537) 125451",
+    "website": "http://usedcarssupermarketltd.co.uk/",
+    "slug": "used-cars-supermarket-ltd"
+  },
+  {
+    "id": "dealer-85",
+    "name": "Top Car Sales",
+    "location": "Birmingham",
+    "phone": "(07441) 900403",
+    "website": null,
+    "slug": "top-car-sales"
+  },
+  {
+    "id": "dealer-86",
+    "name": "SK Motor Trade Ltd",
+    "location": "Birmingham",
+    "phone": "(0121) 721 0110",
+    "website": "http://www.skmotortrade.co.uk/",
+    "slug": "sk-motor-trade-ltd"
+  },
+  {
+    "id": "dealer-87",
+    "name": "Distinto Cars & Classics",
+    "location": "Birmingham",
+    "phone": "(0121) 659 8536",
+    "website": null,
+    "slug": "distinto-cars-classics"
+  },
+  {
+    "id": "dealer-88",
+    "name": "Apex Motors",
+    "location": "Birmingham",
+    "phone": "(0121) 659 1633",
+    "website": "http://apexmotorsbham.co.uk/",
+    "slug": "apex-motors"
+  },
+  {
+    "id": "dealer-89",
+    "name": "LAA Storage Ltd",
+    "location": "Birmingham",
+    "phone": "(07426) 049751",
+    "website": null,
+    "slug": "laa-storage-ltd"
+  },
+  {
+    "id": "dealer-90",
+    "name": "SIGMA CAR SALES LTD",
+    "location": "Birmingham",
+    "phone": "(0121) 721 5889",
+    "website": "https://www.sigmacarsbirmingham.co.uk/",
+    "slug": "sigma-car-sales-ltd"
+  },
+  {
+    "id": "dealer-91",
+    "name": "Pre5tige Cars Limited",
+    "location": "Birmingham",
+    "phone": "(07537) 165096",
+    "website": "http://www.pre5tigecars.co.uk/",
+    "slug": "pre5tige-cars-limited"
+  },
+  {
+    "id": "dealer-92",
+    "name": "James Bentley Motors",
+    "location": "Birmingham",
+    "phone": "(07588) 726610",
+    "website": "https://www.jamesbentleymotors.co.uk/",
+    "slug": "james-bentley-motors"
+  },
+  {
+    "id": "dealer-93",
+    "name": "EDGBASTON SELECT LIMITED",
+    "location": "Birmingham",
+    "phone": "(0121) 721 8189",
+    "website": "https://www.edgbastonselect.co.uk/",
+    "slug": "edgbaston-select-limited"
+  },
+  {
+    "id": "dealer-94",
+    "name": "Premium Automotive Limited",
+    "location": "Birmingham",
+    "phone": "(07773) 316593",
+    "website": "https://www.premiumautomotiveltd.co.uk/",
+    "slug": "premium-automotive-limited"
+  },
+  {
+    "id": "dealer-95",
+    "name": "East Side Motors",
+    "location": "Birmingham",
+    "phone": "(0121) 721 8548",
+    "website": "http://www.eastsidemotors.co.uk/",
+    "slug": "east-side-motors"
+  },
+  {
+    "id": "dealer-96",
+    "name": "Silverstone Motor Company Limited",
+    "location": "Birmingham",
+    "phone": "(07441) 900495",
+    "website": "https://www.silverstonemotorcompany.com/",
+    "slug": "silverstone-motor-company-limited"
+  },
+  {
+    "id": "dealer-97",
+    "name": "Stratstone BYD Birmingham",
+    "location": "Birmingham",
+    "phone": "(0121) 659 2608",
+    "website": "https://www.stratstone.com/",
+    "slug": "stratstone-byd-birmingham"
+  },
+  {
+    "id": "dealer-98",
+    "name": "MNK Motors",
+    "location": "Birmingham",
+    "phone": "(07537) 165924",
+    "website": "http://www.mnkmotors.co.uk/",
+    "slug": "mnk-motors"
+  },
+  {
+    "id": "dealer-99",
+    "name": "Z A Motors",
+    "location": "Birmingham",
+    "phone": "(0121) 721 2894",
+    "website": null,
+    "slug": "z-a-motors"
+  },
+  {
+    "id": "dealer-100",
+    "name": "Autotrade (Birmingham) Ltd",
+    "location": "Sutton Coldfield",
+    "phone": "(0121) 721 9565",
+    "website": "https://www.autotrade-birmingham.co.uk/",
+    "slug": "autotrade-birmingham-ltd"
+  },
+  {
+    "id": "dealer-101",
+    "name": "ASU Cars Limited",
+    "location": "Birmingham",
+    "phone": "(07441) 909050",
+    "website": "http://www.asucarsltd.co.uk/",
+    "slug": "asu-cars-limited"
+  },
+  {
+    "id": "dealer-102",
+    "name": "Great Car Deals",
+    "location": "Birmingham",
+    "phone": "(0121) 721 0626",
+    "website": null,
+    "slug": "great-car-deals"
+  },
+  {
+    "id": "dealer-103",
+    "name": "Deritend Motors",
+    "location": "Birmingham",
+    "phone": "(07723) 530727",
+    "website": null,
+    "slug": "deritend-motors"
+  },
+  {
+    "id": "dealer-104",
+    "name": "Highway Sales Ltd",
+    "location": "Birmingham",
+    "phone": "(0121) 721 7098",
+    "website": "http://www.highwaysalesltd.co.uk/",
+    "slug": "highway-sales-ltd"
+  },
+  {
+    "id": "dealer-105",
+    "name": "Stellantis &You Birmingham Central",
+    "location": "Birmingham",
+    "phone": "(0121) 659 7918",
+    "website": "https://www.stellantisandyou.co.uk/used-vehicles/dealer/birmingham-central",
+    "slug": "stellantis-you-birmingham-central"
+  },
+  {
+    "id": "dealer-106",
+    "name": "RUR Cars Ltd",
+    "location": "Birmingham",
+    "phone": "(07537) 125487",
+    "website": "https://www.rurcarsltd.co.uk/",
+    "slug": "rur-cars-ltd"
+  },
+  {
+    "id": "dealer-107",
+    "name": "GMC MOTORS B'HAM LIMITED",
+    "location": "Birmingham",
+    "phone": "(07723) 526519",
+    "website": "https://www.gmcmotors.co.uk/",
+    "slug": "gmc-motors-bham-limited"
+  },
+  {
+    "id": "dealer-108",
+    "name": "Evolution Motor House Ltd",
+    "location": "Birmingham",
+    "phone": "(0121) 659 5172",
+    "website": null,
+    "slug": "evolution-motor-house-ltd"
+  },
+  {
+    "id": "dealer-109",
+    "name": "SIAK CARS LTD",
+    "location": "Birmingham",
+    "phone": "(07441) 906140",
+    "website": "https://www.siakcars.co.uk/",
+    "slug": "siak-cars-ltd"
+  },
+  {
+    "id": "dealer-110",
+    "name": "Dynamic Performance Cars Ltd",
+    "location": "Birmingham",
+    "phone": "(0121) 721 8310",
+    "website": "https://www.dynamicperformancecars.co.uk/",
+    "slug": "dynamic-performance-cars-ltd"
+  },
+  {
+    "id": "dealer-111",
+    "name": "Hiline Motors",
+    "location": "Birmingham",
+    "phone": "(07418) 690502",
+    "website": "https://www.hilinemotors.co.uk/",
+    "slug": "hiline-motors"
+  },
+  {
+    "id": "dealer-112",
+    "name": "EVERYDAY VEHICLES LTD",
+    "location": "Birmingham",
+    "phone": "(07537) 122428",
+    "website": "https://www.everydayvehicles.co.uk/used/cars/birmingham/",
+    "slug": "everyday-vehicles-ltd"
+  },
+  {
+    "id": "dealer-113",
+    "name": "MST Trade Centre Ltd",
+    "location": "Small Heath",
+    "phone": "(0121) 721 8209",
+    "website": "http://www.mstradecentre.co.uk/",
+    "slug": "mst-trade-centre-ltd"
+  },
+  {
+    "id": "dealer-114",
+    "name": "Sutton Park Sutton Coldfield",
+    "location": "Sutton Coldfield",
+    "phone": "(0121) 659 7830",
+    "website": "https://www.suttonparkgroup.co.uk/",
+    "slug": "sutton-park-sutton-coldfield"
+  },
+  {
+    "id": "dealer-115",
+    "name": "MWK Motors Limited",
+    "location": "Birmingham",
+    "phone": "(0121) 366 0868",
+    "website": null,
+    "slug": "mwk-motors-limited"
+  },
+  {
+    "id": "dealer-116",
+    "name": "First Motors",
+    "location": "Birmingham",
+    "phone": "(07441) 906696",
+    "website": "https://www.firststreetmotors.co.uk/",
+    "slug": "first-motors"
+  },
+  {
+    "id": "dealer-117",
+    "name": "Vicks Motors Ltd",
+    "location": "Birmingham",
+    "phone": "(07476) 017876",
+    "website": "http://www.vicksmotors.co.uk/",
+    "slug": "vicks-motors-ltd"
+  },
+  {
+    "id": "dealer-118",
+    "name": "Unique Motors",
+    "location": "Birmingham",
+    "phone": "(07822) 001670",
+    "website": "http://www.unique-motors.co.uk/",
+    "slug": "unique-motors"
+  },
+  {
+    "id": "dealer-119",
+    "name": "Balaj Motors",
+    "location": "Birmingham",
+    "phone": "(07537) 145520",
+    "website": "https://balajmotors.co.uk/",
+    "slug": "balaj-motors"
+  },
+  {
+    "id": "dealer-120",
+    "name": "Johnsons Ford Sutton Coldfield",
+    "location": "Sutton Coldfield",
+    "phone": "(0121) 721 9139",
+    "website": "https://www.johnsonscars.co.uk/ford/",
+    "slug": "johnsons-ford-sutton-coldfield"
+  },
+  {
+    "id": "dealer-121",
+    "name": "Auto Smartltd Ltd",
+    "location": "Birmingham",
+    "phone": "(07537) 165855",
+    "website": "http://www.autosmarts.co.uk/",
+    "slug": "auto-smartltd-ltd"
+  },
+  {
+    "id": "dealer-122",
+    "name": "Porsche Centre Sutton Coldfield",
+    "location": "Sutton Coldfield",
+    "phone": "(0121) 721 8675",
+    "website": "https://www.porschesuttoncoldfield.co.uk/",
+    "slug": "porsche-centre-sutton-coldfield"
+  },
+  {
+    "id": "dealer-123",
+    "name": "JAPANESE MPV MOTORS LIMITED",
+    "location": "Birmingham",
+    "phone": "(0121) 659 6185",
+    "website": "https://www.japanesempvmotors.co.uk/used_cars_mpv",
+    "slug": "japanese-mpv-motors-limited"
+  },
+  {
+    "id": "dealer-124",
+    "name": "oughton motors limited",
+    "location": "Birmingham",
+    "phone": "(07868) 791652",
+    "website": null,
+    "slug": "oughton-motors-limited"
+  },
+  {
+    "id": "dealer-125",
+    "name": "Hope and Hope Ltd",
+    "location": "Sutton Coldfield",
+    "phone": "(07537) 165373",
+    "website": null,
+    "slug": "hope-and-hope-ltd"
+  },
+  {
+    "id": "dealer-126",
+    "name": "Bristol Street Motors Ford Birmingham Commercials",
+    "location": "Birmingham",
+    "phone": "(0121) 721 8612",
+    "website": "https://www.bristolstreet.co.uk/used-vans/?utm_source=autotrader&utm_medium=referral&utm_campaign=thirdparty",
+    "slug": "bristol-street-motors-ford-birmingham-commercials"
+  },
+  {
+    "id": "dealer-127",
+    "name": "Bristol Street Motors Ford Birmingham",
+    "location": "Birmingham",
+    "phone": "(0121) 721 8613",
+    "website": "https://www.bristolstreet.co.uk/used-cars/?utm_source=autotrader&utm_medium=referral&utm_campaign=thirdparty",
+    "slug": "bristol-street-motors-ford-birmingham"
+  },
+  {
+    "id": "dealer-128",
+    "name": "Midland Automobiles Ltd",
+    "location": "Birmingham",
+    "phone": "(07537) 124354",
+    "website": "http://www.midlandautomobiles.co.uk/",
+    "slug": "midland-automobiles-ltd"
+  },
+  {
+    "id": "dealer-129",
+    "name": "M A Performance Cars",
+    "location": "Sutton Coldfield",
+    "phone": "(0121) 659 4904",
+    "website": "http://www.maperformancecars.co.uk/",
+    "slug": "m-a-performance-cars"
+  },
+  {
+    "id": "dealer-130",
+    "name": "FR Car Sales",
+    "location": "Birmingham",
+    "phone": "(07367) 592332",
+    "website": null,
+    "slug": "fr-car-sales"
+  },
+  {
+    "id": "dealer-131",
+    "name": "MSL Trade Centre",
+    "location": "Birmingham",
+    "phone": "(0121) 721 8285",
+    "website": "https://www.msltradecentre.co.uk/",
+    "slug": "msl-trade-centre"
+  },
+  {
+    "id": "dealer-132",
+    "name": "Indus Car Sales Ltd",
+    "location": "Birmingham",
+    "phone": "(07537) 164761",
+    "website": null,
+    "slug": "indus-car-sales-ltd"
+  },
+  {
+    "id": "dealer-133",
+    "name": "Triple A Motors",
+    "location": "Birmingham",
+    "phone": "(07537) 165049",
+    "website": null,
+    "slug": "triple-a-motors"
+  },
+  {
+    "id": "dealer-134",
+    "name": "TM UK Trading Birmingham",
+    "location": "Birmingham",
+    "phone": "(07537) 122899",
+    "website": "https://www.tmuktrading.co.uk/",
+    "slug": "tm-uk-trading-birmingham"
+  },
+  {
+    "id": "dealer-135",
+    "name": "Midlands Select Autos",
+    "location": "Birmingham",
+    "phone": "(07585) 619511",
+    "website": "https://www.midlandsselectautos.co.uk/",
+    "slug": "midlands-select-autos"
+  },
+  {
+    "id": "dealer-136",
+    "name": "Mb Automobiles",
+    "location": "Sutton Coldfield",
+    "phone": "(0121) 659 7070",
+    "website": "https://www.mbautomobiles.co.uk/",
+    "slug": "mb-automobiles"
+  },
+  {
+    "id": "dealer-137",
+    "name": "Midlands Trade Direct",
+    "location": "Birmingham",
+    "phone": "(0121) 659 7118",
+    "website": null,
+    "slug": "midlands-trade-direct"
+  },
+  {
+    "id": "dealer-138",
+    "name": "Solihull Motors Ltd",
+    "location": "Birmingham",
+    "phone": "(07822) 001305",
+    "website": "http://solihullmotorsltd.co.uk/",
+    "slug": "solihull-motors-ltd"
+  },
+  {
+    "id": "dealer-139",
+    "name": "Atlas Motors",
+    "location": "Birmingham",
+    "phone": "(0121) 659 9952",
+    "website": "http://www.atlasmotors.co.uk/",
+    "slug": "atlas-motors"
+  },
+  {
+    "id": "dealer-140",
+    "name": "Carporium Ltd",
+    "location": "Birmingham",
+    "phone": "(07441) 900317",
+    "website": null,
+    "slug": "carporium-ltd"
+  },
+  {
+    "id": "dealer-141",
+    "name": "Midlands Trade Centre Limited",
+    "location": "Birmingham",
+    "phone": "(07537) 122789",
+    "website": "https://www.midlandstradecentreltd.co.uk/",
+    "slug": "midlands-trade-centre-limited"
+  },
+  {
+    "id": "dealer-142",
+    "name": "Laysa Ltd",
+    "location": "Birmingham",
+    "phone": "(07418) 690174",
+    "website": "http://www.laysaltd.co.uk/",
+    "slug": "laysa-ltd"
+  },
+  {
+    "id": "dealer-143",
+    "name": "Car Central",
+    "location": "Birmingham",
+    "phone": "(07588) 767749",
+    "website": "https://www.carcentralbrum.co.uk/",
+    "slug": "car-central"
+  },
+  {
+    "id": "dealer-144",
+    "name": "Imperial Motor Sales Ltd",
+    "location": "Birmingham",
+    "phone": "(07482) 873833",
+    "website": "http://www.imperialmotorsalesltd.co.uk/",
+    "slug": "imperial-motor-sales-ltd"
+  },
+  {
+    "id": "dealer-145",
+    "name": "IMPERIAL MOTORS",
+    "location": "Birmingham",
+    "phone": "(0121) 721 5560",
+    "website": "https://www.imperialmotors.uk/",
+    "slug": "imperial-motors"
+  },
+  {
+    "id": "dealer-146",
+    "name": "DRIVELUXX LTD",
+    "location": "Birmingham",
+    "phone": "(0121) 659 1743",
+    "website": "http://www.drivelux.uk/",
+    "slug": "driveluxx-ltd"
+  },
+  {
+    "id": "dealer-147",
+    "name": "L Foster Autos Ltd",
+    "location": "Birmingham",
+    "phone": "(0121) 721 8224",
+    "website": "https://www.lfosterautos.co.uk/",
+    "slug": "l-foster-autos-ltd"
+  },
+  {
+    "id": "dealer-148",
+    "name": "Autohaus Birmingham",
+    "location": "Birmingham",
+    "phone": "(0121) 721 0703",
+    "website": "https://www.autohausbirmingham.co.uk/",
+    "slug": "autohaus-birmingham"
+  },
+  {
+    "id": "dealer-149",
+    "name": "Orchard Motor Group",
+    "location": "Birmingham",
+    "phone": "(0121) 659 7987",
+    "website": "http://www.orchardmotorgroup.co.uk/",
+    "slug": "orchard-motor-group"
+  },
+  {
+    "id": "dealer-150",
+    "name": "R R R MOTORS LIMITED",
+    "location": "Birmingham",
+    "phone": "(07537) 123516",
+    "website": null,
+    "slug": "r-r-r-motors-limited"
+  },
+  {
+    "id": "dealer-151",
+    "name": "Motor Capital",
+    "location": "Birmingham",
+    "phone": "(07822) 001669",
+    "website": "http://www.motorcapital.co.uk/",
+    "slug": "motor-capital"
+  },
+  {
+    "id": "dealer-152",
+    "name": "Car Fleet Birmingham",
+    "location": "Birmingham",
+    "phone": "(07537) 125154",
+    "website": null,
+    "slug": "car-fleet-birmingham"
+  },
+  {
+    "id": "dealer-153",
+    "name": "Meadway Autoland",
+    "location": "Birmingham",
+    "phone": "(07537) 122489",
+    "website": "http://www.meadwayautoland.co.uk/",
+    "slug": "meadway-autoland"
+  },
+  {
+    "id": "dealer-154",
+    "name": "Amir Automotive Solutions Limited",
+    "location": "Sparkhill",
+    "phone": "(07418) 690132",
+    "website": "https://www.amirautomotivesolutions.co.uk/",
+    "slug": "amir-automotive-solutions-limited"
+  },
+  {
+    "id": "dealer-155",
+    "name": "AR Car Lot Ltd",
+    "location": "Birmingham",
+    "phone": "(07537) 145687",
+    "website": null,
+    "slug": "ar-car-lot-ltd"
+  },
+  {
+    "id": "dealer-156",
+    "name": "Revolve Collections Ltd",
+    "location": "Birmingham",
+    "phone": "(07537) 124469",
+    "website": "https://www.revolvecollections.co.uk/",
+    "slug": "revolve-collections-ltd"
+  },
+  {
+    "id": "dealer-157",
+    "name": "Assured Cars Supermarket Ltd (Birmingham)",
+    "location": "Birmingham",
+    "phone": "(0121) 721 6192",
+    "website": "https://www.acslltd.co.uk/",
+    "slug": "assured-cars-supermarket-ltd-birmingham"
+  },
+  {
+    "id": "dealer-158",
+    "name": "APEX AUTOHAUS LTD",
+    "location": "Smethwick",
+    "phone": "(07537) 145546",
+    "website": "https://www.apexautohaus.co.uk/",
+    "slug": "apex-autohaus-ltd"
+  },
+  {
+    "id": "dealer-159",
+    "name": "Digbeth Motor Sales Ltd",
+    "location": "Birmingham",
+    "phone": "(07457) 401460",
+    "website": "https://www.digbethmotorsales.co.uk/",
+    "slug": "digbeth-motor-sales-ltd"
+  },
+  {
+    "id": "dealer-160",
+    "name": "UK SMT LTD",
+    "location": "Birmingham",
+    "phone": "(07441) 900450",
+    "website": null,
+    "slug": "uk-smt-ltd"
+  },
+  {
+    "id": "dealer-161",
+    "name": "PJ Commercial",
+    "location": "Smethwick",
+    "phone": "(0121) 721 3544",
+    "website": "https://www.pjcommercial.com/",
+    "slug": "pj-commercial"
+  },
+  {
+    "id": "dealer-162",
+    "name": "Motorhouse Uk",
+    "location": "Birmingham",
+    "phone": "(07441) 906201",
+    "website": "https://www.motorhouseuk.co.uk/",
+    "slug": "motorhouse-uk"
+  },
+  {
+    "id": "dealer-163",
+    "name": "SUPREMECARS WESTMIDLANDS LIMITED",
+    "location": "Birmingham",
+    "phone": "(07537) 125385",
+    "website": null,
+    "slug": "supremecars-westmidlands-limited"
+  },
+  {
+    "id": "dealer-164",
+    "name": "United Traders Limited",
+    "location": "Birmingham",
+    "phone": "(07537) 123119",
+    "website": "http://www.united-traders.co.uk/",
+    "slug": "united-traders-limited"
+  },
+  {
+    "id": "dealer-165",
+    "name": "Brayley Nissan Birmingham",
+    "location": "Sutton Coldfield",
+    "phone": "(0121) 659 6475",
+    "website": "https://www.brayleys.co.uk/nissan",
+    "slug": "brayley-nissan-birmingham"
+  },
+  {
+    "id": "dealer-166",
+    "name": "YARDLEY MOTOR TRADE LTD",
+    "location": "Birmingham",
+    "phone": "(07537) 165979",
+    "website": "https://www.yardleymotortrade.co.uk/",
+    "slug": "yardley-motor-trade-ltd"
+  },
+  {
+    "id": "dealer-167",
+    "name": "SW Autoz LTD",
+    "location": "Birmingham",
+    "phone": "(07537) 165088",
+    "website": "http://www.swautoz.co.uk/",
+    "slug": "sw-autoz-ltd"
+  },
+  {
+    "id": "dealer-168",
+    "name": "Friendly Motors Ltd",
+    "location": "Birmingham",
+    "phone": "(07537) 165093",
+    "website": "https://www.friendlymotors.co.uk/cars/",
+    "slug": "friendly-motors-ltd"
+  },
+  {
+    "id": "dealer-169",
+    "name": "Manor Farm Cars Ltd",
+    "location": "Birmingham",
+    "phone": "(07457) 401364",
+    "website": "https://www.mnorfarmcars.co.uk/",
+    "slug": "manor-farm-cars-ltd"
+  },
+  {
+    "id": "dealer-170",
+    "name": "DK Motors",
+    "location": "Birmingham",
+    "phone": "(07723) 530632",
+    "website": "http://www.dkmotorsbirminghamltd.co.uk/",
+    "slug": "dk-motors"
+  },
+  {
+    "id": "dealer-171",
+    "name": "Select A Car",
+    "location": "Birmingham",
+    "phone": "(07441) 908386",
+    "website": null,
+    "slug": "select-a-car"
+  },
+  {
+    "id": "dealer-172",
+    "name": "Car Motor Specialists",
+    "location": "Smethwick",
+    "phone": "(07537) 165347",
+    "website": null,
+    "slug": "car-motor-specialists"
+  },
+  {
+    "id": "dealer-173",
+    "name": "Quality Cars and Commercials Ltd",
+    "location": "Birmingham",
+    "phone": "(07537) 122112",
+    "website": "http://www.qualitycarsandcommercials.co.uk/",
+    "slug": "quality-cars-and-commercials-ltd"
+  },
+  {
+    "id": "dealer-174",
+    "name": "Radley Motors Company",
+    "location": "Garretts Green",
+    "phone": "(07480) 721805",
+    "website": "https://www.radleymotorco.co.uk/",
+    "slug": "radley-motors-company"
+  },
+  {
+    "id": "dealer-175",
+    "name": "King Street Motors",
+    "location": "Smethwick",
+    "phone": "(07723) 515281",
+    "website": null,
+    "slug": "king-street-motors"
+  },
+  {
+    "id": "dealer-176",
+    "name": "ADI Car Sales Ltd",
+    "location": "Birmingham",
+    "phone": "(07868) 789941",
+    "website": "https://adicarsalesltd.co.uk/",
+    "slug": "adi-car-sales-ltd"
+  },
+  {
+    "id": "dealer-177",
+    "name": "Swanz Motors Limited",
+    "location": "Birmingham",
+    "phone": "(07537) 123026",
+    "website": "https://www.swanzmotors.co.uk/",
+    "slug": "swanz-motors-limited"
+  },
+  {
+    "id": "dealer-178",
+    "name": "SNT Commercials",
+    "location": "Birmingham",
+    "phone": "(07537) 164634",
+    "website": null,
+    "slug": "snt-commercials"
+  },
+  {
+    "id": "dealer-179",
+    "name": "Highfield Motor Company",
+    "location": "Birmingham",
+    "phone": "(07537) 125429",
+    "website": null,
+    "slug": "highfield-motor-company"
+  },
+  {
+    "id": "dealer-180",
+    "name": "W M motors",
+    "location": "Birmingham",
+    "phone": "(07537) 122506",
+    "website": null,
+    "slug": "w-m-motors"
+  },
+  {
+    "id": "dealer-181",
+    "name": "West Midlands Motors",
+    "location": "Birmingham",
+    "phone": "(0121) 721 8303",
+    "website": "http://www.westmidlandsmotors.co.uk/",
+    "slug": "west-midlands-motors"
+  },
+  {
+    "id": "dealer-182",
+    "name": "Your Car Supermarket",
+    "location": "Birmingham",
+    "phone": "(0121) 721 8228",
+    "website": "http://www.yourcarsupermarket.com/",
+    "slug": "your-car-supermarket"
+  },
+  {
+    "id": "dealer-183",
+    "name": "Jan London Trade Limited",
+    "location": "Birmingham",
+    "phone": "(0121) 659 2867",
+    "website": "https://janlondontrade.co.uk/",
+    "slug": "jan-london-trade-limited"
+  },
+  {
+    "id": "dealer-184",
+    "name": "Wynford Specialist Motors Limited",
+    "location": "Birmingham",
+    "phone": "(07537) 124882",
+    "website": "https://www.wynfordmotorsbirmingham.co.uk/",
+    "slug": "wynford-specialist-motors-limited"
+  },
+  {
+    "id": "dealer-185",
+    "name": "Junction 9 Commercials Limited",
+    "location": "Sutton Coldfield",
+    "phone": "(0121) 659 8060",
+    "website": "https://junction9commercials.co.uk/",
+    "slug": "junction-9-commercials-limited"
+  },
+  {
+    "id": "dealer-186",
+    "name": "Birmingham Cars Ltd",
+    "location": "Birmingham",
+    "phone": "(0121) 721 5770",
+    "website": "https://birminghamcarsltd.co.uk/",
+    "slug": "birmingham-cars-ltd"
+  },
+  {
+    "id": "dealer-187",
+    "name": "Percy Motors Birmingham Ltd",
+    "location": "Birmingham",
+    "phone": "(07537) 124836",
+    "website": null,
+    "slug": "percy-motors-birmingham-ltd"
+  },
+  {
+    "id": "dealer-188",
+    "name": "DJH Prestige and Sports",
+    "location": "Sutton Coldfield",
+    "phone": "(07537) 122073",
+    "website": "https://www.djhprestigeandsports.co.uk/",
+    "slug": "djh-prestige-and-sports"
+  },
+  {
+    "id": "dealer-189",
+    "name": "M3SSA Autohouse",
+    "location": "Birmingham",
+    "phone": "(07822) 001629",
+    "website": "https://www.m3ssaautohouse.co.uk/",
+    "slug": "m3ssa-autohouse"
+  },
+  {
+    "id": "dealer-190",
+    "name": "Timeless Automotive",
+    "location": "Sutton Coldfield",
+    "phone": "(07418) 690124",
+    "website": "https://store-my-car.co.uk/",
+    "slug": "timeless-automotive"
+  },
+  {
+    "id": "dealer-191",
+    "name": "H A PERFORMANCE LIMITED",
+    "location": "Birmingham",
+    "phone": "(0121) 721 8020",
+    "website": "http://www.haperformance.co.uk/",
+    "slug": "h-a-performance-limited"
+  },
+  {
+    "id": "dealer-192",
+    "name": "51 X Ltd",
+    "location": "Birmingham",
+    "phone": "(07441) 906623",
+    "website": "http://www.51xltd.com/",
+    "slug": "51-x-ltd"
+  },
+  {
+    "id": "dealer-193",
+    "name": "Ace4cars Limited",
+    "location": "Birmingham",
+    "phone": "(0121) 721 8211",
+    "website": "http://www.ace4carsltd.co.uk/",
+    "slug": "ace4cars-limited"
+  },
+  {
+    "id": "dealer-194",
+    "name": "DHDL Automotive",
+    "location": "Sutton Coldfield",
+    "phone": "(07537) 122210",
+    "website": "http://www.dhdlautomotive.co.uk/",
+    "slug": "dhdl-automotive"
+  },
+  {
+    "id": "dealer-195",
+    "name": "Westley Motor Co",
+    "location": "Birmingham",
+    "phone": "(0121) 721 8267",
+    "website": "http://www.westleymotor.co.uk/",
+    "slug": "westley-motor-co"
+  },
+  {
+    "id": "dealer-196",
+    "name": "Acocks Green Motor Company",
+    "location": "Birmingham",
+    "phone": "(07426) 922982",
+    "website": "https://www.acocksgreenmotorcompany.co.uk/",
+    "slug": "acocks-green-motor-company"
+  },
+  {
+    "id": "dealer-197",
+    "name": "Platinum Motor Sales",
+    "location": "West Bromwich",
+    "phone": "(07723) 506742",
+    "website": "https://platinummotorsales.co.uk/",
+    "slug": "platinum-motor-sales"
+  },
+  {
+    "id": "dealer-198",
+    "name": "ZCI Motors",
+    "location": "Birmingham",
+    "phone": "(07441) 906499",
+    "website": null,
+    "slug": "zci-motors"
+  },
+  {
+    "id": "dealer-199",
+    "name": "Alliance Motors Uk Ltd",
+    "location": "West Bromwich",
+    "phone": "(07971) 105013",
+    "website": "https://www.alliancemotorsuk.co.uk/",
+    "slug": "alliance-motors-uk-ltd"
+  },
+  {
+    "id": "dealer-200",
+    "name": "Ian Farrell Motor Co",
+    "location": "Birmingham",
+    "phone": "(07588) 748018",
+    "website": "https://www.ianfarrellmotorcompany.co.uk/",
+    "slug": "ian-farrell-motor-co"
+  },
+  {
+    "id": "dealer-201",
+    "name": "Dunsmore Motor Company",
+    "location": "Birmingham",
+    "phone": "(07537) 145639",
+    "website": "http://dunsmoremotorcompany.co.uk/",
+    "slug": "dunsmore-motor-company"
+  },
+  {
+    "id": "dealer-202",
+    "name": "PCF Cars",
+    "location": "Birmingham",
+    "phone": "(07822) 001542",
+    "website": "https://www.pcfcars.co.uk/",
+    "slug": "pcf-cars"
+  },
+  {
+    "id": "dealer-203",
+    "name": "Rose Motors",
+    "location": "Sutton Coldfield",
+    "phone": "(0121) 659 3949",
+    "website": "https://www.rosemotorsltd.co.uk/",
+    "slug": "rose-motors"
+  },
+  {
+    "id": "dealer-204",
+    "name": "River Motorhomes Limited",
+    "location": "Sutton Coldfield",
+    "phone": "(0330) 8080805",
+    "website": "https://www.rivermotorhomes.co.uk/",
+    "slug": "river-motorhomes-limited"
+  },
+  {
+    "id": "dealer-205",
+    "name": "Automotive Performance Ltd",
+    "location": "Smethwick",
+    "phone": "(0121) 659 3923",
+    "website": null,
+    "slug": "automotive-performance-ltd"
+  },
+  {
+    "id": "dealer-206",
+    "name": "Motorworld",
+    "location": "West Bromwich",
+    "phone": "(0121) 721 9628",
+    "website": "http://www.motorworldltd.co.uk/",
+    "slug": "motorworld"
+  },
+  {
+    "id": "dealer-207",
+    "name": "Aubrey Motor Company",
+    "location": "Birmingham",
+    "phone": "(0121) 721 2307",
+    "website": null,
+    "slug": "aubrey-motor-company"
+  },
+  {
+    "id": "dealer-208",
+    "name": "Bearwood Auto Sales",
+    "location": "Smethwick",
+    "phone": "(07441) 923191",
+    "website": null,
+    "slug": "bearwood-auto-sales"
+  },
+  {
+    "id": "dealer-209",
+    "name": "NO.1 CAR SALES UK LTD",
+    "location": "Birmingham",
+    "phone": "(07537) 123454",
+    "website": null,
+    "slug": "no1-car-sales-uk-ltd"
+  },
+  {
+    "id": "dealer-210",
+    "name": "Solihull Motor House Ltd",
+    "location": "Solihull",
+    "phone": "(07537) 145586",
+    "website": "http://www.solihullmotorhouseltd.co.uk/",
+    "slug": "solihull-motor-house-ltd"
+  },
+  {
+    "id": "dealer-211",
+    "name": "Ping Vehicles",
+    "location": "Solihull",
+    "phone": "(07537) 165053",
+    "website": "https://pingvehicles.com/",
+    "slug": "ping-vehicles"
+  },
+  {
+    "id": "dealer-212",
+    "name": "AUTO HUB & TRADING LTD",
+    "location": "West Bromwich",
+    "phone": "(07537) 123121",
+    "website": "http://www.autohubtrading.co.uk/",
+    "slug": "auto-hub-trading-ltd"
+  },
+  {
+    "id": "dealer-213",
+    "name": "Howitts Motors",
+    "location": "Birmingham",
+    "phone": "(07537) 124548",
+    "website": null,
+    "slug": "howitts-motors"
+  },
+  {
+    "id": "dealer-214",
+    "name": "Love Alfa",
+    "location": "Smethwick",
+    "phone": "(0121) 721 8352",
+    "website": "http://www.lovealfa.co.uk/",
+    "slug": "love-alfa"
+  },
+  {
+    "id": "dealer-215",
+    "name": "Cloud Cars Specialist",
+    "location": "Solihull",
+    "phone": "(0121) 659 4015",
+    "website": null,
+    "slug": "cloud-cars-specialist"
+  },
+  {
+    "id": "dealer-216",
+    "name": "Tom Poole Cars",
+    "location": "Sutton Coldfield",
+    "phone": "(0121) 721 8328",
+    "website": "https://www.tompoolecars.co.uk/",
+    "slug": "tom-poole-cars"
+  },
+  {
+    "id": "dealer-217",
+    "name": "Harrisons Regal Garage Ltd",
+    "location": "Sutton Coldfield",
+    "phone": "(0121) 721 8377",
+    "website": "http://www.harrisoncommercials.co.uk/",
+    "slug": "harrisons-regal-garage-ltd"
+  },
+  {
+    "id": "dealer-218",
+    "name": "Hagley Motors",
+    "location": "Oldbury",
+    "phone": "(07441) 906583",
+    "website": null,
+    "slug": "hagley-motors"
+  },
+  {
+    "id": "dealer-219",
+    "name": "W.D.M. Cars",
+    "location": "Walsall",
+    "phone": "(0121) 721 8217",
+    "website": "https://www.wdmcarsmercedesspecialist.co.uk/",
+    "slug": "wdm-cars"
+  },
+  {
+    "id": "dealer-220",
+    "name": "Sutton Car Sales Ltd",
+    "location": "Sutton Coldfield",
+    "phone": "(0121) 721 1675",
+    "website": "http://suttoncarsalesltd.co.uk/",
+    "slug": "sutton-car-sales-ltd"
+  },
+  {
+    "id": "dealer-221",
+    "name": "Oakways Car Sales",
+    "location": "Sutton Coldfield",
+    "phone": "(07480) 022548",
+    "website": "http://www.oakwayscarsales.co.uk/",
+    "slug": "oakways-car-sales"
+  },
+  {
+    "id": "dealer-222",
+    "name": "Imperial Specialist Cars",
+    "location": "Birmingham",
+    "phone": "(0121) 721 2603",
+    "website": "https://www.imperialspecialistcars.co.uk/",
+    "slug": "imperial-specialist-cars"
+  },
+  {
+    "id": "dealer-223",
+    "name": "Good Buy Motors",
+    "location": "West Bromwich",
+    "phone": "(07822) 001453",
+    "website": null,
+    "slug": "good-buy-motors"
+  },
+  {
+    "id": "dealer-224",
+    "name": "Hyundai Birmingham West",
+    "location": "Birmingham",
+    "phone": "(0121) 721 9899",
+    "website": "http://www.hyundaibirmingham.co.uk/",
+    "slug": "hyundai-birmingham-west"
+  },
+  {
+    "id": "dealer-225",
+    "name": "Stellantis &You Birmingham South",
+    "location": "Birmingham",
+    "phone": "(01245) 378766",
+    "website": "https://www.stellantisandyou.co.uk/used-vehicles/dealer/birmingham-south",
+    "slug": "stellantis-you-birmingham-south"
+  },
+  {
+    "id": "dealer-226",
+    "name": "Smallbone And Son",
+    "location": "Birmingham",
+    "phone": "(0121) 721 8247",
+    "website": "http://www.smallboneandson.co.uk/",
+    "slug": "smallbone-and-son"
+  },
+  {
+    "id": "dealer-227",
+    "name": "Malen Car & Van Sales",
+    "location": "Tamworth",
+    "phone": "(0121) 659 2080",
+    "website": "http://www.malencarsales.co.uk/",
+    "slug": "malen-car-van-sales"
+  },
+  {
+    "id": "dealer-228",
+    "name": "Arbury Fiat Walsall",
+    "location": "Aldridge",
+    "phone": "(01922) 345773",
+    "website": "http://www.arbury.co.uk/",
+    "slug": "arbury-fiat-walsall"
+  },
+  {
+    "id": "dealer-229",
+    "name": "Arbury Peugeot Walsall",
+    "location": "Walsall",
+    "phone": "(01922) 345751",
+    "website": "http://www.arbury.co.uk/",
+    "slug": "arbury-peugeot-walsall"
+  },
+  {
+    "id": "dealer-230",
+    "name": "Mosaso",
+    "location": "Oldbury",
+    "phone": "(07537) 164613",
+    "website": null,
+    "slug": "mosaso"
+  },
+  {
+    "id": "dealer-231",
+    "name": "BESTWAY MOTORS LTD",
+    "location": "Walstead Road West",
+    "phone": "(07441) 906198",
+    "website": "https://www.bestwaymotors.co.uk/",
+    "slug": "bestway-motors-ltd"
+  },
+  {
+    "id": "dealer-232",
+    "name": "Mercedes-Benz of Solihull",
+    "location": "Solihull",
+    "phone": "(0121) 659 5937",
+    "website": "http://www.lshauto.co.uk/locations/1773/mercedes-benz-of-solihull-sales/",
+    "slug": "mercedes-benz-of-solihull"
+  },
+  {
+    "id": "dealer-233",
+    "name": "Brook Williams Prestige",
+    "location": "Birmingham",
+    "phone": "(07480) 722921",
+    "website": "https://www.brookwilliamsprestige.co.uk/",
+    "slug": "brook-williams-prestige"
+  },
+  {
+    "id": "dealer-234",
+    "name": "Middleton car group",
+    "location": "Tamworth",
+    "phone": "(07537) 122786",
+    "website": "http://middletoncargroup.co.uk/",
+    "slug": "middleton-car-group"
+  },
+  {
+    "id": "dealer-235",
+    "name": "Twyford Motor Company Ltd",
+    "location": "Tamworth",
+    "phone": "(07537) 165758",
+    "website": "http://www.twyfordmotorcompanyltd.co.uk/",
+    "slug": "twyford-motor-company-ltd"
+  },
+  {
+    "id": "dealer-236",
+    "name": "Coleshill Car Sales",
+    "location": "Birmingham",
+    "phone": "(024) 7511 8695",
+    "website": "http://www.coleshillcarsales.co.uk/",
+    "slug": "coleshill-car-sales"
+  },
+  {
+    "id": "dealer-237",
+    "name": "Arden Collective Limited",
+    "location": "Sutton Coldfield",
+    "phone": "(0121) 659 4487",
+    "website": "https://www.ardencollective.co.uk/",
+    "slug": "arden-collective-limited"
+  },
+  {
+    "id": "dealer-238",
+    "name": "Hadley Motor Group Ltd",
+    "location": "West Bromwich",
+    "phone": "(0121) 721 1269",
+    "website": null,
+    "slug": "hadley-motor-group-ltd"
+  },
+  {
+    "id": "dealer-239",
+    "name": "Warun Specialist Cars",
+    "location": "Birmingham",
+    "phone": "(07723) 507571",
+    "website": null,
+    "slug": "warun-specialist-cars"
+  }
+]
