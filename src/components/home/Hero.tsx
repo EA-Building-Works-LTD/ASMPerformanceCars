@@ -186,12 +186,12 @@ export const Hero = ({ slides = [] }: HeroProps) => {
             
             {/* Content */}
             <div className={`absolute inset-0 z-20 flex flex-col ${textPositionClass}`}>
-              <div className="container mx-auto">
-                <div className={`flex flex-col max-w-4xl ${textAlignmentClass} space-y-6 pl-16 md:pl-20`}>
+              <div className="container mx-auto px-4">
+                <div className={`flex flex-col max-w-4xl ${textAlignmentClass} space-y-4 md:space-y-6 px-4 md:pl-20`}>
                   <motion.h2
                     {...animationVariants}
                     transition={{ duration: 0.8, delay: 0.2 }}
-                    className={`text-4xl md:text-6xl font-bold text-${slide.textColor}`}
+                    className={`text-3xl md:text-6xl font-bold text-${slide.textColor}`}
                   >
                     {slide.title}
                   </motion.h2>
@@ -200,16 +200,16 @@ export const Hero = ({ slides = [] }: HeroProps) => {
                     {...animationVariants}
                     transition={{ duration: 0.8, delay: 0.4 }}
                   >
-                    <p className={`text-xl md:text-2xl font-light mb-8 text-${slide.textColor} max-w-2xl`}>
+                    <p className={`text-base md:text-2xl font-light mb-6 md:mb-8 text-${slide.textColor} max-w-2xl`}>
                       {slide.subtitle}
                     </p>
                     
-                    <div className="flex flex-wrap gap-4">
+                    <div className="flex flex-wrap gap-3 md:gap-4">
                       {slide.buttonText && (
                         <Button 
                           asChild
-                          className={`rounded-full ${slide.buttonStyle || 'bg-red-600 hover:bg-red-700 text-white'} px-8 py-6`}
-                          size="lg"
+                          className={`rounded-full text-sm md:text-base ${slide.buttonStyle || 'bg-red-600 hover:bg-red-700 text-white'} px-5 md:px-8 py-2 md:py-6`}
+                          size="default"
                         >
                           <Link href={slide.buttonLink}>
                             {slide.buttonText}
@@ -221,8 +221,8 @@ export const Hero = ({ slides = [] }: HeroProps) => {
                         <Button 
                           asChild
                           variant="outline" 
-                          className={`rounded-full border-2 ${slide.secondaryButtonStyle || `border-${slide.textColor} text-${slide.textColor} bg-transparent hover:bg-white/10`} px-8 py-6`}
-                          size="lg"
+                          className={`rounded-full text-sm md:text-base border-2 ${slide.secondaryButtonStyle || `border-${slide.textColor} text-${slide.textColor} bg-transparent hover:bg-white/10`} px-5 md:px-8 py-2 md:py-6`}
+                          size="default"
                         >
                           <Link href={slide.secondaryButtonLink}>
                             {slide.secondaryButtonText}
@@ -248,8 +248,8 @@ export const Hero = ({ slides = [] }: HeroProps) => {
                 setAutoplay(false)
                 setCurrentSlide(idx)
               }}
-              className={`w-3 h-3 rounded-full ${
-                currentSlide === idx ? 'bg-white' : 'bg-white/50'
+              className={`w-2.5 h-2.5 rounded-full transition-all ${
+                currentSlide === idx ? 'bg-white scale-125' : 'bg-white/40'
               }`}
               aria-label={`Go to slide ${idx + 1}`}
             />
@@ -257,22 +257,23 @@ export const Hero = ({ slides = [] }: HeroProps) => {
         </div>
       )}
       
-      {/* Arrow Navigation */}
+      {/* Arrow Controls - Only show for multiple slides */}
       {displaySlides.length > 1 && (
         <>
           <button
+            className="hidden md:block absolute left-4 top-1/2 z-30 transform -translate-y-1/2 bg-black/30 hover:bg-black/50 text-white rounded-full p-1.5 md:p-3 backdrop-blur-sm transition-all focus:outline-none focus:ring-2 focus:ring-white/50"
             onClick={handlePrev}
-            className="absolute left-4 top-1/2 z-30 -translate-y-1/2 bg-black/30 hover:bg-black/50 text-white rounded-full p-2 backdrop-blur-sm transition-all"
             aria-label="Previous slide"
           >
-            <ChevronLeft className="w-6 h-6" />
+            <ChevronLeft className="w-5 h-5 md:w-6 md:h-6" />
           </button>
+          
           <button
+            className="hidden md:block absolute right-4 top-1/2 z-30 transform -translate-y-1/2 bg-black/30 hover:bg-black/50 text-white rounded-full p-1.5 md:p-3 backdrop-blur-sm transition-all focus:outline-none focus:ring-2 focus:ring-white/50"
             onClick={handleNext}
-            className="absolute right-4 top-1/2 z-30 -translate-y-1/2 bg-black/30 hover:bg-black/50 text-white rounded-full p-2 backdrop-blur-sm transition-all"
             aria-label="Next slide"
           >
-            <ChevronRight className="w-6 h-6" />
+            <ChevronRight className="w-5 h-5 md:w-6 md:h-6" />
           </button>
         </>
       )}

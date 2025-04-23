@@ -22,13 +22,6 @@ export default async function Home() {
   // Fetch Google reviews using server-side method to avoid CORS issues
   const googleReviews = await fetchGoogleReviewsFromServer()
   
-  // Log review counts for debugging
-  console.log('Reviews loaded:', {
-    sanityCount: sanityTestimonials.length,
-    googleCount: googleReviews.length,
-    total: sanityTestimonials.length + googleReviews.length
-  })
-  
   // Combine Sanity testimonials and Google reviews
   const allTestimonials = [...sanityTestimonials, ...googleReviews]
   

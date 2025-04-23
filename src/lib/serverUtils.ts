@@ -19,16 +19,8 @@ export async function fetchGoogleReviewsFromServer(): Promise<FormattedGoogleRev
       return [];
     }
     
-    console.log('Google Places API credentials available:', {
-      hasPlaceId: !!PLACE_ID,
-      hasApiKey: !!API_KEY,
-      placeIdLength: PLACE_ID?.length || 0
-    });
-    
     // Use the new Places API endpoint structure - now via places.googleapis.com
     const apiUrl = `https://places.googleapis.com/v1/places/${PLACE_ID}?fields=reviews,displayName`;
-    
-    console.log('Calling new Google Places API with URL structure:', apiUrl);
     
     // Make the server-side request with the new API headers
     const response = await fetch(apiUrl, {
@@ -41,8 +33,6 @@ export async function fetchGoogleReviewsFromServer(): Promise<FormattedGoogleRev
       next: { revalidate: 3600 } // Cache for 1 hour
     });
     
-    console.log('Google Places API response status:', response.status, response.statusText);
-    
     if (!response.ok) {
       console.error(`Google Places API error response: ${response.status} ${response.statusText}`);
       // Try to get more details from the error
@@ -53,13 +43,6 @@ export async function fetchGoogleReviewsFromServer(): Promise<FormattedGoogleRev
     
     // Parse the response - structure is different in the new API
     const data = await response.json();
-    
-    console.log('Google Places API Response:', {
-      hasData: !!data,
-      hasReviews: !!data.reviews,
-      reviewCount: data.reviews?.length || 0,
-      placeName: data.displayName || 'Unknown'
-    });
     
     // Check if we have reviews in the result
     if (!data || !data.reviews || data.reviews.length === 0) {
@@ -82,8 +65,6 @@ export async function fetchGoogleReviewsFromServer(): Promise<FormattedGoogleRev
       source: 'google',
       date: review.relativePublishTimeDescription || ''
     }));
-    
-    console.log(`Successfully retrieved ${reviews.length} Google reviews, limiting to ${MAX_REVIEWS}`);
     
     // Limit to MAX_REVIEWS
     return reviews.slice(0, MAX_REVIEWS);
