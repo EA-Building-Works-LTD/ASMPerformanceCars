@@ -204,11 +204,11 @@ export const Header = () => {
                   alt="ASM Performance Cars - Specialists in luxury & modified vehicles"
                   width={180} 
                   height={60} 
-                  className="h-auto w-auto" 
+                  className="h-auto w-[180px] md:w-[180px]" 
                   priority
                   quality={95}
                   sizes="(max-width: 768px) 180px, 180px"
-                  style={{ minWidth: '160px' }}
+                  style={{ maxWidth: '180px' }}
                 />
               </motion.div>
             </Link>
