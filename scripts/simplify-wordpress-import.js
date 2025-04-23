@@ -86,7 +86,7 @@ function htmlToPortableText(html) {
   
   try {
     // Clean HTML of WordPress-specific elements
-    let cleanHtml = html
+    const cleanHtml = html
       .replace(/<!\[CDATA\[/, '')
       .replace(/\]\]>/, '')
       .replace(/\[caption.*?\](.*?)\[\/caption\]/g, '$1')
@@ -131,8 +131,8 @@ function htmlToPortableText(html) {
       }
       
       // Handle lists
-      let listItem = null;
-      let level = 1;
+      const listItem = null;
+      const level = 1;
       
       if (nodeName === 'ul' || nodeName === 'ol') {
         const items = el.querySelectorAll('li');
@@ -226,7 +226,7 @@ function htmlToPortableText(html) {
       if (node.nodeType !== 1) return; // Not an element
       
       const nodeName = node.nodeName.toLowerCase();
-      let marks = [];
+      const marks = [];
       
       // Handle formatting
       if (nodeName === 'strong' || nodeName === 'b') {

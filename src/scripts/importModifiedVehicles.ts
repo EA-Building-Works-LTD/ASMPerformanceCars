@@ -94,7 +94,7 @@ function mapCsvRowToSanityDoc(row: VehicleCsvRow, index: number) {
   const features = extractFeatures(row.description);
 
   // Map price display to actual price
-  let price = parseInt(row.price);
+  const price = parseInt(row.price);
   const isPriceOnApplication = row.priceDisplay === 'POA';
 
   // Convert status to match expected values

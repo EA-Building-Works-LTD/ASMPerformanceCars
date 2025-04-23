@@ -53,9 +53,11 @@ async function getPostBySlug(slug: string) {
 
 /* ---------- metadata ---------- */
 
-export async function generateMetadata(
-  { params }: { params: { slug: string } }
-): Promise<Metadata> {
+export async function generateMetadata({
+  params,
+}: {
+  params: { slug: string };
+}): Promise<Metadata> {
   const { slug } = params;
   const post = await getPostBySlug(slug);
 

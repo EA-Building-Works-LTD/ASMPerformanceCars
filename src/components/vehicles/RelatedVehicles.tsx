@@ -36,7 +36,7 @@ const getVehicleUrl = (vehicle: any): string => {
 // Status badge component
 const StatusBadge = ({ status }: { status: string }) => {
   let bgColor = 'bg-green-600'
-  let text = toTitleCase(status)
+  const text = toTitleCase(status)
   
   switch (status.toLowerCase()) {
     case 'available':

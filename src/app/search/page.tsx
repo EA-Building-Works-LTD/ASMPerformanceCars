@@ -23,7 +23,7 @@ type SearchResultItem = {
   imageUrl?: string
 }
 
-export default function SearchPage() {
+function SearchClient() {
   const searchParams = useSearchParams()
   const router = useRouter()
   const query = searchParams.get('q') || ''
@@ -391,5 +391,16 @@ export default function SearchPage() {
         </div>
       </div>
     </main>
+  )
+}
+
+// Export a server component that uses Suspense
+import { Suspense } from 'react'
+
+export default function SearchPage() {
+  return (
+    <Suspense fallback={<div className="p-28 text-center">Loading search...</div>}>
+      <SearchClient />
+    </Suspense>
   )
 } 

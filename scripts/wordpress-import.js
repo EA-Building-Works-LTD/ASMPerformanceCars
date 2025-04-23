@@ -275,7 +275,7 @@ async function htmlToPortableText(html, postTitle) {
         }
         
         // Handle formatting
-        let marks = [];
+        const marks = [];
         if (node.tagName === 'STRONG' || node.tagName === 'B') {
           marks.push('strong');
         } else if (node.tagName === 'EM' || node.tagName === 'I') {
