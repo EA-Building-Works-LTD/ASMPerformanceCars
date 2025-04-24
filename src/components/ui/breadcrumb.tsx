@@ -34,7 +34,7 @@ export const Breadcrumb = ({ items, className = '' }: BreadcrumbProps) => {
 
   // Mobile version (compact)
   return (
-    <nav aria-label="Breadcrumb" className={`pt-2 pb-4 sm:py-4 ${className}`}>
+    <nav aria-label="Breadcrumb" className={`pt-10 md:pt-8 pb-4 sm:py-6 ${className}`}>
       <ol className="flex sm:hidden flex-wrap items-center gap-2 text-sm text-gray-600">
         <li>
           <Link

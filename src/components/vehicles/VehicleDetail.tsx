@@ -341,7 +341,7 @@ export const VehicleDetail = ({ vehicle }: VehicleDetailProps) => {
 
   return (
     <div className="max-w-7xl mx-auto">
-      <div className="pt-2 sm:pt-4">
+      <div className="mt-8 sm:mt-8">
         <Breadcrumb items={getBreadcrumbItems()} className="mb-4" />
       </div>
       

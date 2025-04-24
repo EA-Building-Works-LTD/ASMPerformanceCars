@@ -402,7 +402,7 @@ export const Header = () => {
                               <Button 
                                 variant="ghost" 
                                 size="icon" 
-                                className="rounded-full h-9 w-9 text-gray-500 hover:text-gray-900 focus:ring-2 focus:ring-red-600 focus:ring-offset-2"
+                                className="rounded-full h-9 w-9 text-gray-500 hover:text-gray-900 focus:ring-2 focus:ring-red-600 focus:ring-offset-2 opacity-0 pointer-events-none"
                                 aria-label="Close menu"
                               >
                                 <X className="h-6 w-6" aria-hidden="true" />
@@ -485,8 +485,8 @@ export const Header = () => {
                               asChild 
                               className="w-full justify-center text-base bg-red-600 hover:bg-red-700 focus:ring-2 focus:ring-red-600 focus:ring-offset-2 py-6"
                             >
-                              <Link href="/finance-application">
-                                Finance Application
+                              <Link href="/our-cars/modified-cars-for-sale">
+                                Modified Cars
                               </Link>
                             </Button>
                           </div>
