@@ -126,12 +126,25 @@ export async function GET() {
         changefreq = 'monthly';
       }
       
-      validEntries.push({
-        loc: `${baseUrl}${processedRoute}`,
-        lastmod: new Date().toISOString(),
-        priority,
-        changefreq,
-      });
+      // Ensure we have at least one URL entry by adding a fallback for homepage
+      if (validEntries.length === 0 && routes.length === 0) {
+        validEntries.push({
+          loc: `${baseUrl}/`,
+          lastmod: new Date().toISOString(),
+          priority: 1.0,
+          changefreq: 'daily',
+        });
+      }
+      
+      // Only add valid URLs to the sitemap
+      if (processedRoute && processedRoute.length > 0) {
+        validEntries.push({
+          loc: `${baseUrl}${processedRoute}`,
+          lastmod: new Date().toISOString(),
+          priority,
+          changefreq,
+        });
+      }
     }
     
     console.log(`Final sitemap contains ${validEntries.length} URLs`);
@@ -145,11 +158,28 @@ export async function GET() {
       }
     }
     
+    // Return the sitemap XML with at least one entry
+    if (validEntries.length === 0) {
+      // Provide a fallback entry if no valid entries were found
+      validEntries.push({
+        loc: `${baseUrl}/`,
+        lastmod: new Date().toISOString(),
+        priority: 1.0,
+        changefreq: 'daily',
+      });
+    }
+    
     // Return the sitemap XML
     return getServerSideSitemap(validEntries);
   } catch (error) {
     console.error('Error generating pages sitemap:', error);
-    // Return an empty sitemap if there's an error
-    return getServerSideSitemap([]);
+    // Return a sitemap with at least the homepage as a fallback
+    const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://asmperformancecars.co.uk';
+    return getServerSideSitemap([{
+      loc: `${baseUrl}/`,
+      lastmod: new Date().toISOString(),
+      priority: 1.0,
+      changefreq: 'daily',
+    }]);
   }
 } 
