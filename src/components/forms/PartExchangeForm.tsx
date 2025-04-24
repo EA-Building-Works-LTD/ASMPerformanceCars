@@ -9,7 +9,8 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-import { CheckCircle2 } from 'lucide-react';
+import { CheckCircle2, AlertCircle, Loader2 } from 'lucide-react';
+import { useRecaptcha } from '@/hooks/useRecaptcha';
 
 const formSchema = z.object({
   name: z.string().min(2, 'Name must be at least 2 characters'),
@@ -46,6 +47,9 @@ export default function PartExchangeForm({ isOpen, onClose, chosenVehicle }: Par
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitError, setSubmitError] = useState<string | null>(null);
   const [submitSuccess, setSubmitSuccess] = useState(false);
+  
+  // Initialize reCAPTCHA hook
+  const { getToken, isLoading: isRecaptchaLoading, isLoaded: isRecaptchaLoaded, error: recaptchaError } = useRecaptcha('part_exchange');
 
   const {
     register,
@@ -70,12 +74,40 @@ export default function PartExchangeForm({ isOpen, onClose, chosenVehicle }: Par
     setSubmitError(null);
 
     try {
+      // Check honeypot field to prevent spam
+      if (data.honeypot && data.honeypot.length > 0) {
+        // Silently return without submitting if honeypot is filled (likely a bot)
+        // But show fake success to the bot
+        setSubmitSuccess(true);
+        setTimeout(() => {
+          onClose();
+          setSubmitSuccess(false);
+        }, 2000);
+        return;
+      }
+      
+      // Check if reCAPTCHA is loaded
+      if (!isRecaptchaLoaded) {
+        throw new Error("Verification service is not available. Please refresh and try again.");
+      }
+      
+      // Get reCAPTCHA token
+      const recaptchaToken = await getToken();
+      
+      if (!recaptchaToken) {
+        throw new Error("Verification failed. Please refresh and try again.");
+      }
+
       const response = await fetch('/api/send-part-exchange', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify(data),
+        body: JSON.stringify({
+          ...data,
+          recaptchaToken,
+          recaptchaAction: 'part_exchange'
+        }),
       });
 
       if (!response.ok) {
@@ -93,8 +125,8 @@ export default function PartExchangeForm({ isOpen, onClose, chosenVehicle }: Par
         setSubmitSuccess(false);
       }, 2000);
     } catch (error) {
-      setSubmitError('Failed to send message. Please try again.');
-      toast.error('Failed to send message. Please try again.');
+      setSubmitError(error instanceof Error ? error.message : 'Failed to send message. Please try again.');
+      toast.error(error instanceof Error ? error.message : 'Failed to send message. Please try again.');
     } finally {
       setIsSubmitting(false);
     }
@@ -132,6 +164,13 @@ export default function PartExchangeForm({ isOpen, onClose, chosenVehicle }: Par
           </div>
         ) : (
           <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
+            {submitError && (
+              <div className="bg-red-900/30 border border-red-700 p-3 rounded-md flex items-start gap-2">
+                <AlertCircle className="h-5 w-5 text-red-500 shrink-0 mt-0.5" />
+                <p className="text-sm text-red-300">{submitError}</p>
+              </div>
+            )}
+            
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6 md:divide-x md:divide-zinc-700">
               {/* Personal Details Section - Left Column on desktop, top section on mobile */}
               <div className="space-y-4 md:pr-4">
@@ -398,27 +437,39 @@ export default function PartExchangeForm({ isOpen, onClose, chosenVehicle }: Par
               className="hidden"
             />
 
-            {submitError && (
-              <p className="text-red-500 text-sm">{submitError}</p>
+            {/* reCAPTCHA status */}
+            {!isRecaptchaLoaded && (
+              <div className="text-amber-500 text-xs flex items-center mt-2">
+                <Loader2 className="w-3 h-3 mr-1 animate-spin" />
+                Loading verification service...
+              </div>
             )}
 
-            <div className="flex justify-end gap-4">
-              <Button
-                type="button"
-                variant="outline"
-                onClick={onClose}
-                className="bg-zinc-800 border-zinc-700 text-white hover:bg-zinc-700"
-              >
-                Cancel
-              </Button>
-              <Button
-                type="submit"
-                disabled={isSubmitting}
-                className="bg-red-600 hover:bg-red-700 text-white"
-              >
-                {isSubmitting ? 'Sending...' : 'Submit Part Exchange'}
-              </Button>
-            </div>
+            {recaptchaError && (
+              <div className="text-red-500 text-xs flex items-center mt-2">
+                <AlertCircle className="w-3 h-3 mr-1" />
+                Verification service error - please refresh
+              </div>
+            )}
+
+            <Button 
+              type="submit" 
+              className="w-full bg-red-600 hover:bg-red-700 text-white font-semibold"
+              disabled={isSubmitting || isRecaptchaLoading || !isRecaptchaLoaded || !!recaptchaError}
+            >
+              {isSubmitting || isRecaptchaLoading ? (
+                <span className="flex items-center justify-center">
+                  <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                  {isSubmitting ? "Submitting..." : "Verifying..."}
+                </span>
+              ) : (
+                "Send Part Exchange Request"
+              )}
+            </Button>
+            
+            <p className="text-xs text-gray-400 text-center">
+              By submitting this form, you agree to our Privacy Policy
+            </p>
           </form>
         )}
       </DialogContent>

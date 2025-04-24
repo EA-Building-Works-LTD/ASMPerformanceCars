@@ -1,7 +1,7 @@
 'use client'
 
 import React, { useEffect, useState, Suspense } from 'react'
-import { useSearchParams } from 'next/navigation'
+import { useSearchParams, useRouter } from 'next/navigation'
 import { Layout } from '@/components/layout/Layout'
 import { Button } from '@/components/ui/button'
 import { Badge } from '@/components/ui/badge'
@@ -38,19 +38,65 @@ type MotData = {
 
 function MotCheckResultsContent() {
   const searchParams = useSearchParams()
+  const router = useRouter()
   const registration = searchParams.get('registration')
   
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState<string | null>(null)
   const [motData, setMotData] = useState<MotData | null>(null)
   const [showAllTests, setShowAllTests] = useState(false)
+  const [verifying, setVerifying] = useState(true)
   
+  // Verify reCAPTCHA token first
   useEffect(() => {
-    if (!registration) {
-      setError('No registration provided')
-      setLoading(false)
-      return
+    const verifyRecaptcha = async () => {
+      try {
+        // Get stored token from sessionStorage
+        const recaptchaToken = sessionStorage.getItem('motRecaptchaToken')
+        const recaptchaAction = sessionStorage.getItem('motRecaptchaAction')
+        
+        if (!recaptchaToken || !recaptchaAction) {
+          // If no token, redirect back to the form
+          router.push('/mot-check')
+          return
+        }
+        
+        // Verify the token with our API
+        const response = await fetch('/api/verify-recaptcha', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            recaptchaToken,
+            recaptchaAction
+          }),
+        })
+        
+        if (!response.ok) {
+          throw new Error('Verification failed')
+        }
+        
+        // Continue with fetching MOT data
+        setVerifying(false)
+        
+        // Clear tokens from sessionStorage after use
+        sessionStorage.removeItem('motRecaptchaToken')
+        sessionStorage.removeItem('motRecaptchaAction')
+        
+      } catch (err) {
+        setError('Verification failed. Please try again.')
+        setLoading(false)
+        setVerifying(false)
+      }
     }
+    
+    verifyRecaptcha()
+  }, [router])
+  
+  // Only fetch MOT data after verification succeeds
+  useEffect(() => {
+    if (verifying || !registration) return
     
     const fetchMotData = async () => {
       try {
@@ -71,19 +117,21 @@ function MotCheckResultsContent() {
     }
     
     fetchMotData()
-  }, [registration])
+  }, [registration, verifying])
   
   // Calculate pass/fail counts
   const totalPass = motData?.motTests?.filter(test => test.testResult === 'PASSED').length || 0
   const totalFail = motData?.motTests?.filter(test => test.testResult === 'FAILED').length || 0
   
-  if (loading) {
+  if (verifying || loading) {
     return (
       <div className="container mx-auto px-4 py-16 min-h-screen flex items-center justify-center">
         <div className="text-center">
           <div className="w-16 h-16 border-4 border-t-red-600 border-red-200 rounded-full animate-spin mx-auto mb-4"></div>
-          <h2 className="text-2xl font-semibold">Loading MOT history...</h2>
-          <p className="text-gray-500 mt-2">Retrieving information for {registration}</p>
+          <h2 className="text-2xl font-semibold">
+            {verifying ? 'Verifying request...' : `Loading MOT history...`}
+          </h2>
+          {!verifying && <p className="text-gray-500 mt-2">Retrieving information for {registration}</p>}
         </div>
       </div>
     )

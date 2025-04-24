@@ -3,14 +3,16 @@
 import React, { useState } from 'react'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
-import { AlertCircle, ArrowRight, CheckCircle } from 'lucide-react'
+import { AlertCircle, ArrowRight, CheckCircle, Loader2 } from 'lucide-react'
+import { useRecaptcha } from '@/hooks/useRecaptcha'
 
 export const MotCheckForm = () => {
   const [regNumber, setRegNumber] = useState('')
   const [isLoading, setIsLoading] = useState(false)
   const [error, setError] = useState('')
+  const { getToken, isLoading: isRecaptchaLoading } = useRecaptcha('mot_check')
   
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
     
     if (!regNumber.trim()) {
@@ -21,11 +23,26 @@ export const MotCheckForm = () => {
     setIsLoading(true)
     setError('')
     
-    // Redirect to results page with the registration number
-    setTimeout(() => {
-      setIsLoading(false)
-      window.location.href = `/mot-check/results?registration=${encodeURIComponent(regNumber.trim())}`
-    }, 1000)
+    try {
+      // Get reCAPTCHA token
+      const recaptchaToken = await getToken();
+      
+      if (!recaptchaToken) {
+        setError("Verification failed. Please try again later.");
+        setIsLoading(false);
+        return;
+      }
+      
+      // Store token in session storage for use on results page
+      sessionStorage.setItem('motRecaptchaToken', recaptchaToken);
+      sessionStorage.setItem('motRecaptchaAction', 'mot_check');
+      
+      // Redirect to results page with the registration number
+      window.location.href = `/mot-check/results?registration=${encodeURIComponent(regNumber.trim())}`;
+    } catch (error) {
+      setError('An error occurred. Please try again.');
+      setIsLoading(false);
+    }
   }
   
   return (
@@ -57,12 +74,12 @@ export const MotCheckForm = () => {
         <Button 
           type="submit" 
           className="w-full h-12 rounded-lg bg-gradient-to-r from-red-600 to-red-700 hover:from-red-700 hover:to-red-800 text-white shadow-lg shadow-red-600/20 transition-all duration-200 text-base"
-          disabled={isLoading}
+          disabled={isLoading || isRecaptchaLoading}
         >
-          {isLoading ? (
+          {isLoading || isRecaptchaLoading ? (
             <span className="flex items-center justify-center">
-              Checking
-              <span className="ml-2 animate-pulse">...</span>
+              <Loader2 className="w-5 h-5 mr-2 animate-spin" />
+              {isLoading ? 'Checking...' : 'Verifying...'}
             </span>
           ) : (
             <span className="flex items-center justify-center">

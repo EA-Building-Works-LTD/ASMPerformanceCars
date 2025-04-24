@@ -75,3 +75,48 @@ To test your sitemap locally:
 4. Access the blog posts sitemap: `http://localhost:3000/server-sitemap-blogs.xml`
 
 For production, simply replace `localhost:3000` with your domain name.
+
+# ASM Performance Cars
+
+## Form Submission with reCAPTCHA
+
+The website uses Google reCAPTCHA v3 to protect forms from spam and abuse. This is an invisible verification system that runs in the background and doesn't require user interaction.
+
+### Setting Up reCAPTCHA
+
+1. **Get reCAPTCHA Keys**:
+   - Visit [Google reCAPTCHA Admin](https://www.google.com/recaptcha/admin/create)
+   - Register a new site with the following settings:
+     - reCAPTCHA type: **v3**
+     - Domains: add your domains (e.g., `localhost`, `asmperformancecars.co.uk`)
+     - Accept the terms of service
+   - After creation, you'll receive a **Site Key** and **Secret Key**
+
+2. **Configure Environment Variables**:
+   - Run our setup script: `npm run setup-env`
+   - When prompted, enter your reCAPTCHA keys
+   - This will create or update your `.env.local` file
+
+Alternatively, you can manually add these to your `.env.local` file:
+```
+NEXT_PUBLIC_RECAPTCHA_SITE_KEY=your_site_key_here
+RECAPTCHA_SECRET_KEY=your_secret_key_here
+```
+
+### Forms with reCAPTCHA Protection
+
+The following forms are protected with reCAPTCHA:
+
+- Contact Form
+- MOT Check Form
+- Newsletter Subscription
+
+### Troubleshooting
+
+If forms aren't submitting properly, check the browser console for errors. Common issues include:
+
+- Missing environment variables
+- Network connectivity problems
+- Incorrect domain configuration in reCAPTCHA
+
+In development mode, reCAPTCHA will show a warning but still work even without proper keys configured.

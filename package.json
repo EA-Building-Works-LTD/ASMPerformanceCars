@@ -13,7 +13,8 @@
     "init-sanity-data": "ts-node --project tsconfig.json -r tsconfig-paths/register src/scripts/initializeSanityData.ts",
     "import-dealerships": "node src/scripts/importDealerships.js",
     "import-vehicles": "node src/scripts/importModifiedVehicles.js",
-    "validate-vehicles-csv": "node src/scripts/validateVehiclesCsv.js"
+    "validate-vehicles-csv": "node src/scripts/validateVehiclesCsv.js",
+    "setup-env": "node scripts/setup-env.js"
   },
   "dependencies": {
     "@algolia/client-search": "^5.23.3",

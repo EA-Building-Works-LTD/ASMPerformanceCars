@@ -1,4 +1,7 @@
-import { NextResponse } from 'next/server';
+import { NextResponse, NextRequest } from 'next/server';
+import { Ratelimit } from '@upstash/ratelimit';
+import { Redis } from '@upstash/redis';
+import { headers } from 'next/headers';
 
 // Klaviyo API key from environment variables for security
 const KLAVIYO_API_KEY = process.env.KLAVIYO_API_KEY || '';
@@ -6,12 +9,122 @@ const KLAVIYO_LIST_ID = process.env.KLAVIYO_LIST_ID || '';
 // Disable mock mode to ensure real API calls
 const USE_MOCK_SUCCESS = false;
 
-export async function POST(request: Request) {
-  try {
-    const { name, email } = await request.json();
-    
-    console.log('Received subscription request:', { name, email });
+// In production, use Upstash Redis for rate limiting
+// For development, create a simple fallback
+let ratelimit: Ratelimit;
 
+if (process.env.UPSTASH_REDIS_REST_URL) {
+  // Use Upstash Redis when configured
+  const redis = new Redis({
+    url: process.env.UPSTASH_REDIS_REST_URL || "",
+    token: process.env.UPSTASH_REDIS_REST_TOKEN || "",
+  });
+  
+  ratelimit = new Ratelimit({
+    redis,
+    limiter: Ratelimit.slidingWindow(5, '1h'), // 5 requests per hour per IP
+    analytics: true,
+    prefix: 'ratelimit:newsletter:',
+  });
+} else {
+  // Simple in-memory fallback for development
+  const ipRequestCounts = new Map<string, { count: number, resetAt: number }>();
+  
+  ratelimit = {
+    limit: async (ip: string) => {
+      const now = Date.now();
+      const hourInMs = 60 * 60 * 1000;
+      const resetAt = now + hourInMs;
+      
+      if (!ipRequestCounts.has(ip)) {
+        ipRequestCounts.set(ip, { count: 1, resetAt });
+        return { success: true, limit: 5, remaining: 4, reset: resetAt };
+      }
+      
+      const record = ipRequestCounts.get(ip)!;
+      
+      // Reset counter if the time has expired
+      if (now > record.resetAt) {
+        ipRequestCounts.set(ip, { count: 1, resetAt });
+        return { success: true, limit: 5, remaining: 4, reset: resetAt };
+      }
+      
+      // If under limit, increment and allow
+      if (record.count < 5) {
+        record.count++;
+        ipRequestCounts.set(ip, record);
+        return { 
+          success: true, 
+          limit: 5, 
+          remaining: 5 - record.count, 
+          reset: record.resetAt 
+        };
+      }
+      
+      // Over limit
+      return { 
+        success: false, 
+        limit: 5, 
+        remaining: 0, 
+        reset: record.resetAt 
+      };
+    }
+  } as Ratelimit;
+}
+
+export async function POST(request: NextRequest) {
+  try {
+    // Get IP from request headers
+    const headersList = await headers();
+    let ip = 'unknown';
+    
+    // Extract IP address
+    const forwardedFor = headersList.get('x-forwarded-for');
+    if (forwardedFor) {
+      ip = forwardedFor.split(',')[0].trim();
+    }
+    
+    // Check if the request is from our site
+    const origin = headersList.get('origin') || '';
+    const allowedOrigins = [
+      'http://localhost:3000',
+      'https://asmperformancecars.co.uk',
+      'https://www.asmperformancecars.co.uk'
+    ];
+    if (!allowedOrigins.includes(origin)) {
+      return NextResponse.json(
+        { error: 'Unauthorized request' },
+        { status: 403 }
+      );
+    }
+    
+    // Rate limiting check
+    const { success, limit, reset, remaining } = await ratelimit.limit(ip);
+    if (!success) {
+      return NextResponse.json(
+        { error: 'Rate limit exceeded. Please try again later.' },
+        { 
+          status: 429,
+          headers: {
+            'X-RateLimit-Limit': limit.toString(),
+            'X-RateLimit-Remaining': remaining.toString(),
+            'X-RateLimit-Reset': reset.toString(),
+          }
+        }
+      );
+    }
+
+    const data = await request.json();
+    const { name, email, honeypot } = data;
+    
+    // Check honeypot field if it exists
+    if (honeypot) {
+      return NextResponse.json(
+        { message: 'Successfully subscribed to newsletter' },
+        { status: 200 }
+      );
+    }
+    
     if (!name || !email) {
       return NextResponse.json(
         { message: 'Name and email are required' },
@@ -35,19 +148,11 @@ export async function POST(request: Request) {
 
     // Verify Klaviyo credentials
     if (!KLAVIYO_API_KEY || !KLAVIYO_LIST_ID) {
-      console.error('Klaviyo API key or list ID not configured');
       return NextResponse.json(
         { message: 'Newsletter service not properly configured' },
         { status: 500 }
       );
     }
-
-    console.log('Sending data to Klaviyo:', { 
-      list_id: KLAVIYO_LIST_ID,
-      email,
-      first_name: firstName,
-      last_name: lastName
-    });
 
     // Using the Klaviyo API (v3)
     try {
@@ -68,7 +173,8 @@ export async function POST(request: Request) {
               first_name: firstName,
               last_name: lastName,
               properties: {
-                signup_source: 'website_footer'
+                signup_source: 'website_footer',
+                ip_address: ip
               }
             }
           }
@@ -76,8 +182,6 @@ export async function POST(request: Request) {
       });
 
       const profileResponseText = await profileResponse.text();
-      console.log('Klaviyo profile response status:', profileResponse.status);
-      console.log('Klaviyo profile response:', profileResponseText);
       
       if (!profileResponse.ok) {
         return NextResponse.json(
@@ -90,7 +194,6 @@ export async function POST(request: Request) {
       try {
         profileData = JSON.parse(profileResponseText);
       } catch (e) {
-        console.error('Error parsing profile response:', e);
         return NextResponse.json(
           { message: 'Invalid response from newsletter service' },
           { status: 500 }
@@ -99,7 +202,6 @@ export async function POST(request: Request) {
 
       // Step 2: Set the subscription status
       const profileId = profileData.data.id;
-      console.log('Profile created with ID:', profileId);
       
       const subscriptionResponse = await fetch(`https://a.klaviyo.com/api/profile-subscription-status`, {
         method: 'POST',
@@ -125,11 +227,9 @@ export async function POST(request: Request) {
       });
 
       const subscriptionResponseText = await subscriptionResponse.text();
-      console.log('Klaviyo subscription status response:', subscriptionResponse.status);
-      console.log('Klaviyo subscription status response body:', subscriptionResponseText);
 
       if (!subscriptionResponse.ok) {
-        console.error('Failed to set subscription status:', subscriptionResponseText);
+        // We continue anyway because we want to add to the list
       }
       
       // Step 3: Add the profile to the list
@@ -139,7 +239,7 @@ export async function POST(request: Request) {
           'Content-Type': 'application/json',
           'Accept': 'application/json',
           'Authorization': `Klaviyo-API-Key ${KLAVIYO_API_KEY}`,
-          'revision': '2023-09-15' // Use lowercase "revision" as shown in the logs
+          'revision': '2023-09-15'
         },
         body: JSON.stringify({
           data: [
@@ -152,8 +252,6 @@ export async function POST(request: Request) {
       });
 
       const listResponseText = await listResponse.text();
-      console.log('Klaviyo list response status:', listResponse.status);
-      console.log('Klaviyo list response:', listResponseText);
       
       if (!listResponse.ok) {
         return NextResponse.json(
@@ -167,14 +265,12 @@ export async function POST(request: Request) {
         { status: 200 }
       );
     } catch (e) {
-      console.error('Error subscribing to newsletter:', e);
       return NextResponse.json(
         { message: 'Error connecting to newsletter service' },
         { status: 500 }
       );
     }
   } catch (e) {
-    console.error('Error processing subscription request:', e);
     return NextResponse.json(
       { message: 'Error processing subscription request' },
       { status: 500 }

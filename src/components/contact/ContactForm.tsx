@@ -1,11 +1,12 @@
 "use client";
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import { z } from 'zod';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { toast } from 'react-hot-toast';
-import { Loader2 } from 'lucide-react';
+import { Loader2, AlertCircle } from 'lucide-react';
+import { useRecaptcha } from '@/hooks/useRecaptcha';
 
 // Form validation schema
 const contactFormSchema = z.object({
@@ -34,6 +35,8 @@ export default function ContactForm({
 }: ContactFormProps) {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSuccess, setIsSuccess] = useState(false);
+  // Initialize reCAPTCHA hook with action name
+  const { getToken, isLoading: isRecaptchaLoading, isLoaded: isRecaptchaLoaded, error: recaptchaError } = useRecaptcha('contact_form');
   
   const { 
     register, 
@@ -52,6 +55,25 @@ export default function ContactForm({
     }
   });
 
+  // Display a warning if reCAPTCHA hasn't loaded after 3 seconds
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      if (!isRecaptchaLoaded) {
+        console.warn('reCAPTCHA is taking a long time to load');
+      }
+    }, 3000);
+    
+    return () => clearTimeout(timer);
+  }, [isRecaptchaLoaded]);
+
+  // Show toast notification if reCAPTCHA has an error
+  useEffect(() => {
+    if (recaptchaError) {
+      toast.error(`Verification service error: ${recaptchaError}`);
+      console.error('reCAPTCHA error:', recaptchaError);
+    }
+  }, [recaptchaError]);
+
   const onSubmit = async (data: ContactFormValues) => {
     // Check honeypot field to prevent spam
     if (data.honeypot) {
@@ -59,9 +81,28 @@ export default function ContactForm({
       return;
     }
 
+    // Prevent double submission
+    if (isSubmitting) return;
+    
     setIsSubmitting(true);
 
     try {
+      // Check if reCAPTCHA is loaded
+      if (!isRecaptchaLoaded) {
+        toast.error("Verification service is not available. Please refresh the page and try again.");
+        return;
+      }
+      
+      // Get reCAPTCHA token
+      console.log('Getting reCAPTCHA token...');
+      const recaptchaToken = await getToken();
+      
+      if (!recaptchaToken) {
+        toast.error("Verification failed. Please refresh the page and try again.");
+        return;
+      }
+
+      console.log('Submitting form data...');
       const response = await fetch('/api/send-contact', {
         method: 'POST',
         headers: {
@@ -73,11 +114,20 @@ export default function ContactForm({
           phone: data.phone,
           subject: data.subject,
           message: data.message,
+          recaptchaToken,
+          recaptchaAction: 'contact_form'
         }),
       });
 
+      let responseData;
+      try {
+        responseData = await response.json();
+      } catch (error) {
+        throw new Error('Invalid response from server');
+      }
+      
       if (!response.ok) {
-        throw new Error('Failed to send message');
+        throw new Error(responseData.error || 'Failed to send message');
       }
 
       // Show success message
@@ -91,7 +141,7 @@ export default function ContactForm({
       }, 5000);
     } catch (error) {
       console.error('Error sending message:', error);
-      toast.error('Failed to send message. Please try again later.');
+      toast.error(error instanceof Error ? error.message : 'Failed to send message. Please try again later.');
     } finally {
       setIsSubmitting(false);
     }
@@ -199,16 +249,31 @@ export default function ContactForm({
             )}
           </div>
 
+          {/* reCAPTCHA status */}
+          {!isRecaptchaLoaded && (
+            <div className="text-amber-600 dark:text-amber-400 text-sm flex items-center">
+              <Loader2 className="w-4 h-4 mr-2 animate-spin" />
+              Loading verification service...
+            </div>
+          )}
+
+          {recaptchaError && (
+            <div className="text-red-600 dark:text-red-400 text-sm flex items-center">
+              <AlertCircle className="w-4 h-4 mr-2" />
+              Verification service error - please refresh the page
+            </div>
+          )}
+
           {/* Submit Button */}
           <button
             type="submit"
-            disabled={isSubmitting}
+            disabled={isSubmitting || isRecaptchaLoading || !isRecaptchaLoaded || !!recaptchaError}
             className="w-full bg-red-600 hover:bg-red-700 text-white font-medium py-2 px-4 rounded-md transition-colors focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-offset-2 disabled:opacity-70 disabled:cursor-not-allowed"
           >
-            {isSubmitting ? (
+            {isSubmitting || isRecaptchaLoading ? (
               <span className="flex items-center justify-center">
                 <Loader2 className="w-5 h-5 mr-2 animate-spin" />
-                Sending...
+                {isSubmitting ? 'Sending...' : 'Verifying...'}
               </span>
             ) : (
               submitButtonText

@@ -4,6 +4,7 @@ import nodemailer from 'nodemailer';
 import { Ratelimit } from '@upstash/ratelimit';
 import { Redis } from '@upstash/redis';
 import { headers } from 'next/headers';
+import { verifyRecaptcha } from '@/utils/recaptcha';
 
 // Define validation schema
 const formSchema = z.object({
@@ -13,7 +14,8 @@ const formSchema = z.object({
   vehicle: z.string().min(2, "Vehicle information is required"),
   message: z.string().min(10, "Message must be at least 10 characters").max(1000),
   honeypot: z.string().optional(),
-  token: z.string().optional(),
+  recaptchaToken: z.string().optional(),
+  recaptchaAction: z.string().optional(),
 });
 
 // Configure rate limiting
@@ -32,6 +34,7 @@ if (process.env.UPSTASH_REDIS_REST_URL) {
     redis,
     limiter: Ratelimit.slidingWindow(5, '1h'), // 5 requests per hour per IP
     analytics: true,
+    prefix: 'ratelimit:enquiry:',
   });
 } else {
   // Simple in-memory fallback for development
@@ -134,6 +137,23 @@ export async function POST(request: NextRequest) {
       return NextResponse.json({ success: true });
     }
     
+    // Verify reCAPTCHA token
+    const verification = await verifyRecaptcha(
+      body.recaptchaToken,
+      body.recaptchaAction,
+      0.5 // minimum score threshold
+    );
+    
+    if (!verification.success) {
+      return NextResponse.json(
+        { error: verification.error || 'reCAPTCHA verification failed' },
+        { status: 400 }
+      );
+    }
+    
+    // Log the score for monitoring (optional)
+    console.log(`reCAPTCHA score for ${body.recaptchaAction}: ${verification.score}`);
+    
     // Validate with Zod
     const validatedData = formSchema.safeParse(body);
     if (!validatedData.success) {
@@ -145,19 +165,26 @@ export async function POST(request: NextRequest) {
     
     const { name, email, phone, vehicle, message } = validatedData.data;
     
+    // Build email HTML content
+    const htmlContent = `
+      <h1>New Vehicle Enquiry</h1>
+      <p><strong>Name:</strong> ${name}</p>
+      <p><strong>Email:</strong> ${email}</p>
+      <p><strong>Phone:</strong> ${phone || 'Not provided'}</p>
+      <p><strong>Vehicle:</strong> ${vehicle}</p>
+      <h2>Message:</h2>
+      <p>${message.replace(/\n/g, '<br>')}</p>
+      <hr />
+      <p><small>Sent from IP: ${ip}<br>
+      Timestamp: ${new Date().toISOString()}</small></p>
+    `;
+
     // Set up email transport
     if (!process.env.SMTP_HOST || !process.env.SMTP_USER || !process.env.SMTP_PASSWORD) {
       // Development fallback - log to console
       console.log('SMTP not configured - Development mode fallback');
       console.log('---------- EMAIL WOULD BE SENT ----------');
-      console.log('To: info@asmperformancecars.co.uk');
-      console.log('From:', process.env.SMTP_FROM || 'noreply@asmperformancecars.co.uk');
-      console.log('Reply-To:', email);
-      console.log('Subject: Vehicle Enquiry:', vehicle);
-      console.log('Name:', name);
-      console.log('Email:', email);
-      console.log('Phone:', phone);
-      console.log('Message:', message);
+      console.log(htmlContent);
       console.log('IP:', ip);
       console.log('Timestamp:', new Date().toISOString());
       console.log('----------------------------------------');
@@ -176,41 +203,14 @@ export async function POST(request: NextRequest) {
       },
     });
     
-    // Compose email
-    const mailOptions = {
+    // Send email
+    await transporter.sendMail({
       from: process.env.SMTP_FROM || 'noreply@asmperformancecars.co.uk',
-      to: 'info@asmperformancecars.co.uk',
+      to: 'sales@asmperformancecars.co.uk',
       replyTo: email,
       subject: `Vehicle Enquiry: ${vehicle}`,
-      text: `
-        Name: ${name}
-        Email: ${email}
-        Phone: ${phone}
-        Vehicle: ${vehicle}
-        
-        Message:
-        ${message}
-        
-        Sent from: ${ip}
-        Timestamp: ${new Date().toISOString()}
-      `,
-      html: `
-        <h2>New Vehicle Enquiry</h2>
-        <p><strong>Vehicle:</strong> ${vehicle}</p>
-        <hr />
-        <p><strong>Name:</strong> ${name}</p>
-        <p><strong>Email:</strong> ${email}</p>
-        <p><strong>Phone:</strong> ${phone}</p>
-        <p><strong>Message:</strong></p>
-        <p>${message.replace(/\n/g, '<br>')}</p>
-        <hr />
-        <p><small>Sent from IP: ${ip}<br>
-        Timestamp: ${new Date().toISOString()}</small></p>
-      `,
-    };
-    
-    // Send email
-    await transporter.sendMail(mailOptions);
+      html: htmlContent,
+    });
     
     // Log the enquiry (optional)
     console.log(`New enquiry from ${name} about ${vehicle}`);

@@ -9,7 +9,8 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-import { CheckCircle2 } from 'lucide-react';
+import { CheckCircle2, AlertCircle, Loader2 } from 'lucide-react';
+import { useRecaptcha } from '@/hooks/useRecaptcha';
 
 const formSchema = z.object({
   name: z.string().min(2, 'Name must be at least 2 characters'),
@@ -39,6 +40,9 @@ export default function CarDetailingForm({ isOpen, onClose }: CarDetailingFormPr
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitError, setSubmitError] = useState<string | null>(null);
   const [submitSuccess, setSubmitSuccess] = useState(false);
+  
+  // Initialize reCAPTCHA hook
+  const { getToken, isLoading: isRecaptchaLoading, isLoaded: isRecaptchaLoaded, error: recaptchaError } = useRecaptcha('car_detailing');
 
   const {
     register,
@@ -60,12 +64,40 @@ export default function CarDetailingForm({ isOpen, onClose }: CarDetailingFormPr
     setSubmitError(null);
 
     try {
+      // Check honeypot field to prevent spam
+      if (data.honeypot) {
+        // Silently return without submitting if honeypot is filled (likely a bot)
+        // But show fake success to the bot
+        setSubmitSuccess(true);
+        setTimeout(() => {
+          onClose();
+          setSubmitSuccess(false);
+        }, 2000);
+        return;
+      }
+      
+      // Check if reCAPTCHA is loaded
+      if (!isRecaptchaLoaded) {
+        throw new Error("Verification service is not available. Please refresh and try again.");
+      }
+      
+      // Get reCAPTCHA token
+      const recaptchaToken = await getToken();
+      
+      if (!recaptchaToken) {
+        throw new Error("Verification failed. Please refresh and try again.");
+      }
+
       const response = await fetch('/api/send-car-detailing', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify(data),
+        body: JSON.stringify({
+          ...data,
+          recaptchaToken,
+          recaptchaAction: 'car_detailing'
+        }),
       });
 
       if (!response.ok) {
@@ -83,8 +115,8 @@ export default function CarDetailingForm({ isOpen, onClose }: CarDetailingFormPr
         setSubmitSuccess(false);
       }, 2000);
     } catch (error) {
-      setSubmitError('Failed to send booking request. Please try again.');
-      toast.error('Failed to send booking request. Please try again.');
+      setSubmitError(error instanceof Error ? error.message : 'Failed to send booking request. Please try again.');
+      toast.error(error instanceof Error ? error.message : 'Failed to send booking request. Please try again.');
     } finally {
       setIsSubmitting(false);
     }
@@ -122,6 +154,13 @@ export default function CarDetailingForm({ isOpen, onClose }: CarDetailingFormPr
           </div>
         ) : (
           <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
+            {submitError && (
+              <div className="bg-red-900/30 border border-red-700 p-3 rounded-md flex items-start gap-2">
+                <AlertCircle className="h-5 w-5 text-red-500 shrink-0 mt-0.5" />
+                <p className="text-sm text-red-300">{submitError}</p>
+              </div>
+            )}
+            
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               {/* Personal Details Section */}
               <div className="space-y-4">
@@ -295,8 +334,19 @@ export default function CarDetailingForm({ isOpen, onClose }: CarDetailingFormPr
               className="hidden"
             />
 
-            {submitError && (
-              <p className="text-red-500 text-sm">{submitError}</p>
+            {/* reCAPTCHA status */}
+            {!isRecaptchaLoaded && (
+              <div className="text-amber-500 text-xs flex items-center mt-2">
+                <Loader2 className="w-3 h-3 mr-1 animate-spin" />
+                Loading verification service...
+              </div>
+            )}
+
+            {recaptchaError && (
+              <div className="text-red-500 text-xs flex items-center mt-2">
+                <AlertCircle className="w-3 h-3 mr-1" />
+                Verification service error - please refresh
+              </div>
             )}
 
             <div className="flex justify-end gap-4">
@@ -308,14 +358,25 @@ export default function CarDetailingForm({ isOpen, onClose }: CarDetailingFormPr
               >
                 Cancel
               </Button>
-              <Button
-                type="submit"
-                disabled={isSubmitting}
+              <Button 
+                type="submit" 
+                disabled={isSubmitting || isRecaptchaLoading || !isRecaptchaLoaded || !!recaptchaError}
                 className="bg-red-600 hover:bg-red-700 text-white"
               >
-                {isSubmitting ? 'Sending...' : 'Book Service'}
+                {isSubmitting || isRecaptchaLoading ? (
+                  <span className="flex items-center justify-center">
+                    <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                    {isSubmitting ? "Submitting..." : "Verifying..."}
+                  </span>
+                ) : (
+                  "Book Detailing Service"
+                )}
               </Button>
             </div>
+            
+            <p className="text-xs text-gray-400 text-center">
+              By submitting this form, you agree to our Privacy Policy
+            </p>
           </form>
         )}
       </DialogContent>

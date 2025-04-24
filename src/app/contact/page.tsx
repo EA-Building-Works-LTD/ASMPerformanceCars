@@ -93,8 +93,6 @@ async function getContactData(): Promise<ContactPageData> {
       return mockContactData;
     }
     
-    // For debugging
-    console.log('Sanity data for contact page:', JSON.stringify(data, null, 2))
     
     return data;
   } catch (error) {
@@ -111,8 +109,6 @@ export default async function ContactPage() {
   // This allows partial updates in CMS while keeping mock data for fields that haven't been updated
   const pageData = deepMerge(mockContactData, sanityData);
   
-  // For debugging
-  console.log('Using merged contact page data with Sanity updates');
 
   return (
     <Layout seoContent={pageData.seo}>

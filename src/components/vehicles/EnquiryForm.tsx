@@ -11,6 +11,7 @@ import { zodResolver } from "@hookform/resolvers/zod"
 import { useForm } from "react-hook-form"
 import { z } from "zod"
 import { toast } from "@/components/ui/use-toast"
+import { useRecaptcha } from "@/hooks/useRecaptcha"
 
 // Form validation schema
 const formSchema = z.object({
@@ -35,6 +36,9 @@ export function EnquiryForm({ isOpen, onClose, chosenVehicle }: EnquiryFormProps
   const [submitError, setSubmitError] = useState<string | null>(null);
   const [submitSuccess, setSubmitSuccess] = useState(false);
   
+  // Initialize reCAPTCHA hook
+  const { getToken, isLoading: isRecaptchaLoading, isLoaded: isRecaptchaLoaded, error: recaptchaError } = useRecaptcha('vehicle_enquiry');
+  
   // Initialize form with React Hook Form + zod validation
   const { 
     register, 
@@ -55,16 +59,47 @@ export function EnquiryForm({ isOpen, onClose, chosenVehicle }: EnquiryFormProps
   
   // Handle form submission with validation and error handling
   const onSubmit = async (data: FormValues) => {
+    // Check honeypot field to prevent spam
+    if (data.honeypot) {
+      // Silently return without submitting if honeypot is filled (likely a bot)
+      // But show fake success to the bot
+      setSubmitSuccess(true);
+      setTimeout(() => {
+        onClose();
+        setSubmitSuccess(false);
+      }, 2000);
+      return;
+    }
+    
+    // Prevent double submission
+    if (isSubmitting) return;
+    
     setIsSubmitting(true);
     setSubmitError(null);
     
     try {
+      // Check if reCAPTCHA is loaded
+      if (!isRecaptchaLoaded) {
+        throw new Error("Verification service is not available. Please refresh and try again.");
+      }
+      
+      // Get reCAPTCHA token
+      const recaptchaToken = await getToken();
+      
+      if (!recaptchaToken) {
+        throw new Error("Verification failed. Please refresh and try again.");
+      }
+      
       const response = await fetch('/api/enquiry', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify(data),
+        body: JSON.stringify({
+          ...data,
+          recaptchaToken,
+          recaptchaAction: 'vehicle_enquiry'
+        }),
       });
       
       const result = await response.json();
@@ -248,22 +283,43 @@ export function EnquiryForm({ isOpen, onClose, chosenVehicle }: EnquiryFormProps
                 tabIndex={-1}
               />
             </div>
+
+            {/* reCAPTCHA status */}
+            {!isRecaptchaLoaded && (
+              <div className="text-amber-500 text-xs flex items-center mt-2">
+                <Loader2 className="w-3 h-3 mr-1 animate-spin" />
+                Loading verification service...
+              </div>
+            )}
+
+            {recaptchaError && (
+              <div className="text-red-500 text-xs flex items-center mt-2">
+                <AlertCircle className="w-3 h-3 mr-1" />
+                Verification service error - please refresh
+              </div>
+            )}
             
             <Button 
               type="submit" 
               className="w-full bg-red-600 hover:bg-red-700 text-white font-semibold"
-              disabled={isSubmitting}
+              disabled={isSubmitting || isRecaptchaLoading || !isRecaptchaLoaded || !!recaptchaError}
             >
-              {isSubmitting ? (
-                <>
+              {isSubmitting || isRecaptchaLoading ? (
+                <span className="flex items-center justify-center">
                   <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-                  Sending...
-                </>
-              ) : "Send Enquiry"}
+                  {isSubmitting ? "Submitting..." : "Verifying..."}
+                </span>
+              ) : (
+                "Submit Enquiry"
+              )}
             </Button>
+            
+            <p className="text-xs text-gray-400 text-center">
+              By submitting this form, you agree to our Privacy Policy
+            </p>
           </form>
         )}
       </DialogContent>
     </Dialog>
-  )
+  );
 } 
