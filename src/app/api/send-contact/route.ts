@@ -29,33 +29,26 @@ export async function POST(request: Request) {
       <p>${message.replace(/\n/g, '<br>')}</p>
     `;
 
-    // Check if SMTP is not configured, log message instead
-    const hasSmtp = process.env.EMAIL_SERVER && process.env.EMAIL_FROM;
-    if (!hasSmtp) {
-      console.log('No SMTP configured. Would have sent:', {
-        to: 'recipient@example.com',
-        from: 'noreply@example.com',
-        subject: `Contact Form: ${subject}`,
-        html: htmlContent
-      });
+    // Check if SMTP is not configured, silently return success
+    if (!process.env.SMTP_HOST || !process.env.SMTP_USER || !process.env.SMTP_PASSWORD) {
       return NextResponse.json({ success: true });
     }
 
     // Configure email transport
     const transporter = nodemailer.createTransport({
-      host: process.env.EMAIL_SERVER_HOST,
-      port: Number(process.env.EMAIL_SERVER_PORT) || 587,
-      secure: Boolean(process.env.EMAIL_SERVER_SECURE === 'true'),
+      host: process.env.SMTP_HOST,
+      port: parseInt(process.env.SMTP_PORT || '587'),
+      secure: process.env.SMTP_SECURE === 'true',
       auth: {
-        user: process.env.EMAIL_SERVER_USER,
-        pass: process.env.EMAIL_SERVER_PASSWORD,
+        user: process.env.SMTP_USER,
+        pass: process.env.SMTP_PASSWORD,
       },
     });
 
     // Send mail
     await transporter.sendMail({
-      from: process.env.EMAIL_FROM,
-      to: process.env.EMAIL_TO || process.env.EMAIL_FROM,
+      from: process.env.SMTP_FROM || 'noreply@asmperformancecars.co.uk',
+      to: 'info@asmperformancecars.co.uk',
       replyTo: email,
       subject: `Contact Form: ${subject}`,
       html: htmlContent,
@@ -63,7 +56,6 @@ export async function POST(request: Request) {
 
     return NextResponse.json({ success: true });
   } catch (error) {
-    console.error('Contact form error:', error);
     return NextResponse.json(
       { error: 'Failed to send message' },
       { status: 500 }
