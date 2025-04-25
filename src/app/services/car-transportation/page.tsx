@@ -10,6 +10,8 @@ import { Card, CardContent } from '@/components/ui/card'
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion'
 import { Button } from '@/components/ui/button'
 import { Shield, Truck, Clock, Map, Check, Car, Star, Key, Phone, Calendar, Clipboard, ArrowRight, ChevronDown } from 'lucide-react'
+import { Badge } from '@/components/ui/badge'
+import { TransportationFormWrapper } from '@/components/transportation/TransportationFormWrapper'
 
 export const revalidate = 3600 // Revalidate every hour
 
@@ -296,56 +298,95 @@ export default async function CarTransportationPage() {
   
   return (
     <>
-      {/* Hero Section */}
-      <section className="relative h-[60vh] min-h-[500px] flex items-center">
-        <div className="absolute inset-0 bg-gradient-to-r from-black to-transparent opacity-70 z-10"></div>
-        <div className="absolute inset-0">
-          {pageData.hero?.backgroundType === 'image' && (
-            <Image
-              src={getImageUrl(pageData.hero?.backgroundImage, '/images/services/car-transport-hero.jpg')}
-              alt={pageData.hero?.backgroundImage?.alt || "Car transportation services"}
-              fill
-              className="object-cover"
-              priority
-            />
-          )}
-          {pageData.hero?.backgroundType === 'color' && (
-            <div className={`w-full h-full ${pageData.hero?.backgroundColor || 'bg-red-600'}`}></div>
-          )}
+      {/* New Hero Section */}
+      <section className="relative bg-gradient-to-br from-slate-900 to-black py-16 md:py-24 overflow-hidden">
+        <div className="absolute inset-0 opacity-30 mix-blend-overlay">
+          <Image 
+            src={getImageUrl(pageData.hero?.backgroundImage, '/images/services/car-transport-hero.jpg')}
+            alt={pageData.hero?.backgroundImage?.alt || "Car transportation services"}
+            fill
+            priority
+            className="object-cover"
+          />
         </div>
-        <div className="container mx-auto px-4 relative z-20 text-center">
-          <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-6 drop-shadow-lg">
-            {pageData.hero?.title || 'Professional Car Transportation Services'}
-          </h1>
-          <p className="text-xl md:text-2xl text-white max-w-3xl mx-auto mb-8 drop-shadow-md">
-            {pageData.hero?.subtitle || 'Safe, secure and reliable vehicle transportation across the UK'}
-          </p>
-          {pageData.hero?.ctaText && (
-            <Link 
-              href={pageData.hero?.ctaUrl || '/contact'} 
-              className="inline-flex items-center bg-red-600 hover:bg-red-700 text-white px-8 py-3 rounded-full text-lg shadow-lg font-medium"
-            >
-              {pageData.hero?.ctaText}
-              <ArrowRight className="ml-2 h-4 w-4" />
-            </Link>
-          )}
+        <div className="container mx-auto px-4 relative z-10">
+          <div className="grid md:grid-cols-2 items-center">
+            <div className="text-white space-y-6">
+              <Badge variant="outline" className="border-red-500 text-red-400 bg-transparent mb-4 mt-6 md:mt-0">
+                RELIABLE VEHICLE TRANSPORTATION
+              </Badge>
+              <h1 className="text-4xl md:text-5xl font-bold tracking-tight">
+                {pageData.hero?.title || 'Professional Car Transportation Services'}
+              </h1>
+              <p className="text-lg text-gray-300">
+                {pageData.hero?.subtitle || 'Safe, secure and reliable vehicle transportation across the UK with instant price calculation'}
+              </p>
+              <div className="flex flex-wrap gap-4 pt-4">
+                <a href="#process" className="hidden md:inline-block">
+                  <Button className="cursor-pointer bg-gradient-to-r from-red-600 to-red-700 hover:from-red-700 hover:to-red-800 text-white px-6 py-6 h-auto text-lg">
+                    How It Works
+                  </Button>
+                </a>
+              </div>
+            </div>
+            
+            {/* Car Transportation Calculator Form Card */}
+            <div className="bg-white dark:bg-zinc-900 rounded-xl shadow-2xl overflow-hidden mt-8 md:mt-0">
+              <div className="bg-gradient-to-r from-red-600 to-red-700 p-6">
+                <h2 className="text-2xl font-bold text-white flex items-center gap-2">
+                  <Truck className="w-6 h-6" />
+                  Calculate Transportation Cost
+                </h2>
+                <p className="text-white/80 mt-1">
+                  Get an instant quote for your vehicle transportation
+                </p>
+              </div>
+              <div className="p-6">
+                {/* Import the TransportationCalculatorForm component */}
+                <TransportationFormWrapper />
+                <p className="text-sm text-gray-500 mt-4 flex items-start">
+                  <Shield className="w-4 h-4 mr-2 mt-0.5 flex-shrink-0 text-red-500" />
+                  <span>Your vehicle will be transported with full insurance coverage and professional handling.</span>
+                </p>
+              </div>
+            </div>
+          </div>
         </div>
+      </section>
 
-        {/* Bottom Wave Shape */}
-        <div className="absolute bottom-0 left-0 right-0 z-10 w-full overflow-hidden">
-          <svg
-            viewBox="0 0 1440 140"
-            fill="white"
-            xmlns="http://www.w3.org/2000/svg"
-            preserveAspectRatio="none"
-            width="100%"
-            style={{ display: 'block', marginBottom: '-1px' }}
-          >
-            <path
-              d="M0 0L48 5.33333C96 10.6667 192 21.3333 288 32C384 42.6667 480 53.3333 576 53.3333C672 53.3333 768 42.6667 864 26.6667C960 10.6667 1056 -10.6667 1152 5.33333C1248 21.3333 1344 74.6667 1392 100L1440 125L1440 140L0 140Z"
-              fill="white"
-            />
-          </svg>
+      {/* Trust Indicators */}
+      <section className="bg-gray-50 dark:bg-zinc-800 py-8 border-y border-gray-200 dark:border-zinc-700">
+        <div className="container mx-auto px-4">
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-6 text-center">
+            <div className="flex flex-col items-center">
+              <div className="w-12 h-12 rounded-full bg-red-100 dark:bg-red-900/30 flex items-center justify-center mb-3">
+                <Shield className="w-6 h-6 text-red-600 dark:text-red-400" />
+              </div>
+              <h3 className="font-semibold">Fully Insured</h3>
+              <p className="text-sm text-gray-500 dark:text-gray-400">Complete coverage</p>
+            </div>
+            <div className="flex flex-col items-center">
+              <div className="w-12 h-12 rounded-full bg-red-100 dark:bg-red-900/30 flex items-center justify-center mb-3">
+                <Clock className="w-6 h-6 text-red-600 dark:text-red-400" />
+              </div>
+              <h3 className="font-semibold">Quick Service</h3>
+              <p className="text-sm text-gray-500 dark:text-gray-400">Fast turnaround times</p>
+            </div>
+            <div className="flex flex-col items-center">
+              <div className="w-12 h-12 rounded-full bg-red-100 dark:bg-red-900/30 flex items-center justify-center mb-3">
+                <Check className="w-6 h-6 text-red-600 dark:text-red-400" />
+              </div>
+              <h3 className="font-semibold">Verified Drivers</h3>
+              <p className="text-sm text-gray-500 dark:text-gray-400">Professional staff</p>
+            </div>
+            <div className="flex flex-col items-center">
+              <div className="w-12 h-12 rounded-full bg-red-100 dark:bg-red-900/30 flex items-center justify-center mb-3">
+                <Truck className="w-6 h-6 text-red-600 dark:text-red-400" />
+              </div>
+              <h3 className="font-semibold">UK Wide Coverage</h3>
+              <p className="text-sm text-gray-500 dark:text-gray-400">Nationwide service</p>
+            </div>
+          </div>
         </div>
       </section>
 

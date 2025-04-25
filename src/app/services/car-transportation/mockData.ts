@@ -125,8 +125,6 @@ export const mockCarTransportationData: CarTransportationPageData = {
         icon: "key"
       }
     ],
-    ctaText: "Book Transportation",
-    ctaUrl: "/contact"
   },
   services: {
     title: "Our Transportation Services",
@@ -344,7 +342,7 @@ export const mockCarTransportationData: CarTransportationPageData = {
     ]
   },
   cta: {
-    title: "Ready to Transport Your Vehicle?",
+    title: "Ready to Book a Car Recovery or Want to Transport Your Vehicle?",
     content: [
       {
         _type: "block",

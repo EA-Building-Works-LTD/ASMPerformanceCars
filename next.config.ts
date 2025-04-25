@@ -136,6 +136,9 @@ const nextConfig: NextConfig = {
     // Flatten the array
     return redirects.flat();
   },
+  publicRuntimeConfig: {
+    GOOGLE_MAPS_API_KEY: process.env.GOOGLE_MAPS_API_KEY_2025 || process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY_2025
+  },
 };
 
 export default nextConfig;

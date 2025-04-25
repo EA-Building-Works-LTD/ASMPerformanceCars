@@ -1,0 +1,19 @@
+# Files and directories to be ignored by Cursor
+
+# ALLOW env files (do not ignore)
+!.env
+!.env.*
+!.env.local
+!.env.production
+!.env.example
+
+# IGNORE these directories and files
+node_modules/
+dist/
+build/
+.git/
+.next/
+.github/
+.vscode/
+.idea/
+.DS_Store 
