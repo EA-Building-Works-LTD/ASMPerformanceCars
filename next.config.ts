@@ -109,14 +109,14 @@ const nextConfig: NextConfig = {
       
       // All supercar pages redirect to not-available - special case with parameter
       {
-        source: '/supercars-for-sale/:slug',
+        source: '/supercars-for-sale/:slug((?!not-available).+)',
         destination: '/supercars-for-sale/not-available',
-        permanent: true,
+        permanent: true
       },
       {
-        source: '/supercars-for-sale/:slug/',
+        source: '/supercars-for-sale/:slug((?!not-available).+)/',
         destination: '/supercars-for-sale/not-available',
-        permanent: true,
+        permanent: true
       },
       
       ...createRedirectPair('/terms-of-use', '/terms-conditions'),
