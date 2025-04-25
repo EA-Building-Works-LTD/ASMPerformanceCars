@@ -14,7 +14,7 @@ interface VehiclePageProps {
 
 // Generate metadata for the page
 export async function generateMetadata({ params }: VehiclePageProps): Promise<Metadata> {
-  const vehicle = await getVehicleBySlug(params.slug, 'used')
+  const vehicle = await getVehicleBySlug(params.slug, 'vehicle')
   
   if (!vehicle) {
     return {
@@ -50,7 +50,7 @@ export async function generateMetadata({ params }: VehiclePageProps): Promise<Me
 }
 
 export default async function UsedVehicleDetailPage({ params }: VehiclePageProps) {
-  const vehicle = await getVehicleBySlug(params.slug, 'used')
+  const vehicle = await getVehicleBySlug(params.slug, 'vehicle')
   
   if (!vehicle) {
     notFound()
@@ -62,27 +62,13 @@ export default async function UsedVehicleDetailPage({ params }: VehiclePageProps
   return (
     <Layout>
       <div className="container mx-auto px-4 py-8">
-        {/* Hero Section */}
-        <VehicleHero vehicle={vehicle} />
-
-        {/* Main Content Grid */}
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 mt-12">
-          {/* Left Column - Vehicle Details */}
-          <div className="lg:col-span-2">
-            <VehicleDetails vehicle={vehicle} />
-          </div>
-
-          {/* Right Column - Inquiry Form */}
-          <div className="lg:col-span-1">
-            <VehicleInquiryForm vehicle={vehicle} />
-          </div>
-        </div>
+        {/* Vehicle Detail Component */}
+        <VehicleDetail vehicle={vehicle} />
 
         {/* Related Vehicles Section */}
         <RelatedVehicles 
           vehicles={relatedVehicles} 
           title="Similar Used Cars" 
-          emptyMessage="We don't have similar used cars in stock right now."
         />
       </div>
       
