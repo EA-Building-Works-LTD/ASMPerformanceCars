@@ -42,7 +42,7 @@ interface BlogPost {
 
 export async function generateMetadata(): Promise<Metadata> {
   const baseMetadata: Metadata = {
-    title: 'Modified Cars Blog | ASM Performance Cars',
+    title: 'Modified Cars Blog',
     description: 'Expert advice, industry insights, and the latest news from the world of modified cars and used cars.'
   }
   
