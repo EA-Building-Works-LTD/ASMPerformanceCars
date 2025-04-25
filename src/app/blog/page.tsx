@@ -42,17 +42,16 @@ interface BlogPost {
 
 export async function generateMetadata(): Promise<Metadata> {
   const baseMetadata: Metadata = {
-    title: 'Performance Car Blog | ASM Performance Cars',
-    description: 'Expert advice, industry insights, and the latest news from the world of performance and luxury vehicles.'
+    title: 'Modified Cars Blog | ASM Performance Cars',
+    description: 'Expert advice, industry insights, and the latest news from the world of modified cars and used cars.'
   }
   
   return addCanonicalUrl(baseMetadata, '/blog')
 }
 
-function ClientBlogContent({ posts, featuredPost, secondaryFeatured, allPosts }: { 
+function ClientBlogContent({ posts, featuredPost, allPosts }: { 
   posts: BlogPost[], 
   featuredPost: BlogPost | null, 
-  secondaryFeatured: BlogPost[],
   allPosts: BlogPost[] 
 }) {
   return (
@@ -193,7 +192,7 @@ function ClientBlogContent({ posts, featuredPost, secondaryFeatured, allPosts }:
                         
                         return getAdjustedReadingTime(a) - getAdjustedReadingTime(b);
                       })
-                      .slice(0, 3)
+                      .slice(0, 5)
                       .map((post: BlogPost) => (
                         <Link
                           key={post._id}
@@ -229,55 +228,6 @@ function ClientBlogContent({ posts, featuredPost, secondaryFeatured, allPosts }:
                       ))}
                   </div>
                 </div>
-
-                {/* Secondary Featured Posts */}
-                {secondaryFeatured.map((post: BlogPost) => (
-                  <Link
-                    key={post._id}
-                    href={`/blog/${post.slug.current}`}
-                    className="group bg-gradient-to-br from-zinc-50 to-white rounded-2xl p-4 hover:shadow-lg transition-all border border-zinc-200 flex flex-col overflow-hidden"
-                  >
-                    <div className="flex gap-4">
-                      <div className="relative w-24 h-24 rounded-xl overflow-hidden flex-shrink-0">
-                        {post.mainImage ? (
-                          <Image
-                            src={urlForImage(post.mainImage).url()}
-                            alt={post.title}
-                            fill
-                            className="object-cover"
-                          />
-                        ) : (
-                          <div className="w-full h-full bg-gradient-to-br from-red-600 to-red-800"></div>
-                        )}
-                      </div>
-                      <div className="flex-1 min-w-0">
-                        <h3 className="font-bold mb-1 line-clamp-2 group-hover:text-red-600 transition-colors">
-                          {post.title}
-                        </h3>
-                        <div className="flex items-center text-xs text-zinc-500 gap-2 mb-1">
-                          <div className="flex items-center gap-1">
-                            <Calendar className="h-3 w-3" />
-                            <span>
-                              {format(
-                                new Date(post.publishedAt),
-                                "MMM d, yyyy"
-                              )}
-                            </span>
-                          </div>
-                          <span>•</span>
-                          <div className="flex items-center gap-1">
-                            <Clock className="h-3 w-3" />
-                            <span>
-                              {post.estimatedReadingTime
-                                ? `${post.estimatedReadingTime} min`
-                                : "5 min"}
-                            </span>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </Link>
-                ))}
               </div>
             </div>
           </div>
@@ -287,13 +237,6 @@ function ClientBlogContent({ posts, featuredPost, secondaryFeatured, allPosts }:
       {/* Main Blog Content Section */}
       <section className="py-16 bg-zinc-50">
         <div className="container mx-auto px-4">
-          <div className="flex flex-col md:flex-row md:items-center justify-between mb-12 gap-6">
-            <div className="flex items-center gap-3">
-              <div className="h-10 w-1.5 bg-red-600 rounded-full"></div>
-              <h2 className="text-2xl md:text-3xl font-bold">Latest Articles</h2>
-            </div>
-          </div>
-
           {/* Main content area with posts */}
           <BlogContent regularPosts={allPosts} />
         </div>
@@ -327,7 +270,6 @@ export default async function BlogPage() {
   
   // If we have posts, split them for featured and regular sections
   const featuredPost = posts.length > 0 ? posts[0] : null;
-  const secondaryFeatured = posts.length > 2 ? [posts[1], posts[2]] : [];
   
   // Pass ALL posts to the BlogContent component for display in Latest Articles
   // This ensures all published blogs are shown, not just those after the featured ones
@@ -398,8 +340,7 @@ export default async function BlogPage() {
       }>
         <ClientBlogContent 
           posts={posts} 
-          featuredPost={featuredPost} 
-          secondaryFeatured={secondaryFeatured} 
+          featuredPost={featuredPost}
           allPosts={allPosts} 
         />
       </Suspense>
