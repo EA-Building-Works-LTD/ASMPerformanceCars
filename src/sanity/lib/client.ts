@@ -20,7 +20,7 @@ export const urlForImage = (source: SanityImageSource) => {
 // Fetch all modified vehicles
 export async function getModifiedVehicles() {
   return client.fetch(`
-    *[_type == "modifiedVehicle"] | order(publishedAt desc) {
+    *[_type == "modifiedVehicle"] {
       _id,
       _type,
       title,
@@ -40,6 +40,7 @@ export async function getModifiedVehicles() {
       badges,
       extendedInfo,
       highlightedSpec,
+      status,
       "specifications": {
         "vehicle": {
           "make": make,
@@ -64,7 +65,14 @@ export async function getModifiedVehicles() {
           "torque": currentTorque
         }
       }
-    }
+    } | order(
+      select(
+        defined(status) && (status match ["In Stock", "Available", "in stock", "available"]) => 1,
+        defined(specifications.vehicle.status) && (specifications.vehicle.status match ["In Stock", "Available", "in stock", "available"]) => 1,
+        0
+      ) desc,
+      price desc
+    )
   `)
 }
 

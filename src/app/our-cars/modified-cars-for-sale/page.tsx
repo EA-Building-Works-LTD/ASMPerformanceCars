@@ -60,6 +60,22 @@ export default async function ModifiedCarsPage() {
   // Fetch modified vehicles from Sanity
   const vehicles = await getModifiedVehicles();
 
+  // Additional client-side sorting to ensure proper order (in-stock first, then by price descending)
+  const sortedVehicles = [...vehicles].sort((a, b) => {
+    const aStatus = (a.status || a.specifications?.vehicle?.status || '').toLowerCase();
+    const bStatus = (b.status || b.specifications?.vehicle?.status || '').toLowerCase();
+    
+    const aInStock = aStatus === 'in stock' || aStatus === 'available';
+    const bInStock = bStatus === 'in stock' || bStatus === 'available';
+    
+    // First sort by in-stock status
+    if (aInStock && !bInStock) return -1;
+    if (!aInStock && bInStock) return 1;
+    
+    // Then sort by price (highest first)
+    return (b.price || 0) - (a.price || 0);
+  });
+
   // Fetch SEO content specific to modified vehicles page
   const seoContent = await getSEOContent("modified");
 
@@ -69,16 +85,33 @@ export default async function ModifiedCarsPage() {
   return (
     <Layout seoContent={seoContent}>
       <div className="container mx-auto px-4 py-12 pt-24 md:pt-28">
-        {/* Hero Section */}
-        <div className="mb-16 text-center">
-          <h1 className="text-3xl md:text-5xl font-bold mb-6">
+        {/* Current Inventory Section */}
+        <div id="current-inventory" className="mb-20 scroll-mt-24">
+          <div className="flex items-center gap-3 mb-8">
+            <div className="h-10 w-1 bg-red-600 rounded-full"></div>
+            <h1 className="text-3xl font-bold">
+              {pageContent?.inventoryTitle || "Modified Cars For Sale"}
+            </h1>
+          </div>
+          <p className="text-lg text-gray-600 mb-10 max-w-3xl">
+            {pageContent?.inventoryDescription ||
+              "Browse our latest selection of modified cars available for immediate purchase. From subtle ECU remaps to complete engine builds, our modified cars are for customers who are after that little bit more than stock."}
+          </p>
+
+          {/* Vehicle listing with sorted vehicles */}
+          <VehicleList vehicles={sortedVehicles} />
+        </div>
+
+                {/* Hero Section */}
+                <div className="mb-16 text-center">
+          <h2 className="text-3xl md:text-5xl font-bold mb-6">
             {pageContent?.heroTitle || (
               <>
                 Premium <span className="text-red-600">Modified Cars</span> For
                 Sale
               </>
             )}
-          </h1>
+          </h2>
           <p className="text-lg text-gray-600 mb-10 max-w-3xl mx-auto">
             {pageContent?.heroDescription ||
               "Explore our handpicked collection of high-performance modified cars. We only take on the best examples of modified vehicles and have them professionally prepared for sale. We particularly specialise in BMW, Audi, SEAT, VW and Mercedes. With a focus on quality and performance, we are sure to have the perfect modified car for you."}
@@ -133,23 +166,6 @@ export default async function ModifiedCarsPage() {
               </p>
             </div>
           </div>
-        </div>
-
-        {/* Current Inventory Section */}
-        <div id="current-inventory" className="mb-20 scroll-mt-24">
-          <div className="flex items-center gap-3 mb-8">
-            <div className="h-10 w-1 bg-red-600 rounded-full"></div>
-            <h2 className="text-3xl font-bold">
-              {pageContent?.inventoryTitle || "Modified Cars For Sale"}
-            </h2>
-          </div>
-          <p className="text-lg text-gray-600 mb-10 max-w-3xl">
-            {pageContent?.inventoryDescription ||
-              "Browse our latest selection of modified cars available for immediate purchase. From subtle ECU remaps to complete engine builds, our modified cars are for customers who are after that little bit more than stock."}
-          </p>
-
-          {/* Vehicle listing */}
-          <VehicleList vehicles={vehicles} />
         </div>
 
         {/* Why Choose Section */}
