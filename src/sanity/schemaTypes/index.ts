@@ -32,6 +32,7 @@ import carTransportationPageType from './carTransportationPage'
 import carDetailingPageType from './carDetailingPage'
 import servicesPageType from './servicesPage'
 import { tableType } from '../schemas/table'
+import { redirectType } from './redirectType'
 
 export const schemaTypes = [
   // Content types
@@ -73,6 +74,7 @@ export const schemaTypes = [
   ctaType,
   seoContentType,
   seoType,
+  redirectType,
 ]
 
 export const schema: { types: SchemaTypeDefinition[] } = {
