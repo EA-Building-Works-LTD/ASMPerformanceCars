@@ -31,7 +31,7 @@ export async function generateMetadata({ params }: VehiclePageProps): Promise<Me
   const powerText = power ? ` | ${power}hp` : '';
 
   return {
-    title: `${vehicle.title}${powerText} | Modified Cars for Sale | ASM Performance Cars`,
+    title: `${vehicle.title} For Sale`,
     description: `View details of ${vehicle.title} at ASM Performance Cars. Year: ${vehicle.specifications?.vehicle?.year || vehicle.year}, Mileage: ${vehicle.specifications?.history?.mileage || vehicle.mileage} miles.`,
   }
 }

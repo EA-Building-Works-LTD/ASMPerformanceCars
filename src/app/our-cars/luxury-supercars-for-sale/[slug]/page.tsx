@@ -28,7 +28,7 @@ export async function generateMetadata({ params }: VehiclePageProps): Promise<Me
   }
 
   return {
-    title: `${vehicle.title} | Luxury & Supercars for Sale | ASM Performance Cars`,
+    title: `${vehicle.title} For Sale`,
     description: `View details of ${vehicle.title} at ASM Performance Cars. Year: ${vehicle.specifications?.vehicle?.year || vehicle.year}, Mileage: ${vehicle.specifications?.history?.mileage || vehicle.mileage} miles.`,
   }
 }
