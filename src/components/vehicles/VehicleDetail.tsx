@@ -182,7 +182,21 @@ export const VehicleDetail = ({ vehicle }: VehicleDetailProps) => {
   
   // Extract gallery images
   const galleryImages = vehicle.galleryImages || []
-  const allImages = [vehicle.mainImage, ...galleryImages].filter(Boolean)
+  
+  // Handle both old format (direct image) and new format (image with orientation)
+  const extractImage = (item: any) => {
+    // If the item has an image property, it's using the new format
+    if (item && item.image) {
+      return item.image
+    }
+    // Otherwise, assume it's directly the image
+    return item
+  }
+  
+  const allImages = [
+    vehicle.mainImage, 
+    ...galleryImages.map(item => extractImage(item))
+  ].filter(Boolean)
   
   // Open fullscreen gallery with the current image
   const openFullScreenGallery = () => {

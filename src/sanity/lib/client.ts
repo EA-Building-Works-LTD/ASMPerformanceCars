@@ -32,6 +32,7 @@ export async function getModifiedVehicles() {
       year,
       mileage,
       currentPower,
+      currentTorque,
       fuelType,
       engineSize,
       transmission,
@@ -57,6 +58,10 @@ export async function getModifiedVehicles() {
           "owners": vehicleHistory.owners,
           "serviceHistory": vehicleHistory.serviceHistory,
           "mot": vehicleHistory.mot
+        },
+        "performance": {
+          "power": currentPower,
+          "torque": currentTorque
         }
       }
     }
@@ -183,6 +188,7 @@ export async function getFeaturedVehicles() {
       year,
       mileage,
       currentPower,
+      currentTorque,
       fuelType,
       engineSize,
       transmission,
@@ -207,6 +213,10 @@ export async function getFeaturedVehicles() {
           "owners": vehicleHistory.owners,
           "serviceHistory": vehicleHistory.serviceHistory,
           "mot": vehicleHistory.mot
+        },
+        "performance": {
+          "power": coalesce(horsepower, currentPower),
+          "torque": currentTorque
         }
       }
     }
@@ -238,6 +248,8 @@ export async function getAllVehicles() {
         extendedInfo,
         highlightedSpec,
         status,
+        currentPower,
+        currentTorque,
         "specifications": {
           "vehicle": {
             "make": make,
@@ -256,6 +268,10 @@ export async function getAllVehicles() {
             "owners": vehicleHistory.owners,
             "serviceHistory": vehicleHistory.serviceHistory,
             "mot": vehicleHistory.mot
+          },
+          "performance": {
+            "power": coalesce(horsepower, currentPower),
+            "torque": currentTorque
           }
         }
       }
@@ -390,7 +406,8 @@ export async function getVehicleBySlug(slug: string, type: string) {
             "power": coalesce(horsepower, currentPower),
             "originalPower": originalPower,
             "powerIncrease": powerIncrease,
-            "stage": stage
+            "stage": stage,
+            "torque": currentTorque
           },
           "vehicle": {
             "make": make,
@@ -1480,6 +1497,8 @@ export async function getRelatedVehicles(vehicleMake: string, vehicleId: string,
         extendedInfo,
         highlightedSpec,
         status,
+        currentPower,
+        currentTorque,
         "specifications": {
           "vehicle": {
             "make": make,
@@ -1492,6 +1511,10 @@ export async function getRelatedVehicles(vehicleMake: string, vehicleId: string,
             "doors": doors,
             "color": color,
             "status": status
+          },
+          "performance": {
+            "power": coalesce(horsepower, currentPower),
+            "torque": currentTorque
           }
         }
       }

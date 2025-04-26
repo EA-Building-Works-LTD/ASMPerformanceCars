@@ -161,6 +161,46 @@ export default {
             },
           ],
         },
+        {
+          name: 'performance',
+          title: 'Performance',
+          type: 'object',
+          fields: [
+            {
+              name: 'power',
+              title: 'Power (HP)',
+              type: 'number',
+            },
+            {
+              name: 'torque',
+              title: 'Torque (lb-ft)',
+              type: 'number',
+            },
+            {
+              name: 'acceleration',
+              title: '0-60 mph (seconds)',
+              type: 'number',
+            },
+            {
+              name: 'topSpeed',
+              title: 'Top Speed (mph)',
+              type: 'number',
+            },
+            {
+              name: 'stage',
+              title: 'Tuning Stage',
+              type: 'string',
+              options: {
+                list: [
+                  { title: 'Stage 1', value: 'stage-1' },
+                  { title: 'Stage 2', value: 'stage-2' },
+                  { title: 'Stage 3', value: 'stage-3' },
+                  { title: 'Custom', value: 'custom' },
+                ]
+              }
+            }
+          ]
+        },
       ],
     },
   ],

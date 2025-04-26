@@ -301,13 +301,13 @@ export default async function CarTransportationPage() {
       {/* New Hero Section */}
       <section className="relative bg-gradient-to-br from-slate-900 to-black py-16 md:py-24 overflow-hidden">
         <div className="absolute inset-0 opacity-30 mix-blend-overlay">
-          <Image 
-            src={getImageUrl(pageData.hero?.backgroundImage, '/images/services/car-transport-hero.jpg')}
-            alt={pageData.hero?.backgroundImage?.alt || "Car transportation services"}
-            fill
+            <Image
+              src={getImageUrl(pageData.hero?.backgroundImage, '/images/services/car-transport-hero.jpg')}
+              alt={pageData.hero?.backgroundImage?.alt || "Car transportation services"}
+              fill
             priority
-            className="object-cover"
-          />
+              className="object-cover"
+            />
         </div>
         <div className="container mx-auto px-4 relative z-10">
           <div className="grid md:grid-cols-2 items-center">
@@ -316,11 +316,11 @@ export default async function CarTransportationPage() {
                 RELIABLE VEHICLE TRANSPORTATION
               </Badge>
               <h1 className="text-4xl md:text-5xl font-bold tracking-tight">
-                {pageData.hero?.title || 'Professional Car Transportation Services'}
-              </h1>
+            {pageData.hero?.title || 'Professional Car Transportation Services'}
+          </h1>
               <p className="text-lg text-gray-300">
                 {pageData.hero?.subtitle || 'Safe, secure and reliable vehicle transportation across the UK with instant price calculation'}
-              </p>
+          </p>
               <div className="flex flex-wrap gap-4 pt-4">
                 <a href="#process" className="hidden md:inline-block">
                   <Button className="cursor-pointer bg-gradient-to-r from-red-600 to-red-700 hover:from-red-700 hover:to-red-800 text-white px-6 py-6 h-auto text-lg">

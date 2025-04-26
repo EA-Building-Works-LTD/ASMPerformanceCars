@@ -167,6 +167,12 @@ export const modifiedVehicleType = defineType({
       validation: (Rule) => Rule.required(),
     }),
     defineField({
+      name: 'currentTorque',
+      title: 'Current Torque',
+      type: 'number',
+      description: 'Current vehicle torque in lb-ft after modifications',
+    }),
+    defineField({
       name: 'powerIncrease',
       title: 'Power Increase',
       type: 'number',
