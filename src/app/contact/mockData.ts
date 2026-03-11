@@ -19,7 +19,7 @@ export const mockContactData: ContactPageData = {
     title: "Our Contact Details",
     subtitle: "Multiple ways to get in touch with our team",
     address: "74 Co-operative St, Stafford ST16 3DA",
-    phone: "+44 7306 657 000",
+    phone: "+44 7874 003 228",
     email: "info@asmperformancecars.co.uk",
     openingHours: [
       {

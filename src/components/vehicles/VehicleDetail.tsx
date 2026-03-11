@@ -319,7 +319,7 @@ export const VehicleDetail = ({ vehicle }: VehicleDetailProps) => {
 
   useEffect(() => {
     if (typeof window === 'undefined') return
-    setWhatsappUrl(`https://wa.me/447306657000?text=I'm interested in ${encodeURIComponent(vehicle.title)}. ${encodeURIComponent(window.location.href)}`)
+    setWhatsappUrl(`https://wa.me/447874003228?text=I'm interested in ${encodeURIComponent(vehicle.title)}. ${encodeURIComponent(window.location.href)}`)
   }, [vehicle.title])
 
   // Helper function to get breadcrumb items based on vehicle type
@@ -640,7 +640,7 @@ export const VehicleDetail = ({ vehicle }: VehicleDetailProps) => {
               chosenVehicle={vehicle.title}
             />
             <div className="text-center text-gray-400 text-sm my-1">or call us on</div>
-            <div className="text-center text-white text-2xl font-bold mb-4">07306 657 000</div>
+            <div className="text-center text-white text-2xl font-bold mb-4">07874 003 228</div>
             <div className="grid grid-cols-2 gap-4">
               <Link 
                 href="#" 
