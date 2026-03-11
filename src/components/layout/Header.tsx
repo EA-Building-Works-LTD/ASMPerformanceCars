@@ -9,6 +9,7 @@ import { Sheet, SheetContent, SheetTrigger } from '@/components/ui/custom-sheet'
 import { Button } from '@/components/ui/button'
 import { Menu, Phone, X, Search, ChevronDown, ChevronRight } from 'lucide-react'
 import { SearchModal } from '@/components/search/SearchModal'
+import { fetchSiteSettings } from '@/lib/sanity'
 
 // Define props type for custom motion components
 type MotionDivProps = React.ComponentProps<typeof motion.div>;
@@ -124,6 +125,7 @@ export const Header = () => {
   const [searchModalOpen, setSearchModalOpen] = useState(false)
   const [expandedMobileItems, setExpandedMobileItems] = useState<string[]>([])
   const timeoutRef = useRef<NodeJS.Timeout | null>(null)
+  const [phoneNumber, setPhoneNumber] = useState('+44 7874 003 228')
 
   useEffect(() => {
     const handleScroll = () => {
@@ -133,6 +135,23 @@ export const Header = () => {
     window.addEventListener('scroll', handleScroll)
     return () => {
       window.removeEventListener('scroll', handleScroll)
+    }
+  }, [])
+
+  useEffect(() => {
+    let isMounted = true
+
+    fetchSiteSettings()
+      .then((settings) => {
+        if (!isMounted || !settings?.phoneNumber) return
+        setPhoneNumber(settings.phoneNumber)
+      })
+      .catch((error) => {
+        console.error('Failed to load site settings for header:', error)
+      })
+
+    return () => {
+      isMounted = false
     }
   }, [])
 
@@ -338,14 +357,17 @@ export const Header = () => {
                     >
                       <Search className="w-5 h-5" aria-hidden="true" />
                     </Button>
-                    <a href="tel:+447306657000" className="focus:outline-none focus:ring-2 focus:ring-red-600 focus:ring-offset-2 rounded-full">
+                    <a
+                      href={`tel:${phoneNumber.replace(/\s+/g, '')}`}
+                      className="focus:outline-none focus:ring-2 focus:ring-red-600 focus:ring-offset-2 rounded-full"
+                    >
                       <Button 
                         size="sm" 
                         variant="outline" 
                         className="rounded-full border-red-600 text-red-600 hover:bg-red-600 hover:text-white focus:bg-red-600 focus:text-white"
-                        aria-label="Call +44 7306 657 000"
+                        aria-label={`Call ${phoneNumber}`}
                       >
-                        <Phone className="mr-2 w-4 h-4" aria-hidden="true" /> +44 7306 657 000
+                        <Phone className="mr-2 w-4 h-4" aria-hidden="true" /> {phoneNumber}
                       </Button>
                     </a>
                   </div>

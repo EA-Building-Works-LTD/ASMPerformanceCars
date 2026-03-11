@@ -9,4 +9,21 @@ export const client = createClient({
   dataset,
   apiVersion,
   useCdn: process.env.NODE_ENV === 'production',
-}) 
+})
+
+type SiteSettings = {
+  phoneNumber?: string
+  contactEmail?: string
+}
+
+export async function fetchSiteSettings(): Promise<SiteSettings | null> {
+  try {
+    const settings = await client.fetch<SiteSettings>(
+      `*[_type == "siteSettings"][0]{phoneNumber, contactEmail}`
+    )
+    return settings ?? null
+  } catch (error) {
+    console.error('Error fetching site settings from Sanity:', error)
+    return null
+  }
+}

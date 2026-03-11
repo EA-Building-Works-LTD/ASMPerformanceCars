@@ -140,7 +140,20 @@ export const siteSettingsType = defineType({
           type: 'url'
         })
       ]
-    })
+    }),
+    defineField({
+      name: 'phoneNumber',
+      title: 'Primary Phone Number',
+      type: 'string',
+      description: 'Main contact phone number shown in the header and footer (e.g., +44 7306 657 000)',
+      validation: Rule => Rule.required()
+    }),
+    defineField({
+      name: 'contactEmail',
+      title: 'Contact Email',
+      type: 'string',
+      description: 'Primary contact email address (e.g., info@asmperformancecars.co.uk)',
+    }),
   ],
   preview: {
     select: {

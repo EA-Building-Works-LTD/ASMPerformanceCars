@@ -10,6 +10,7 @@ import Image from 'next/image'
 import { SEOContent } from '@/components/home/SEOContent'
 import { FooterAd } from '@/components/layout/FooterAd'
 import { toast } from '@/components/ui/use-toast'
+import { fetchSiteSettings } from '@/lib/sanity'
 
 interface FooterProps {
   seoContent?: any
@@ -21,6 +22,8 @@ export const Footer = ({ seoContent }: FooterProps) => {
   const [email, setEmail] = useState('')
   const [isLoading, setIsLoading] = useState(false)
   const [isSubmitted, setIsSubmitted] = useState(false)
+  const [phoneNumber, setPhoneNumber] = useState('+44 7306 657 000')
+  const [contactEmail, setContactEmail] = useState('info@asmperformancecars.co.uk')
   
   // Form validation
   const isValidEmail = (email: string) => {
@@ -103,6 +106,29 @@ export const Footer = ({ seoContent }: FooterProps) => {
       setIsLoading(false)
     }
   }
+
+  // Load global contact details from Sanity
+  useEffect(() => {
+    let isMounted = true
+
+    fetchSiteSettings()
+      .then((settings) => {
+        if (!isMounted || !settings) return
+        if (settings.phoneNumber) {
+          setPhoneNumber(settings.phoneNumber)
+        }
+        if (settings.contactEmail) {
+          setContactEmail(settings.contactEmail)
+        }
+      })
+      .catch((error) => {
+        console.error('Failed to load site settings for footer:', error)
+      })
+
+    return () => {
+      isMounted = false
+    }
+  }, [])
   
   // Determine which page we're on for the SEO content
   let route = '';
@@ -237,21 +263,21 @@ export const Footer = ({ seoContent }: FooterProps) => {
                 <li className="flex items-center">
                   <Phone className="w-5 h-5 text-red-500 mr-3 flex-shrink-0" />
                   <a 
-                    href="tel:+447306657000" 
+                    href={`tel:${phoneNumber.replace(/\s+/g, '')}`} 
                     className="text-gray-400 hover:text-red-400 transition-colors"
                     suppressHydrationWarning
                   >
-                    +44 7306 657 000
+                    {phoneNumber}
                   </a>
                 </li>
                 <li className="flex items-center">
                   <Mail className="w-5 h-5 text-red-500 mr-3 flex-shrink-0" />
                   <a 
-                    href="mailto:info@asmperformancecars.co.uk" 
+                    href={`mailto:${contactEmail}`} 
                     className="text-gray-400 hover:text-red-400 transition-colors"
                     suppressHydrationWarning
                   >
-                    info@asmperformancecars.co.uk
+                    {contactEmail}
                   </a>
                 </li>
                 <li className="flex items-start">
