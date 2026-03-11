@@ -2,14 +2,15 @@ import { Layout } from '@/components/layout/Layout'
 import { Metadata } from 'next'
 import { BlogSearchResults } from '@/components/blog/BlogSearchResults'
 
-type Props = {
-  searchParams: {
-    q?: string;
-  };
+type SearchParams = {
+  q?: string;
 };
 
-export function generateMetadata({ searchParams }: Props): Metadata {
-  const query = searchParams.q || ''
+export async function generateMetadata(
+  { searchParams }: { searchParams: Promise<SearchParams> }
+): Promise<Metadata> {
+  const { q } = await searchParams
+  const query = q || ''
   
   return {
     title: query 
@@ -25,12 +26,15 @@ export function generateMetadata({ searchParams }: Props): Metadata {
       description: query 
         ? `Find articles about ${query} in our performance car blog.` 
         : 'Search our blog for articles about performance cars, modifications, and automotive excellence.',
-    }
+    },
   }
 }
 
-export default function BlogSearchPage({ searchParams }: Props) {
-  const query = searchParams.q || ''
+export default async function BlogSearchPage(
+  { searchParams }: { searchParams: Promise<SearchParams> }
+) {
+  const { q } = await searchParams
+  const query = q || ''
   
   return (
     <Layout>

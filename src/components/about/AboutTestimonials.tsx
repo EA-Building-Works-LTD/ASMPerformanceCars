@@ -3,7 +3,6 @@
 import React from 'react';
 import Image from 'next/image';
 import { Star } from 'lucide-react';
-import { motion } from 'framer-motion';
 
 interface Testimonial {
   name: string;
@@ -34,12 +33,8 @@ export default function AboutTestimonials({
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
           {testimonials.map((testimonial, index) => (
-            <motion.div
+            <div
               key={index}
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, margin: "-50px" }}
-              transition={{ duration: 0.5, delay: index * 0.1 }}
               className="bg-white dark:bg-zinc-800 p-6 rounded-lg shadow-md flex flex-col"
             >
               <div className="mb-4 relative">
@@ -86,7 +81,7 @@ export default function AboutTestimonials({
                   </div>
                 )}
               </div>
-            </motion.div>
+            </div>
           ))}
         </div>
       </div>

@@ -53,12 +53,10 @@ async function getPostBySlug(slug: string) {
 
 /* ---------- metadata ---------- */
 
-export async function generateMetadata({
-  params,
-}: {
-  params: { slug: string };
-}): Promise<Metadata> {
-  const { slug } = params;
+export async function generateMetadata(
+  { params }: { params: Promise<{ slug: string }> }
+): Promise<Metadata> {
+  const { slug } = await params;
   const post = await getPostBySlug(slug);
 
   if (!post) {
@@ -95,12 +93,10 @@ export async function generateMetadata({
 
 /* ---------- page ---------- */
 
-export default async function BlogPostPage({
-  params,
-}: {
-  params: { slug: string };
-}) {
-  const { slug } = params;
+export default async function BlogPostPage(
+  { params }: { params: Promise<{ slug: string }> }
+) {
+  const { slug } = await params;
 
   const post = await getPostBySlug(slug);
   const ads = (await getActiveAds()) as BlogAd[];

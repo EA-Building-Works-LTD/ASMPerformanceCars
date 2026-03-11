@@ -6,18 +6,15 @@ import { VehicleDetail } from '@/components/vehicles/VehicleDetail'
 import { RelatedVehicles } from '@/components/vehicles/RelatedVehicles'
 import { Metadata } from 'next'
 
-interface VehiclePageProps {
-  params: Promise<{
-    slug: string
-  }> | {
-    slug: string
-  }
+interface VehiclePageParams {
+  slug: string
 }
 
 // Generate metadata for the page
-export async function generateMetadata({ params }: VehiclePageProps): Promise<Metadata> {
-  const resolvedParams = await params;
-  const slug = resolvedParams.slug;
+export async function generateMetadata(
+  { params }: { params: Promise<VehiclePageParams> }
+): Promise<Metadata> {
+  const { slug } = await params;
   const vehicle = await getVehicleBySlug(slug, 'luxuryVehicle')
   
   if (!vehicle) {
@@ -33,9 +30,10 @@ export async function generateMetadata({ params }: VehiclePageProps): Promise<Me
   }
 }
 
-export default async function LuxuryVehicleDetailPage({ params }: VehiclePageProps) {
-  const resolvedParams = await params;
-  const slug = resolvedParams.slug;
+export default async function LuxuryVehicleDetailPage(
+  { params }: { params: Promise<VehiclePageParams> }
+) {
+  const { slug } = await params;
   const vehicle = await getVehicleBySlug(slug, 'luxuryVehicle')
   
   if (!vehicle) {

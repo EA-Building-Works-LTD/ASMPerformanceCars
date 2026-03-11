@@ -3,13 +3,33 @@
 import React, { useState, useEffect } from 'react'
 import Image from 'next/image'
 import Link from 'next/link'
-import { motion, AnimatePresence } from 'framer-motion'
 import { Button } from '@/components/ui/button'
 import { ChevronLeft, ChevronRight } from 'lucide-react'
 import { urlForImage } from '@/sanity/lib/client'
 
+interface HeroSlide {
+  _id?: string
+  id?: string
+  title: string
+  subtitle?: string
+  textColor?: string
+  overlayColor?: string
+  textAlignment?: string
+  textPosition?: string
+  animation?: string
+  active?: boolean
+  image?: any
+  mobileImage?: any
+  buttonText?: string
+  buttonLink?: string
+  buttonStyle?: string
+  secondaryButtonText?: string
+  secondaryButtonLink?: string
+  secondaryButtonStyle?: string
+}
+
 interface HeroProps {
-  slides?: unknown[]
+  slides?: HeroSlide[]
 }
 
 // Fallback slide if no slides are available from Sanity
@@ -27,7 +47,7 @@ const fallbackSlide = {
 
 export const Hero = ({ slides = [] }: HeroProps) => {
   // Use Sanity slides or fallback to a default slide
-  const displaySlides = slides.length > 0 ? slides : [fallbackSlide]
+  const displaySlides: HeroSlide[] = slides.length > 0 ? slides : [fallbackSlide]
   
   const [currentSlide, setCurrentSlide] = useState(0)
   const [autoplay, setAutoplay] = useState(true)
@@ -56,48 +76,7 @@ export const Hero = ({ slides = [] }: HeroProps) => {
     setCurrentSlide((prev) => (prev + 1) % displaySlides.length)
   }
 
-  const getAnimationVariants = (animation: string) => {
-    switch (animation) {
-      case 'fade':
-        return {
-          initial: { opacity: 0 },
-          animate: { opacity: 1, transition: { duration: 0.8 } },
-          exit: { opacity: 0, transition: { duration: 0.5 } },
-        }
-      case 'slideUp':
-        return {
-          initial: { opacity: 0, y: 50 },
-          animate: { opacity: 1, y: 0, transition: { duration: 0.8 } },
-          exit: { opacity: 0, y: -50, transition: { duration: 0.5 } },
-        }
-      case 'slideLeft':
-        return {
-          initial: { opacity: 0, x: 100 },
-          animate: { opacity: 1, x: 0, transition: { duration: 0.8 } },
-          exit: { opacity: 0, x: -100, transition: { duration: 0.5 } },
-        }
-      case 'slideRight':
-        return {
-          initial: { opacity: 0, x: -100 },
-          animate: { opacity: 1, x: 0, transition: { duration: 0.8 } },
-          exit: { opacity: 0, x: 100, transition: { duration: 0.5 } },
-        }
-      case 'zoomIn':
-        return {
-          initial: { opacity: 0, scale: 0.9 },
-          animate: { opacity: 1, scale: 1, transition: { duration: 0.8 } },
-          exit: { opacity: 0, scale: 1.1, transition: { duration: 0.5 } },
-        }
-      default:
-        return {
-          initial: { opacity: 0 },
-          animate: { opacity: 1, transition: { duration: 0.8 } },
-          exit: { opacity: 0, transition: { duration: 0.5 } },
-        }
-    }
-  }
-
-  const getTextAlignmentClass = (alignment: string) => {
+  const getTextAlignmentClass = (alignment?: string) => {
     switch (alignment) {
       case 'left':
         return 'text-left items-start'
@@ -108,7 +87,7 @@ export const Hero = ({ slides = [] }: HeroProps) => {
     }
   }
 
-  const getTextPositionClass = (position: string) => {
+  const getTextPositionClass = (position?: string) => {
     switch (position) {
       case 'top':
         return 'justify-start pt-24'
@@ -122,21 +101,15 @@ export const Hero = ({ slides = [] }: HeroProps) => {
   const slide = displaySlides[currentSlide]
   const textAlignmentClass = getTextAlignmentClass(slide.textAlignment)
   const textPositionClass = getTextPositionClass(slide.textPosition)
-  const animationVariants = getAnimationVariants(slide.animation)
 
   return (
     <div className="relative h-[85vh] md:h-[80vh] overflow-hidden">
       {/* Slides */}
       <div className="absolute inset-0 w-full h-full">
-        <AnimatePresence mode="wait">
-          <motion.div
-            key={slide._id || slide.id}
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            transition={{ duration: 0.7 }}
-            className="absolute inset-0 w-full h-full"
-          >
+        <div
+          key={slide._id || slide.id}
+          className="absolute inset-0 w-full h-full"
+        >
             {/* Overlay */}
             <div 
               className="absolute inset-0 z-10" 
@@ -188,18 +161,11 @@ export const Hero = ({ slides = [] }: HeroProps) => {
             <div className={`absolute inset-0 z-20 flex flex-col ${textPositionClass}`}>
               <div className="container mx-auto px-4">
                 <div className={`flex flex-col max-w-4xl ${textAlignmentClass} space-y-4 md:space-y-6 px-4 md:pl-20`}>
-                  <motion.h2
-                    {...animationVariants}
-                    transition={{ duration: 0.8, delay: 0.2 }}
-                    className={`text-3xl md:text-6xl font-bold text-${slide.textColor}`}
-                  >
+                  <h2 className={`text-3xl md:text-6xl font-bold text-${slide.textColor}`}>
                     {slide.title}
-                  </motion.h2>
+                  </h2>
                   
-                  <motion.div
-                    {...animationVariants}
-                    transition={{ duration: 0.8, delay: 0.4 }}
-                  >
+                  <div>
                     <p className={`text-base md:text-2xl font-light mb-6 md:mb-8 text-${slide.textColor} max-w-2xl`}>
                       {slide.subtitle}
                     </p>
@@ -211,7 +177,7 @@ export const Hero = ({ slides = [] }: HeroProps) => {
                           className={`rounded-full text-sm md:text-base ${slide.buttonStyle || 'bg-red-600 hover:bg-red-700 text-white'} px-5 md:px-8 py-2 md:py-6`}
                           size="default"
                         >
-                          <Link href={slide.buttonLink}>
+                          <Link href={slide.buttonLink || '#'}>
                             {slide.buttonText}
                           </Link>
                         </Button>
@@ -224,18 +190,17 @@ export const Hero = ({ slides = [] }: HeroProps) => {
                           className={`rounded-full text-sm md:text-base border-2 ${slide.secondaryButtonStyle || `border-${slide.textColor} text-${slide.textColor} bg-transparent hover:bg-white/10`} px-5 md:px-8 py-2 md:py-6`}
                           size="default"
                         >
-                          <Link href={slide.secondaryButtonLink}>
+                          <Link href={slide.secondaryButtonLink || '#'}>
                             {slide.secondaryButtonText}
                           </Link>
                         </Button>
                       )}
                     </div>
-                  </motion.div>
+                  </div>
                 </div>
               </div>
             </div>
-          </motion.div>
-        </AnimatePresence>
+        </div>
       </div>
       
       {/* Navigation Controls */}

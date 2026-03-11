@@ -1,4 +1,5 @@
 import { getServerSideSitemap } from 'next-sitemap';
+import type { ISitemapField } from 'next-sitemap';
 import { client } from '@/sanity/lib/client';
 
 // Configure this route as static for compatibility with Vercel deployment
@@ -7,10 +8,21 @@ export const dynamic = 'force-static';
 // Add cache control for this route (revalidate every 4 hours)
 export const revalidate = 14400;
 
+// Define the BlogPost interface
+interface BlogPost {
+  _id: string
+  title?: string
+  slug?: {
+    current: string
+  }
+  publishedAt?: string
+  _updatedAt?: string
+}
+
 export async function GET() {
   try {
     // Fetch all blog posts from Sanity
-    const posts = await client.fetch(`
+    const posts = await client.fetch<BlogPost[]>(`
       *[_type == "post"] {
         _id,
         title,
@@ -24,7 +36,7 @@ export async function GET() {
     const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://asmperformancecars.co.uk';
     
     // Create sitemap entries for each blog post
-    const sitemapEntries = posts.map((post: unknown) => {
+    const sitemapEntries: ISitemapField[] = posts.map((post: BlogPost) => {
       // Create the full URL
       const url = `${baseUrl}/blog/${post.slug?.current || post._id}`;
       
@@ -39,7 +51,7 @@ export async function GET() {
         loc: url,
         lastmod: lastModified,
         // Blog posts change less frequently
-        changefreq: 'weekly',
+        changefreq: 'weekly' as const,
         // Medium-high priority for blog posts
         priority: 0.7,
       };
@@ -52,4 +64,4 @@ export async function GET() {
     // Return an empty sitemap if there's an error
     return getServerSideSitemap([]);
   }
-} 
+}

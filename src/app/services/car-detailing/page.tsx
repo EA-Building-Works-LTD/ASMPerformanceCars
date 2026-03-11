@@ -17,7 +17,7 @@ import { CarDetailingPageClient } from '@/app/services/car-detailing/CarDetailin
 export const revalidate = 3600 // Revalidate every hour
 
 // Helper function to get image URL with robust fallback handling
-const getImageUrl = (image: unknown, fallbackPath: string): string => {
+const getImageUrl = (image: any, fallbackPath: string): string => {
   try {
     // Case 1: No image data provided
     if (!image) return fallbackPath;
@@ -49,44 +49,41 @@ const getImageUrl = (image: unknown, fallbackPath: string): string => {
   }
 };
 
-// Deep merge function to combine Sanity data with mock data
-function deepMerge(target: unknown, source: unknown): any {
-  // If no source data is provided, use the target (mock) data
-  if (!source) return target;
+// Helper function to deep merge mock data with Sanity data
+function deepMerge<T>(fallback: T, data: T | null): T {
+  if (!data) return fallback;
   
-  // Create a new object to avoid mutating the target
-  const output = { ...target } as any;
+  // If data is not an object or is null, return it as is
+  if (typeof data !== 'object' || data === null) {
+    return data;
+  }
   
-  // Loop through the keys in the source (Sanity) data
-  Object.keys(source as object).forEach(key => {
-    const typedKey = key as keyof any;
-    const sourceValue = source[typedKey];
-    
-    // Skip null/undefined values from Sanity
-    if (sourceValue === null || sourceValue === undefined) return;
-    
-    // For arrays from Sanity, replace the entire mock array
-    if (Array.isArray(sourceValue)) {
-      (output as any)[key] = sourceValue;
-    }
-    // For nested objects, recursively merge
-    else if (
-      typeof sourceValue === 'object' && 
-      !Array.isArray(sourceValue) && 
-      sourceValue !== null &&
-      typeof (output as any)[key] === 'object' &&
-      !Array.isArray((output as any)[key]) &&
-      (output as any)[key] !== null
-    ) {
-      (output as any)[key] = deepMerge((output as any)[key], sourceValue);
-    }
-    // For primitive values or complete object replacements
-    else {
-      (output as any)[key] = sourceValue;
-    }
-  });
+  // Create a copy of fallback
+  const result = { ...fallback } as any;
   
-  return output;
+  // Merge each property from data
+  for (const key in data) {
+    if (data.hasOwnProperty(key)) {
+      const fallbackValue = (fallback as any)[key];
+      const dataValue = (data as any)[key];
+      
+      // If both are objects, recursively merge
+      if (
+        typeof fallbackValue === 'object' &&
+        fallbackValue !== null &&
+        typeof dataValue === 'object' &&
+        dataValue !== null &&
+        !Array.isArray(dataValue)
+      ) {
+        result[key] = deepMerge(fallbackValue, dataValue);
+      } else if (dataValue !== undefined && dataValue !== null) {
+        // Otherwise, use the data value if it exists
+        result[key] = dataValue;
+      }
+    }
+  }
+  
+  return result;
 }
 
 export async function generateMetadata(): Promise<Metadata> {
@@ -278,7 +275,7 @@ const renderRating = (rating: number) => {
 export default async function CarDetailingPage() {
   // Fetch data from Sanity
   const sanityData = await getCarDetailingPageData()
-  const pageData = deepMerge(mockCarDetailingData, sanityData)
+  const pageData = sanityData || mockCarDetailingData
 
   return <CarDetailingPageClient pageData={pageData} />
-} 
+}

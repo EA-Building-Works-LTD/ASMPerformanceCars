@@ -78,8 +78,11 @@ async function getCategoryPosts(categoryTitle: string) {
 }
 
 // Generate metadata for the category page
-export async function generateMetadata({ params }: { params: { slug: string } }): Promise<Metadata> {
-  const category = await getCategory(params.slug)
+export async function generateMetadata(
+  { params }: { params: Promise<{ slug: string }> }
+): Promise<Metadata> {
+  const { slug } = await params
+  const category = await getCategory(slug)
   
   if (!category) {
     return {
@@ -94,7 +97,7 @@ export async function generateMetadata({ params }: { params: { slug: string } })
     openGraph: {
       title: `${category.title} Articles | ASM Performance Cars Blog`,
       description: category.description || `Read all articles about ${category.title} from ASM Performance Cars.`,
-      url: `https://asmperformancecars.co.uk/blog/category/${params.slug}`,
+      url: `https://asmperformancecars.co.uk/blog/category/${slug}`,
       siteName: 'ASM Performance Cars',
       locale: 'en_GB',
       type: 'website',
@@ -102,11 +105,14 @@ export async function generateMetadata({ params }: { params: { slug: string } })
   }
   
   // Add canonical URL to the metadata
-  return addCanonicalUrl(baseMetadata, `/blog/category/${params.slug}`);
+  return addCanonicalUrl(baseMetadata, `/blog/category/${slug}`);
 }
 
-export default async function CategoryPage({ params }: { params: { slug: string } }) {
-  const category = await getCategory(params.slug)
+export default async function CategoryPage(
+  { params }: { params: Promise<{ slug: string }> }
+) {
+  const { slug } = await params
+  const category = await getCategory(slug)
   
   if (!category) {
     notFound()

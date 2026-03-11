@@ -63,7 +63,7 @@ export const ConsignmentIntro: React.FC<ConsignmentIntroProps> = ({
           <div className="lg:w-1/2">
             {content && (
               <div className="prose max-w-none prose-headings:text-gray-900 prose-p:text-gray-700 prose-a:text-red-600 prose-a:no-underline hover:prose-a:underline prose-li:text-gray-700">
-                <PortableText value={content} components={portableTextComponents} />
+                <PortableText value={content as any} components={portableTextComponents} />
               </div>
             )}
           </div>

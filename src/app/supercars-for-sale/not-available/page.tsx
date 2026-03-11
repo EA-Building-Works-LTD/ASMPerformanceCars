@@ -36,7 +36,6 @@ function StatusBadge({ status }: { status: string }) {
     textColor = "text-yellow-800";
     displayText = "Pending Collection";
   } else if (statusLower === "coming soon" || statusLower === "coming-soon") {
-    // Orange color for Coming Soon status - more vibrant to match the design
     bgColor = "bg-red-600 hover:bg-red-700";
     textColor = "text-white";
     displayText = "Coming Soon";
@@ -59,7 +58,7 @@ function StatusBadge({ status }: { status: string }) {
 }
 
 // Helper function to get the correct URL path based on vehicle type
-function getVehicleUrl(vehicle: unknown) {
+function getVehicleUrl(vehicle: any) {
   // Check the vehicle type and return the appropriate URL path
   if (vehicle._type === "modifiedVehicle") {
     return `/our-cars/modified-cars-for-sale/${vehicle.slug.current}`;
@@ -74,7 +73,7 @@ function getVehicleUrl(vehicle: unknown) {
 }
 
 // Vehicle Card component - Matching the homepage design
-const VehicleCard = ({ vehicle, index = 0 }: { vehicle: unknown, index?: number }) => {
+const VehicleCard = ({ vehicle, index = 0 }: { vehicle: any, index?: number }) => {
   // Create default badges from vehicle attributes if no badges provided
   const defaultBadges = [];
   if (vehicle.featured) defaultBadges.push("Featured");
@@ -388,4 +387,4 @@ export default function VehicleNoLongerAvailable() {
       </section>
     </Layout>
   );
-} 
+}

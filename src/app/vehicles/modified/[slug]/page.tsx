@@ -4,14 +4,15 @@ import { Layout } from '@/components/layout/Layout'
 import { getVehicleBySlug } from '@/sanity/lib/client'
 import { VehicleDetail } from '@/components/vehicles/VehicleDetail'
 
-interface VehiclePageProps {
-  params: {
-    slug: string
-  }
+interface VehiclePageParams {
+  slug: string
 }
 
-export default async function VehiclePage({ params }: VehiclePageProps) {
-  const vehicle = await getVehicleBySlug(params.slug, 'modifiedVehicle')
+export default async function VehiclePage(
+  { params }: { params: Promise<VehiclePageParams> }
+) {
+  const { slug } = await params
+  const vehicle = await getVehicleBySlug(slug, 'modifiedVehicle')
   
   if (!vehicle) {
     notFound()
@@ -26,8 +27,11 @@ export default async function VehiclePage({ params }: VehiclePageProps) {
   )
 }
 
-export async function generateMetadata({ params }: VehiclePageProps) {
-  const vehicle = await getVehicleBySlug(params.slug, 'modifiedVehicle')
+export async function generateMetadata(
+  { params }: { params: Promise<VehiclePageParams> }
+) {
+  const { slug } = await params
+  const vehicle = await getVehicleBySlug(slug, 'modifiedVehicle')
   
   if (!vehicle) {
     return {

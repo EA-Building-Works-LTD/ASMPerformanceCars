@@ -73,7 +73,7 @@ export const ExchangeBenefits: React.FC<ExchangeBenefitsProps> = ({
                 <h3 className="text-xl font-bold text-gray-900 mb-3">{benefit.title}</h3>
                 {benefit.description && (
                   <div className="text-gray-600 prose-sm">
-                    <PortableText value={benefit.description} components={portableTextComponents} />
+                    <PortableText value={benefit.description as any} components={portableTextComponents} />
                   </div>
                 )}
               </div>

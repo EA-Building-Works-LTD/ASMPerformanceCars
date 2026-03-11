@@ -54,7 +54,7 @@ export default function ContactFAQ({ title, subtitle, faqs }: ContactFAQProps) {
                 )}
               >
                 <div className="pt-2">
-                  <PortableText value={faq.answer} />
+                  <PortableText value={faq.answer as any} />
                 </div>
               </div>
             </div>

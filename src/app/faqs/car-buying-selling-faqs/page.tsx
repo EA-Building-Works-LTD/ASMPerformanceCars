@@ -83,32 +83,35 @@ export default function CarBuyingSellingFAQsPage() {
           {/* FAQ Accordion */}
           <div className="space-y-4">
             {carBuyingSellingFaqs.map((faq) => (
-              <motion.div 
+              <div 
                 key={faq.id}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.5 }}
-                viewport={{ once: true }}
                 className="border border-gray-200 rounded-lg overflow-hidden"
               >
-                <button
-                  onClick={() => toggleFAQ(faq.id)}
-                  className="w-full flex justify-between items-center p-5 bg-white hover:bg-gray-50 text-left"
+                <motion.div
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.5 }}
+                  viewport={{ once: true }}
                 >
-                  <h3 className="text-lg font-semibold pr-8">{faq.question}</h3>
-                  {openFAQ === faq.id ? (
-                    <ChevronUp className="w-5 h-5 text-gray-500 flex-shrink-0" />
-                  ) : (
-                    <ChevronDown className="w-5 h-5 text-gray-500 flex-shrink-0" />
+                  <button
+                    onClick={() => toggleFAQ(faq.id)}
+                    className="w-full flex justify-between items-center p-5 bg-white hover:bg-gray-50 text-left"
+                  >
+                    <h3 className="text-lg font-semibold pr-8">{faq.question}</h3>
+                    {openFAQ === faq.id ? (
+                      <ChevronUp className="w-5 h-5 text-gray-500 flex-shrink-0" />
+                    ) : (
+                      <ChevronDown className="w-5 h-5 text-gray-500 flex-shrink-0" />
+                    )}
+                  </button>
+                  
+                  {openFAQ === faq.id && (
+                    <div className="p-5 bg-gray-50 border-t border-gray-200">
+                      <p className="text-gray-700 leading-relaxed">{faq.answer}</p>
+                    </div>
                   )}
-                </button>
-                
-                {openFAQ === faq.id && (
-                  <div className="p-5 bg-gray-50 border-t border-gray-200">
-                    <p className="text-gray-700 leading-relaxed">{faq.answer}</p>
-                  </div>
-                )}
-              </motion.div>
+                </motion.div>
+              </div>
             ))}
           </div>
           
@@ -148,4 +151,4 @@ export default function CarBuyingSellingFAQsPage() {
       </section>
     </>
   );
-} 
+}

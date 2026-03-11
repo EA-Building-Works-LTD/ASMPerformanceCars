@@ -2,7 +2,6 @@
 
 import React from 'react';
 import { Heart, Award, Shield, CheckCircle, Users, Star, Zap, Briefcase, Eye } from 'lucide-react';
-import { motion } from 'framer-motion';
 import { cn } from '@/lib/utils';
 
 interface Value {
@@ -60,12 +59,8 @@ export default function AboutValues({
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
           {values.map((value, index) => (
-            <motion.div
+            <div
               key={index}
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, margin: "-50px" }}
-              transition={{ duration: 0.5, delay: index * 0.1 }}
               className="bg-white dark:bg-zinc-800 p-6 rounded-lg shadow-md"
             >
               <div className="mb-4">
@@ -73,7 +68,7 @@ export default function AboutValues({
               </div>
               <h3 className="text-xl font-bold mb-2 text-zinc-900 dark:text-white">{value.title}</h3>
               <p className="text-zinc-600 dark:text-zinc-400">{value.description}</p>
-            </motion.div>
+            </div>
           ))}
         </div>
       </div>

@@ -14,15 +14,16 @@ import { ConsignmentPageData } from './types'
 
 export const revalidate = 3600 // Revalidate every hour
 
+// Cast mock data once so all downstream usage has a consistent type
+const fallbackData = mockConsignmentData as unknown as ConsignmentPageData
+
 export async function generateMetadata(): Promise<Metadata> {
   try {
-    // Fetch data from Sanity for metadata
     const data = await getConsignmentPageData()
-    
-    // Use data from Sanity if available, otherwise use mock data
-    const title = data?.seo?.title || data?.title || mockConsignmentData.seo?.title
-    const description = data?.seo?.description || data?.description || mockConsignmentData.seo?.description
-    const keywords = data?.seo?.keywords || mockConsignmentData.seo?.keywords
+    const source = data || fallbackData
+    const title = source.seo?.title || source.title
+    const description = source.seo?.description || source.description
+    const keywords = source.seo?.keywords
 
     return {
       title,
@@ -31,19 +32,17 @@ export async function generateMetadata(): Promise<Metadata> {
     }
   } catch (error) {
     console.error('Error generating metadata:', error)
-    
-    // Fallback to mock data
+
     return {
-      title: mockConsignmentData.seo?.title,
-      description: mockConsignmentData.seo?.description,
-      keywords: mockConsignmentData.seo?.keywords?.join(', '),
+      title: fallbackData.seo?.title,
+      description: fallbackData.seo?.description,
+      keywords: fallbackData.seo?.keywords?.join(', '),
     }
   }
 }
 
 async function getConsignmentPageData(): Promise<ConsignmentPageData | null> {
   try {
-    // Query that matches the schema structure in Sanity
     const query = groq`*[_type == "consignmentPage"][0]{
       "title": title,
       "description": metaDescription,
@@ -141,8 +140,7 @@ async function getConsignmentPageData(): Promise<ConsignmentPageData | null> {
     }`
 
     const data = await client.fetch<ConsignmentPageData>(query)
-    
-    // For debugging - check what fields are coming back from Sanity
+
     console.log('Sanity data presence check:', {
       hasData: !!data,
       hasTitle: data?.title ? 'Yes' : 'No',
@@ -155,7 +153,7 @@ async function getConsignmentPageData(): Promise<ConsignmentPageData | null> {
       hasFaq: data?.faq ? 'Yes' : 'No',
       hasCta: data?.cta ? 'Yes' : 'No',
     })
-    
+
     return data || null
   } catch (error) {
     console.error("Error fetching consignment page data:", error)
@@ -164,21 +162,20 @@ async function getConsignmentPageData(): Promise<ConsignmentPageData | null> {
 }
 
 export default async function ConsignmentPage() {
-  // Fetch data from Sanity
   const sanityData = await getConsignmentPageData()
-  
-  // Use mock data as the base, but ONLY use sanity data for fields that exist in the sanity response
-  const pageData = sanityData ? deepMergeWithFallback(mockConsignmentData, sanityData) : mockConsignmentData
-  
-  // Add debug logs to help with troubleshooting
+
+  // Both branches are now ConsignmentPageData, so no union-type issues
+  const pageData: ConsignmentPageData = sanityData || fallbackData
+
+  // Debug logs
   if (pageData.hero) {
-    console.log('Hero data:', pageData.hero);
-    console.log('Hero background image:', pageData.hero.backgroundImage);
+    console.log('Hero data:', pageData.hero)
+    console.log('Hero background image:', pageData.hero.backgroundImage)
   }
-  
+
   if (pageData.introduction) {
-    console.log('Introduction data:', pageData.introduction);
-    console.log('Introduction image:', pageData.introduction.image);
+    console.log('Introduction data:', pageData.introduction)
+    console.log('Introduction image:', pageData.introduction.image)
   }
 
   // Helper function to create default string value
@@ -189,41 +186,6 @@ export default async function ConsignmentPage() {
     if (type === 'light') return 'white'
     if (type === 'dark' || type === 'colored') return 'color'
     return 'white'
-  }
-
-  // Improved helper function to deep merge objects with fallback
-  function deepMergeWithFallback(target: unknown, source: unknown): any {
-    const output = { ...target }
-    
-    if (!source || typeof source !== 'object') {
-      return output
-    }
-    
-    // Loop through keys in the source object
-    Object.keys(source).forEach(key => {
-      // Only process keys that exist and have non-null/undefined values
-      if (source[key] !== null && source[key] !== undefined) {
-        // For arrays, replace the entire array with what comes from Sanity
-        if (Array.isArray(source[key])) {
-          output[key] = source[key]
-        }
-        // For nested objects (that aren't arrays), recursively merge
-        else if (
-          output[key] && 
-          typeof output[key] === 'object' && 
-          typeof source[key] === 'object' &&
-          !Array.isArray(output[key])
-        ) {
-          output[key] = deepMergeWithFallback(output[key], source[key])
-        }
-        // For primitive values or arrays, use the source value
-        else {
-          output[key] = source[key]
-        }
-      }
-    })
-    
-    return output
   }
 
   return (
@@ -240,17 +202,17 @@ export default async function ConsignmentPage() {
           backgroundImage={pageData.hero.backgroundImage}
         />
       )}
-      
+
       {/* Introduction Section */}
       {pageData.introduction && (
         <ConsignmentIntro
           title={defaultTitle(pageData.introduction.title)}
           content={pageData.introduction.content}
-          image={pageData.introduction.image || mockConsignmentData.introduction?.image}
+          image={pageData.introduction.image}
           imagePosition={pageData.introduction.imagePosition}
         />
       )}
-      
+
       {/* Benefits Section */}
       {pageData.benefits && (
         <ConsignmentBenefits
@@ -261,7 +223,7 @@ export default async function ConsignmentPage() {
           backgroundColor={pageData.benefits.backgroundColor}
         />
       )}
-      
+
       {/* Process Section */}
       {pageData.process && (
         <ConsignmentProcess
@@ -272,7 +234,7 @@ export default async function ConsignmentPage() {
           ctaUrl={pageData.process.ctaUrl}
         />
       )}
-      
+
       {/* Comparison Section */}
       {pageData.comparison && pageData.comparison.methods && pageData.comparison.methods.length > 0 && (
         <ConsignmentComparison
@@ -281,7 +243,7 @@ export default async function ConsignmentPage() {
           methods={pageData.comparison.methods}
         />
       )}
-      
+
       {/* Testimonials Section */}
       {pageData.testimonials && pageData.testimonials.items && pageData.testimonials.items.length > 0 && (
         <ConsignmentTestimonials
@@ -290,7 +252,7 @@ export default async function ConsignmentPage() {
           testimonials={pageData.testimonials.items}
         />
       )}
-      
+
       {/* FAQ Section */}
       {pageData.faq && pageData.faq.faqs && pageData.faq.faqs.length > 0 && (
         <ConsignmentFAQ
@@ -299,7 +261,7 @@ export default async function ConsignmentPage() {
           faqs={pageData.faq.faqs}
         />
       )}
-      
+
       {/* CTA Section */}
       {pageData.cta && (
         <ConsignmentCTA
@@ -307,11 +269,11 @@ export default async function ConsignmentPage() {
           content={pageData.cta.content}
           buttonText={pageData.cta.buttonText}
           buttonUrl={pageData.cta.buttonUrl}
-          backgroundColor={pageData.cta.backgroundColor === 'red' ? 'bg-red-600' : 
-                            pageData.cta.backgroundColor === 'gray' ? 'bg-gray-800' : 
+          backgroundColor={pageData.cta.backgroundColor === 'red' ? 'bg-red-600' :
+                            pageData.cta.backgroundColor === 'gray' ? 'bg-gray-800' :
                             'bg-red-600'}
         />
       )}
     </main>
   )
-} 
+}

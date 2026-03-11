@@ -12,6 +12,11 @@ interface CallToActionProps {
   cta?: any
 }
 
+interface CtaStat {
+  value: string
+  label: string
+}
+
 // Default CTA content if none is provided from Sanity
 const defaultCta = {
   title: 'Ready to Purchase your Modified Car?',
@@ -108,7 +113,7 @@ export const CallToAction = ({ cta }: CallToActionProps) => {
             
             {ctaData.stats && ctaData.stats.length > 0 && (
               <div className="mt-12 grid grid-cols-2 md:grid-cols-4 gap-6 md:gap-10">
-                {ctaData.stats.map((stat: unknown, index: number) => (
+                {ctaData.stats.map((stat: CtaStat, index: number) => (
                   <motion.div 
                     key={index}
                     initial={{ opacity: 0, y: 20 }}

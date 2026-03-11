@@ -3,15 +3,25 @@
 import React from 'react'
 import Link from 'next/link'
 import Image from 'next/image'
-import { motion } from 'framer-motion'
 import { format } from 'date-fns'
-import { ArrowRight, Clock, Calendar, Tag } from 'lucide-react'
+import { ArrowRight, Clock, Calendar } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { Badge } from '@/components/ui/badge'
 import { urlForImage } from '@/sanity/lib/client'
 
+interface BlogPost {
+  _id: string
+  title: string
+  slug: { current: string }
+  mainImage?: any
+  publishedAt: string
+  categories?: string[]
+  authorName: string
+  estimatedReadingTime?: number
+}
+
 interface BlogSectionProps {
-  posts: unknown[]
+  posts: BlogPost[]
 }
 
 // Fallback posts if none are available from Sanity
@@ -50,33 +60,23 @@ const fallbackPosts = [
 
 export const BlogSection = ({ posts = [] }: BlogSectionProps) => {
   // Use provided posts or fallback to default posts
-  const displayPosts = posts.length > 0 ? posts : fallbackPosts
+  const displayPosts: BlogPost[] = posts.length > 0 ? posts : fallbackPosts
   
   return (
     <section className="py-24 bg-gradient-to-b from-zinc-100 to-white dark:from-zinc-900 dark:to-black">
       <div className="container mx-auto px-4">
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5 }}
-          viewport={{ once: true }}
-          className="text-center mb-16"
-        >
+        <div className="text-center mb-16">
           <Badge variant="outline" className="mb-4 border-red-500 text-red-500 bg-transparent hover:bg-red-950">Latest Insights</Badge>
           <h2 className="text-3xl md:text-5xl font-bold mb-4 dark:text-white">From Our Blog</h2>
           <p className="text-lg text-gray-600 dark:text-gray-300 max-w-3xl mx-auto">
             Expert advice, industry insights, and the latest news from the world of performance and luxury vehicles.
           </p>
-        </motion.div>
+        </div>
         
         <div className="grid md:grid-cols-3 gap-8">
           {displayPosts.map((post, index) => (
-            <motion.div
+            <div
               key={post._id}
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5, delay: index * 0.1 }}
-              viewport={{ once: true }}
               className="group relative"
             >
               <Link href={`/blog/${post.slug.current}`} className="block">
@@ -128,17 +128,11 @@ export const BlogSection = ({ posts = [] }: BlogSectionProps) => {
                   </span>
                 </div>
               </Link>
-            </motion.div>
+            </div>
           ))}
         </div>
         
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5, delay: 0.3 }}
-          viewport={{ once: true }}
-          className="mt-16 text-center"
-        >
+        <div className="mt-16 text-center">
           <Button 
             asChild
             size="lg" 
@@ -149,7 +143,7 @@ export const BlogSection = ({ posts = [] }: BlogSectionProps) => {
               <ArrowRight className="w-5 h-5" />
             </Link>
           </Button>
-        </motion.div>
+        </div>
       </div>
     </section>
   )

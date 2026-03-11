@@ -1,5 +1,4 @@
 import { Metadata } from 'next';
-import { client } from '@/sanity/lib/client';
 import ContactPageContent from '@/components/contact/ContactPageContent';
 import { Layout } from '@/components/layout/Layout';
 import { mockContactData } from './mockData';
@@ -85,7 +84,9 @@ async function getContactData(): Promise<ContactPageData> {
       }
     }`;
 
-    const data = await client.fetch(query, {}, { next: { tags: ['contactPage'] } });
+    const data = await import('@/sanity/lib/client').then(({ client }) =>
+      client.fetch(query, {}, { next: { tags: ['contactPage'] } })
+    );
     
     // Return the Sanity data if available, otherwise use mock data
     if (!data || !data.title) {
@@ -103,11 +104,7 @@ async function getContactData(): Promise<ContactPageData> {
 }
 
 export default async function ContactPage() {
-  const sanityData = await getContactData();
-  
-  // Merge Sanity data with mock data, preferring Sanity data when available
-  // This allows partial updates in CMS while keeping mock data for fields that haven't been updated
-  const pageData = deepMerge(mockContactData, sanityData);
+  const pageData = await getContactData();
   
 
   return (
@@ -116,32 +113,3 @@ export default async function ContactPage() {
     </Layout>
   );
 }
-
-// Helper function to deep merge objects
-function deepMerge(target: unknown, source: unknown): any {
-  // Use mock data as the base, and override with any Sanity data that exists
-  const output = { ...target };
-  
-  if (source && typeof source === 'object' && !Array.isArray(source)) {
-    Object.keys(source).forEach(key => {
-      // If property exists in both objects and both are objects (not arrays or null)
-      if (
-        key in output && 
-        output[key] !== null && 
-        source[key] !== null && 
-        typeof output[key] === 'object' && 
-        typeof source[key] === 'object' && 
-        !Array.isArray(output[key]) && 
-        !Array.isArray(source[key])
-      ) {
-        // Recursively merge objects
-        output[key] = deepMerge(output[key], source[key]);
-      } else if (source[key] !== undefined) {
-        // For arrays, primitives, or properties only in source, use source value
-        output[key] = source[key];
-      }
-    });
-  }
-  
-  return output;
-} 

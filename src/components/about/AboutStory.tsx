@@ -3,7 +3,6 @@
 import React from 'react';
 import Image from 'next/image';
 import { PortableText } from '@portabletext/react';
-import { motion } from 'framer-motion';
 
 interface Milestone {
   year: string;
@@ -47,12 +46,8 @@ export default function AboutStory({
             {/* Milestones */}
             <div className="space-y-24">
               {milestones.map((milestone, index) => (
-                <motion.div 
+                <div 
                   key={index}
-                  initial={{ opacity: 0, y: 50 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true, margin: "-100px" }}
-                  transition={{ duration: 0.5, delay: index * 0.1 }}
                   className={`flex flex-col ${index % 2 === 0 ? 'md:flex-row' : 'md:flex-row-reverse'} items-center`}
                 >
                   {/* Year Circle */}
@@ -80,7 +75,7 @@ export default function AboutStory({
                       </div>
                     )}
                   </div>
-                </motion.div>
+                </div>
               ))}
             </div>
           </div>

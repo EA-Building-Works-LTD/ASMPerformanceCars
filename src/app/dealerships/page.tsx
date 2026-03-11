@@ -23,9 +23,12 @@ interface SearchParams {
 }
 
 // Add cache control headers to prevent browser caching
-export async function generateMetadata({ searchParams }: { searchParams: SearchParams }): Promise<Metadata> {
-  const page = searchParams.page || '1';
-  const query = searchParams.q ? ` - Search: ${searchParams.q}` : '';
+export async function generateMetadata(
+  { searchParams }: { searchParams: Promise<SearchParams> }
+): Promise<Metadata> {
+  const { page: pageParam, q } = await searchParams;
+  const page = pageParam || '1';
+  const query = q ? ` - Search: ${q}` : '';
   
   return {
     title: `Birmingham Car Dealerships${page !== '1' ? ` - Page ${page}` : ''}${query}`,
@@ -39,17 +42,16 @@ export async function generateMetadata({ searchParams }: { searchParams: SearchP
   };
 }
 
-export default async function DealershipsPage({
-  searchParams,
-}: {
-  searchParams: SearchParams;
-}) {
+export default async function DealershipsPage(
+  { searchParams }: { searchParams: Promise<SearchParams> }
+) {
+  const { page: pageParam, q } = await searchParams;
   // Get all dealerships
   const allDealerships = await getAllDealerships();
   
   // Get search query and current page from URL
-  const searchQuery = searchParams.q || '';
-  const currentPage = searchParams.page ? parseInt(searchParams.page) : 1;
+  const searchQuery = q || '';
+  const currentPage = pageParam ? parseInt(pageParam) : 1;
   
   // Filter dealerships by search query
   const filteredDealerships = searchQuery

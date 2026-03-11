@@ -2,6 +2,41 @@ import { NextResponse } from 'next/server'
 import { client } from '@/sanity/lib/client'
 import { groq } from 'next-sanity'
 
+// Define TypeScript interfaces for the data
+interface VehicleResult {
+  _id: string
+  _type: 'vehicle' | 'modifiedVehicle' | 'luxuryVehicle'
+  title: string
+  slug?: { current: string }
+  price?: number
+  priceOnApplication?: boolean
+  year?: number
+  mileage?: number
+  make?: string
+  model?: string
+  description?: string
+  imageUrl?: string
+}
+
+interface PostResult {
+  _id: string
+  _type: 'post'
+  title: string
+  slug?: { current: string }
+  description?: string
+  publishedAt?: string
+  imageUrl?: string
+}
+
+interface PageResult {
+  _id: string
+  _type: 'page'
+  title: string
+  slug?: { current: string }
+  description?: string
+  section?: string
+}
+
 export async function GET(request: Request) {
   const { searchParams } = new URL(request.url)
   const query = searchParams.get('q')
@@ -64,14 +99,17 @@ export async function GET(request: Request) {
     }`
     
     // Run all queries in parallel
-    const [cars, posts, pages] = await Promise.all([
-      client.fetch(carsQuery, { searchPattern }),
-      client.fetch(postsQuery, { searchPattern }),
-      client.fetch(pagesQuery, { searchPattern })
+    const [rawCars, rawPosts, rawPages] = await Promise.all([
+      client.fetch<VehicleResult[]>(carsQuery, { searchPattern }),
+      client.fetch<PostResult[]>(postsQuery, { searchPattern }),
+      client.fetch<PageResult[]>(pagesQuery, { searchPattern })
     ])
+    const cars = (rawCars ?? []) as VehicleResult[]
+    const posts = (rawPosts ?? []) as PostResult[]
+    const pages = (rawPages ?? []) as PageResult[]
     
     // Format results
-    const formattedCars = cars.map((car: unknown) => {
+    const formattedCars = cars.map((car: VehicleResult) => {
       // Determine the correct URL path based on vehicle type
       let categoryPath = ''
       if (car._type === 'modifiedVehicle') {
@@ -99,7 +137,7 @@ export async function GET(request: Request) {
       }
     })
     
-    const formattedPosts = posts.map((post: unknown) => ({
+    const formattedPosts = posts.map((post: PostResult) => ({
       id: post._id,
       type: 'post',
       title: post.title,
@@ -113,7 +151,7 @@ export async function GET(request: Request) {
       imageUrl: post.imageUrl
     }))
     
-    const formattedPages = pages.map((page: unknown) => ({
+    const formattedPages = pages.map((page: PageResult) => ({
       id: page._id,
       type: 'page',
       title: page.title,
@@ -130,4 +168,4 @@ export async function GET(request: Request) {
     console.error('Search error:', error)
     return NextResponse.json({ results: [], error: 'Search failed' }, { status: 500 })
   }
-} 
+}

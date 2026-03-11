@@ -12,6 +12,29 @@ interface AboutPageContentProps {
 }
 
 export default function AboutPageContent({ data }: AboutPageContentProps) {
+  const introImageUrl =
+    typeof data.introduction?.image === 'string'
+      ? data.introduction.image
+      : (data.introduction?.image as { asset?: { url?: string } } | undefined)?.asset?.url
+
+  const storyMilestones = (data.story?.milestones || []).map((milestone) => ({
+    year: milestone.year,
+    title: milestone.title,
+    description: milestone.description || '',
+    image: (milestone.image as { asset?: { url?: string } } | undefined)?.asset?.url,
+  }))
+
+  const values = (data.values?.values || []).map((value) => ({
+    title: value.title,
+    description: value.description || '',
+    icon: value.icon,
+  }))
+
+  const testimonials = (data.testimonials?.testimonials || [])
+    .filter((item): item is { name: string; quote: string; role?: string; image?: string; rating?: number } =>
+      typeof item === 'object' && item !== null && 'name' in item && 'quote' in item
+    )
+
   return (
     <main>
       {/* Hero Section */}
@@ -32,7 +55,7 @@ export default function AboutPageContent({ data }: AboutPageContentProps) {
         <AboutIntroduction
           title={data.introduction.title || 'About Us'}
           content={data.introduction.content}
-          image={data.introduction.image || undefined}
+          image={introImageUrl || undefined}
           imagePosition={data.introduction.imagePosition}
         />
       )}
@@ -43,26 +66,26 @@ export default function AboutPageContent({ data }: AboutPageContentProps) {
           title={data.story.title || 'Our Story'}
           subtitle={data.story.subtitle}
           content={data.story.content}
-          milestones={data.story.milestones || []}
+          milestones={storyMilestones}
         />
       )}
 
       {/* Values Section */}
-      {data.values?.values && data.values.values.length > 0 && (
+      {values.length > 0 && (
         <AboutValues
-          title={data.values.title || 'Our Values'}
-          subtitle={data.values.subtitle}
-          values={data.values.values}
-          backgroundColor={data.values.backgroundColor}
+          title={data.values?.title || 'Our Values'}
+          subtitle={data.values?.subtitle}
+          values={values}
+          backgroundColor={data.values?.backgroundColor}
         />
       )}
 
       {/* Testimonials Section */}
-      {data.testimonials?.testimonials && data.testimonials.testimonials.length > 0 && (
+      {testimonials.length > 0 && (
         <AboutTestimonials
-          title={data.testimonials.title || 'What Our Customers Say'}
-          subtitle={data.testimonials.subtitle}
-          testimonials={data.testimonials.testimonials}
+          title={data.testimonials?.title || 'What Our Customers Say'}
+          subtitle={data.testimonials?.subtitle}
+          testimonials={testimonials}
         />
       )}
 
@@ -71,11 +94,19 @@ export default function AboutPageContent({ data }: AboutPageContentProps) {
         <CommonCTA
           title={data.cta.title || 'Ready to Find Your Dream Car?'}
           content={data.cta.content}
-          primaryButton={data.cta.primaryButton}
-          secondaryButton={data.cta.secondaryButton}
+          primaryButton={
+            data.cta.buttonText && data.cta.buttonUrl
+              ? { text: data.cta.buttonText, url: data.cta.buttonUrl }
+              : undefined
+          }
+          secondaryButton={
+            data.cta.secondaryButtonText && data.cta.secondaryButtonUrl
+              ? { text: data.cta.secondaryButtonText, url: data.cta.secondaryButtonUrl }
+              : undefined
+          }
           backgroundColor={data.cta.backgroundColor}
         />
       )}
     </main>
   );
-} 
+}

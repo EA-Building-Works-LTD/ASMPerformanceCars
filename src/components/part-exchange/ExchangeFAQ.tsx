@@ -60,7 +60,7 @@ export const ExchangeFAQ: React.FC<ExchangeFAQProps> = ({
                 <div className="p-4 md:p-6 bg-white">
                   {faq.answer ? (
                     <div className="prose max-w-none prose-headings:text-gray-900 prose-p:text-gray-700 prose-a:text-red-600 prose-a:no-underline hover:prose-a:underline prose-li:text-gray-700">
-                      <PortableText value={faq.answer} components={portableTextComponents} />
+                      <PortableText value={faq.answer as any} components={portableTextComponents} />
                     </div>
                   ) : (
                     <p className="text-gray-700">No answer provided.</p>

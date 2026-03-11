@@ -1,7 +1,6 @@
-import type { ConsignmentPageData } from '@/app/services/consignment/types';
 
 // Mock fallback data
-export const mockConsignmentData: ConsignmentPageData = {
+export const mockConsignmentData = {
   title: "Consignment Car Sales | ASM Performance Cars",
   description: "Sell your car on consignment with ASM Performance Cars. Get the best market value without the hassle of private selling.",
   seo: {

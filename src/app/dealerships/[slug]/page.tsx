@@ -11,15 +11,16 @@ import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
 import { Layout } from '@/components/layout/Layout';
 
-type Props = {
-  params: {
-    slug: string;
-  };
+type Params = {
+  slug: string;
 };
 
-export async function generateMetadata({ params }: Props): Promise<Metadata> {
+export async function generateMetadata(
+  { params }: { params: Promise<Params> }
+): Promise<Metadata> {
+  const { slug } = await params;
   const dealerships = await getAllDealerships();
-  const dealership = getDealershipBySlug(dealerships, params.slug);
+  const dealership = getDealershipBySlug(dealerships, slug);
   
   if (!dealership) {
     return {
@@ -48,9 +49,12 @@ export async function generateStaticParams() {
   }));
 }
 
-export default async function DealershipPage({ params }: Props) {
+export default async function DealershipPage(
+  { params }: { params: Promise<Params> }
+) {
+  const { slug } = await params;
   const dealerships = await getAllDealerships();
-  const dealership = getDealershipBySlug(dealerships, params.slug);
+  const dealership = getDealershipBySlug(dealerships, slug);
   
   if (!dealership) {
     notFound();

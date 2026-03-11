@@ -67,7 +67,7 @@ export const ExchangeProcess: React.FC<ExchangeProcessProps> = ({
                       </div>
                       {step.description && (
                         <div className="text-gray-600 mt-2">
-                          <PortableText value={step.description} components={portableTextComponents} />
+                          <PortableText value={step.description as any} components={portableTextComponents} />
                         </div>
                       )}
                     </div>

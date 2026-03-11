@@ -80,37 +80,40 @@ export default function UsedCarsFAQsPage() {
             Our comprehensive guide to buying used cars covers everything from vehicle inspections and history checks to financing options and seller negotiations. Find expert advice to make your used car purchase with confidence.
           </p>
           
-          {/* FAQ Accordion */}
-          <div className="space-y-4">
-            {usedCarsFaqs.map((faq) => (
-              <motion.div 
-                key={faq.id}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.5 }}
-                viewport={{ once: true }}
-                className="border border-gray-200 rounded-lg overflow-hidden"
-              >
-                <button
-                  onClick={() => toggleFAQ(faq.id)}
-                  className="w-full flex justify-between items-center p-5 bg-white hover:bg-gray-50 text-left"
-                >
-                  <h3 className="text-lg font-semibold pr-8">{faq.question}</h3>
-                  {openFAQ === faq.id ? (
-                    <ChevronUp className="w-5 h-5 text-gray-500 flex-shrink-0" />
-                  ) : (
-                    <ChevronDown className="w-5 h-5 text-gray-500 flex-shrink-0" />
-                  )}
-                </button>
-                
-                {openFAQ === faq.id && (
-                  <div className="p-5 bg-gray-50 border-t border-gray-200">
-                    <p className="text-gray-700 leading-relaxed">{faq.answer}</p>
-                  </div>
-                )}
-              </motion.div>
-            ))}
+ {/* FAQ Accordion */}
+<div className="space-y-4">
+  {usedCarsFaqs.map((faq) => (
+    <div 
+      key={faq.id}
+      className="border border-gray-200 rounded-lg overflow-hidden"
+    >
+      <motion.div
+        initial={{ opacity: 0, y: 20 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.5 }}
+        viewport={{ once: true }}
+      >
+        <button
+          onClick={() => toggleFAQ(faq.id)}
+          className="w-full flex justify-between items-center p-5 bg-white hover:bg-gray-50 text-left"
+        >
+          <h3 className="text-lg font-semibold pr-8">{faq.question}</h3>
+          {openFAQ === faq.id ? (
+            <ChevronUp className="w-5 h-5 text-gray-500 flex-shrink-0" />
+          ) : (
+            <ChevronDown className="w-5 h-5 text-gray-500 flex-shrink-0" />
+          )}
+        </button>
+        
+        {openFAQ === faq.id && (
+          <div className="p-5 bg-gray-50 border-t border-gray-200">
+            <p className="text-gray-700 leading-relaxed">{faq.answer}</p>
           </div>
+        )}
+      </motion.div>
+    </div>
+  ))}
+</div>
           
           {/* Navigation to other FAQ categories */}
           <div className="mt-16 pt-8 border-t border-gray-200">

@@ -20,22 +20,22 @@ export const metadata: Metadata = {
 
 const portableTextComponents = {
   block: {
-    h1: ({ children }: { children: React.ReactNode }) => <h1 className="text-2xl font-bold text-red-600 mt-8 mb-4">{children}</h1>,
-    h2: ({ children }: { children: React.ReactNode }) => <h2 className="text-xl font-semibold text-red-600 mt-6 mb-4">{children}</h2>,
-    h3: ({ children }: { children: React.ReactNode }) => <h3 className="text-lg font-semibold text-red-600 mt-5 mb-3">{children}</h3>,
-    h4: ({ children }: { children: React.ReactNode }) => <h4 className="text-base font-semibold text-red-600 mt-4 mb-2">{children}</h4>,
-    normal: ({ children }: { children: React.ReactNode }) => <p className="mb-4">{children}</p>,
+    h1: ({ children }: { children?: React.ReactNode }) => <h1 className="text-2xl font-bold text-red-600 mt-8 mb-4">{children}</h1>,
+    h2: ({ children }: { children?: React.ReactNode }) => <h2 className="text-xl font-semibold text-red-600 mt-6 mb-4">{children}</h2>,
+    h3: ({ children }: { children?: React.ReactNode }) => <h3 className="text-lg font-semibold text-red-600 mt-5 mb-3">{children}</h3>,
+    h4: ({ children }: { children?: React.ReactNode }) => <h4 className="text-base font-semibold text-red-600 mt-4 mb-2">{children}</h4>,
+    normal: ({ children }: { children?: React.ReactNode }) => <p className="mb-4">{children}</p>,
   },
   list: {
-    bullet: ({ children }: { children: React.ReactNode }) => <ul className="list-disc pl-6 mb-4 space-y-2">{children}</ul>,
-    number: ({ children }: { children: React.ReactNode }) => <ol className="list-decimal pl-6 mb-4 space-y-2">{children}</ol>,
+    bullet: ({ children }: { children?: React.ReactNode }) => <ul className="list-disc pl-6 mb-4 space-y-2">{children}</ul>,
+    number: ({ children }: { children?: React.ReactNode }) => <ol className="list-decimal pl-6 mb-4 space-y-2">{children}</ol>,
   },
   listItem: {
-    bullet: ({ children }: { children: React.ReactNode }) => <li>{children}</li>,
-    number: ({ children }: { children: React.ReactNode }) => <li>{children}</li>,
+    bullet: ({ children }: { children?: React.ReactNode }) => <li>{children}</li>,
+    number: ({ children }: { children?: React.ReactNode }) => <li>{children}</li>,
   },
   marks: {
-    link: ({ value, children }: { value?: { href?: string; blank?: boolean }; children: React.ReactNode }) => {
+    link: ({ value, children }: { value?: { href?: string; blank?: boolean }; children?: React.ReactNode }) => {
       const target = (value?.blank) ? '_blank' : undefined
       return (
         <a 

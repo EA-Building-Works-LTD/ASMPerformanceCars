@@ -15,8 +15,12 @@ import {
 import { Badge } from '@/components/ui/badge'
 import { CheckCircle, AlertCircle, ArrowRight, Car, History, Zap, ShieldCheck, CircleDollarSign } from 'lucide-react'
 
-// Add a custom motion div component that correctly handles className
-const MotionDiv = motion.div
+type MotionDivProps = React.ComponentProps<typeof motion.div>
+
+// Wrapper avoids framer-motion className typing issues
+const MotionDiv: React.FC<MotionDivProps> = (props) => {
+  return <motion.div {...props} />
+}
 
 export const MOTCheckTool = () => {
   const [regNumber, setRegNumber] = useState('')

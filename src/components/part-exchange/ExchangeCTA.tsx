@@ -33,7 +33,7 @@ export const ExchangeCTA: React.FC<ExchangeCTAProps> = ({
           
           {content && (
             <div className="mb-8 prose prose-invert max-w-none">
-              <PortableText value={content} components={portableTextComponents} />
+              <PortableText value={content as any} components={portableTextComponents} />
             </div>
           )}
 

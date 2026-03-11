@@ -6,15 +6,16 @@ import { VehicleDetail } from '@/components/vehicles/VehicleDetail'
 import { RelatedVehicles } from '@/components/vehicles/RelatedVehicles'
 import { Metadata } from 'next'
 
-interface VehiclePageProps {
-  params: {
-    slug: string
-  }
+interface VehiclePageParams {
+  slug: string
 }
 
 // Generate metadata for the page
-export async function generateMetadata({ params }: VehiclePageProps): Promise<Metadata> {
-  const vehicle = await getVehicleBySlug(params.slug, 'vehicle')
+export async function generateMetadata(
+  { params }: { params: Promise<VehiclePageParams> }
+): Promise<Metadata> {
+  const { slug } = await params
+  const vehicle = await getVehicleBySlug(slug, 'vehicle')
   
   if (!vehicle) {
     return {
@@ -42,13 +43,16 @@ export async function generateMetadata({ params }: VehiclePageProps): Promise<Me
     description,
     keywords: `${vehicle.year} ${vehicle.make} ${vehicle.model}, used cars for sale, premium used cars, ASM Performance Cars, ${vehicle.make} for sale, ${vehicle.model} for sale`,
     alternates: {
-      canonical: `https://asmperformancecars.co.uk/our-cars/used-cars-for-sale/${params.slug}`,
+      canonical: `https://asmperformancecars.co.uk/our-cars/used-cars-for-sale/${slug}`,
     },
   }
 }
 
-export default async function UsedVehicleDetailPage({ params }: VehiclePageProps) {
-  const vehicle = await getVehicleBySlug(params.slug, 'vehicle')
+export default async function UsedVehicleDetailPage(
+  { params }: { params: Promise<VehiclePageParams> }
+) {
+  const { slug } = await params
+  const vehicle = await getVehicleBySlug(slug, 'vehicle')
   
   if (!vehicle) {
     notFound()

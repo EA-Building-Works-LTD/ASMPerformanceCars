@@ -3,12 +3,39 @@
 import React from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { motion } from "framer-motion";
 import { Card, CardContent, CardFooter } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Check, Fuel, Calendar, Gauge, Info } from "lucide-react";
 import { urlForImage } from "@/sanity/lib/client";
+
+interface Vehicle {
+  _id: string;
+  _type: "vehicle" | "modifiedVehicle" | "luxuryVehicle";
+  slug: { current: string };
+  title: string;
+  mainImage?: any;
+  price?: number;
+  featured?: boolean;
+  badges?: string[];
+  extendedInfo?: string;
+  highlightedSpec?: string;
+  mileage?: number;
+  year?: number;
+  specifications?: {
+    vehicle?: {
+      status?: string;
+      engineSize?: string;
+      fuelType?: string;
+      transmission?: string;
+      doors?: string | number;
+      year?: number;
+    };
+    history?: {
+      mileage?: number;
+    };
+  };
+}
 
 // StatusBadge component for consistent status display
 function StatusBadge({ status }: { status: string }) {
@@ -58,7 +85,7 @@ function StatusBadge({ status }: { status: string }) {
 }
 
 // Helper function to get the correct URL path based on vehicle type
-function getVehicleUrl(vehicle: unknown) {
+function getVehicleUrl(vehicle: Vehicle) {
   // Check the vehicle type and return the appropriate URL path
   if (vehicle._type === "modifiedVehicle") {
     return `/our-cars/modified-cars-for-sale/${vehicle.slug.current}`;
@@ -73,7 +100,7 @@ function getVehicleUrl(vehicle: unknown) {
 }
 
 // Vehicle Card component
-const VehicleCard = ({ vehicle }: { vehicle: any }) => {
+const VehicleCard = ({ vehicle }: { vehicle: Vehicle }) => {
   // Create default badges from vehicle attributes if no badges provided
   const defaultBadges = [];
   if (vehicle.featured) defaultBadges.push("Featured");
@@ -81,7 +108,9 @@ const VehicleCard = ({ vehicle }: { vehicle: any }) => {
   if (vehicle._type === "luxuryVehicle") defaultBadges.push("Luxury");
 
   const displayBadges =
-    vehicle.badges?.length > 0 ? vehicle.badges : defaultBadges;
+    Array.isArray(vehicle.badges) && vehicle.badges.length > 0
+      ? vehicle.badges
+      : defaultBadges;
 
   // Helper function to convert to title case
   const toTitleCase = (text: string) => {
@@ -105,14 +134,7 @@ const VehicleCard = ({ vehicle }: { vehicle: any }) => {
     )?.toLocaleString() || "";
 
   return (
-    <motion.div
-      initial={{ opacity: 0, y: 20 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.5 }}
-      viewport={{ once: true }}
-      whileHover={{ y: -5 }}
-      className="h-full"
-    >
+    <div className="h-full">
       <Card className="overflow-hidden h-full flex flex-col border-0 shadow-lg rounded-lg bg-black">
         <div className="relative h-64 overflow-hidden">
           <div className="absolute top-4 left-4 z-10 flex flex-wrap gap-2">
@@ -252,25 +274,21 @@ const VehicleCard = ({ vehicle }: { vehicle: any }) => {
           </div>
         </CardFooter>
       </Card>
-    </motion.div>
+    </div>
   );
 };
 
 interface FeaturedVehiclesProps {
-  vehicles?: unknown[];
+  vehicles?: Vehicle[];
 }
 
 export const FeaturedVehicles = ({ vehicles = [] }: FeaturedVehiclesProps) => {
+  const typedVehicles = vehicles as Vehicle[];
   return (
     <section className="py-20 bg-zinc-950">
       <div className="container mx-auto px-4">
         <div className="text-center mb-12">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5 }}
-            viewport={{ once: true }}
-          >
+          <div>
             <h2 className="text-3xl md:text-4xl font-bold mb-4 text-white">
               Modified Cars for Sale
             </h2>
@@ -278,12 +296,12 @@ export const FeaturedVehicles = ({ vehicles = [] }: FeaturedVehiclesProps) => {
               Discover our hand-picked selection of premium and modified
               vehicles, each offering exceptional performance and luxury.
             </p>
-          </motion.div>
+          </div>
         </div>
 
-        {vehicles.length > 0 ? (
+        {typedVehicles.length > 0 ? (
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {vehicles.map((vehicle: unknown) => (
+            {typedVehicles.map((vehicle: Vehicle) => (
               <VehicleCard key={vehicle._id} vehicle={vehicle} />
             ))}
           </div>
