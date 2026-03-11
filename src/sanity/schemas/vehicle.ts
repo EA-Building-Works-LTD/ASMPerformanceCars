@@ -7,7 +7,7 @@ export default {
       name: 'title',
       title: 'Title',
       type: 'string',
-      validation: (Rule: unknown) => Rule.required(),
+      validation: (Rule: any) => Rule.required(),
     },
     {
       name: 'slug',
@@ -17,7 +17,7 @@ export default {
         source: 'title',
         maxLength: 96,
       },
-      validation: (Rule: unknown) => Rule.required(),
+      validation: (Rule: any) => Rule.required(),
     },
     {
       name: 'mainImage',
@@ -26,13 +26,13 @@ export default {
       options: {
         hotspot: true,
       },
-      validation: (Rule: unknown) => Rule.required(),
+      validation: (Rule: any) => Rule.required(),
     },
     {
       name: 'price',
       title: 'Price',
       type: 'number',
-      validation: (Rule: unknown) => Rule.required().min(0),
+      validation: (Rule: any) => Rule.required().min(0),
     },
     {
       name: 'priceOnApplication',
@@ -95,19 +95,19 @@ export default {
               name: 'make',
               title: 'Make',
               type: 'string',
-              validation: (Rule: unknown) => Rule.required(),
+              validation: (Rule: any) => Rule.required(),
             },
             {
               name: 'model',
               title: 'Model',
               type: 'string',
-              validation: (Rule: unknown) => Rule.required(),
+              validation: (Rule: any) => Rule.required(),
             },
             {
               name: 'year',
               title: 'Year',
               type: 'number',
-              validation: (Rule: unknown) => Rule.required().min(1900).max(new Date().getFullYear()),
+              validation: (Rule: any) => Rule.required().min(1900).max(new Date().getFullYear()),
             },
             {
               name: 'transmission',
@@ -128,7 +128,7 @@ export default {
               name: 'doors',
               title: 'Number of Doors',
               type: 'number',
-              validation: (Rule: unknown) => Rule.min(1).max(5),
+              validation: (Rule: any) => Rule.min(1).max(5),
             },
             {
               name: 'status',
@@ -157,7 +157,7 @@ export default {
               name: 'mileage',
               title: 'Mileage',
               type: 'number',
-              validation: (Rule: unknown) => Rule.min(0),
+              validation: (Rule: any) => Rule.min(0),
             },
           ],
         },
@@ -171,7 +171,7 @@ export default {
       subtitle: 'specifications.vehicle.make',
       status: 'status',
     },
-    prepare({ title, media, subtitle, status }: unknown) {
+    prepare({ title, media, subtitle, status }: any) {
       return {
         title,
         media,

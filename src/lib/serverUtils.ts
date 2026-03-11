@@ -3,6 +3,22 @@ import { FormattedGoogleReview } from './googleReviews';
 // Maximum number of reviews to display
 const MAX_REVIEWS = 10;
 
+type GooglePlacesReview = {
+  authorAttribution?: {
+    displayName?: string
+    photoUri?: string
+  }
+  text?: {
+    text?: string
+  }
+  rating?: number
+  relativePublishTimeDescription?: string
+}
+
+type GooglePlacesResponse = {
+  reviews?: GooglePlacesReview[]
+}
+
 /**
  * This function fetches Google reviews directly from the server
  * It avoids CORS issues that can happen with client-side requests
@@ -42,7 +58,7 @@ export async function fetchGoogleReviewsFromServer(): Promise<FormattedGoogleRev
     }
     
     // Parse the response - structure is different in the new API
-    const data = await response.json();
+    const data: GooglePlacesResponse = await response.json();
     
     // Check if we have reviews in the result
     if (!data || !data.reviews || data.reviews.length === 0) {
@@ -55,7 +71,7 @@ export async function fetchGoogleReviewsFromServer(): Promise<FormattedGoogleRev
     
     // Format reviews to match our application structure
     // Structure is different in the new Places API
-    const reviews = data.reviews.map((review: unknown, index: number) => ({
+    const reviews = data.reviews.map((review: GooglePlacesReview, index: number) => ({
       id: `google-${index}`,
       name: review.authorAttribution?.displayName || 'Anonymous',
       location: 'Google Review',

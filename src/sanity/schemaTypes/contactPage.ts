@@ -8,7 +8,7 @@ export const contactPageType = {
       name: 'title',
       title: 'Page Title',
       type: 'string',
-      validation: (Rule: unknown) => Rule.required()
+      validation: (Rule: any) => Rule.required()
     },
     {
       name: 'description',
@@ -183,7 +183,7 @@ export const contactPageType = {
                   name: 'url',
                   title: 'URL',
                   type: 'url',
-                  validation: (Rule: unknown) => Rule.required().uri({
+                  validation: (Rule: any) => Rule.required().uri({
                     scheme: ['http', 'https'],
                   }),
                 }
@@ -261,7 +261,7 @@ export const contactPageType = {
           title: 'Zoom Level',
           type: 'number',
           initialValue: 15,
-          validation: (Rule: unknown) => Rule.min(1).max(20)
+          validation: (Rule: any) => Rule.min(1).max(20)
         },
         {
           name: 'showDirectionsLink',

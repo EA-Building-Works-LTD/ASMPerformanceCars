@@ -18,11 +18,18 @@ import { Button } from '@/components/ui/button'
 import { GOOGLE_REVIEWS_URL } from '@/lib/serverUtils'
 
 interface TestimonialsProps {
-  testimonials?: unknown[]
+  testimonials?: Testimonial[]
+}
+
+type Testimonial = {
+  _id?: string
+  id?: string
+  source?: string
+  [key: string]: any
 }
 
 // Fallback testimonial for when no testimonials are provided
-const fallbackTestimonial = {
+const fallbackTestimonial: Testimonial = {
   id: 'fallback-1',
   name: 'John Smith',
   location: 'Birmingham',
@@ -32,7 +39,7 @@ const fallbackTestimonial = {
   source: 'local'
 }
 
-const TestimonialCard = ({ testimonial }: { testimonial: any }) => {
+const TestimonialCard = ({ testimonial }: { testimonial: Testimonial }) => {
   // Helper function to get initials from name
   const getInitials = (name: string): string => {
     return name

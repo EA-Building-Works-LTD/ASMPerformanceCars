@@ -400,16 +400,24 @@ function formatPrice(price: string) {
   return parseInt(numericPrice).toLocaleString();
 }
 
-function formatDescription(description: string) {
+function formatDescription(description: unknown): string {
   if (!description) return '';
   
   // If description is a Sanity Portable Text array, extract and join text
   if (Array.isArray(description)) {
     try {
       return description
-        .map(block => {
-          if (block._type === 'block' && block.children) {
-            return block.children.map((child: unknown) => child.text).join('');
+        .map((block) => {
+          if (!block || typeof block !== 'object') return '';
+          const candidateBlock = block as { _type?: string; children?: unknown[] };
+          if (candidateBlock._type === 'block' && Array.isArray(candidateBlock.children)) {
+            return candidateBlock.children
+              .map((child) => {
+                if (!child || typeof child !== 'object') return '';
+                const candidateChild = child as { text?: string };
+                return typeof candidateChild.text === 'string' ? candidateChild.text : '';
+              })
+              .join('');
           }
           return '';
         })
@@ -417,9 +425,9 @@ function formatDescription(description: string) {
         .join('\n\n');
     } catch (error) {
       console.error('Error formatting description:', error);
-      return Array.isArray(description) ? JSON.stringify(description) : description;
+      return Array.isArray(description) ? JSON.stringify(description) : String(description);
     }
   }
   
-  return description;
+  return typeof description === 'string' ? description : String(description);
 } 

@@ -24,7 +24,7 @@ type PortableTextChild = {
 
 type PortableTextBlock = {
   _key?: string;
-  _type?: string;
+  _type: string;
   style?: string;
   children?: PortableTextChild[];
   markDefs?: unknown[];
@@ -32,9 +32,16 @@ type PortableTextBlock = {
 }
 
 type PortableTextComponentProps = {
-  children: React.ReactNode;
+  children?: React.ReactNode;
   value?: any;
   [key: string]: any;
+}
+
+const isPortableTextBlock = (block: unknown): block is PortableTextBlock => {
+  if (!block || typeof block !== 'object') return false
+  const candidate = block as Partial<PortableTextBlock>
+  if (typeof candidate._type !== 'string') return false
+  return candidate._type === 'block' || Array.isArray(candidate.children)
 }
 
 const components = {
@@ -97,9 +104,7 @@ export const SEOContent = ({ route, title, content }: SEOContentProps) => {
   if (!content || !Array.isArray(content) || content.length === 0) return null
 
   // Make sure the content is properly formatted for PortableText
-  const validContent = content.filter(block => 
-    block && typeof block === 'object' && (block._type === 'block' || block.children)
-  )
+  const validContent = content.filter(isPortableTextBlock)
 
   if (validContent.length === 0) return null
 
@@ -130,9 +135,8 @@ export const SEOContent = ({ route, title, content }: SEOContentProps) => {
               animate={{ height: 'auto', opacity: 1 }}
               exit={{ height: 0, opacity: 0 }}
               transition={{ duration: 0.3 }}
-              className="overflow-hidden mt-3"
             >
-              <div className="space-y-2">
+              <div className="overflow-hidden mt-3 space-y-2">
                 <PortableText 
                   value={validContent}
                   components={components}

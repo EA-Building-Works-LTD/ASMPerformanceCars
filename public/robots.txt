@@ -8,8 +8,8 @@ Disallow: /404
 Disallow: /500
 
 # Host
-Host: https://asmperformancecars.co.uk
+Host: http://localhost:3000
 
 # Sitemaps
-Sitemap: https://asmperformancecars.co.uk/sitemap-index.xml
-Sitemap: https://asmperformancecars.co.uk/static-sitemap.xml
+Sitemap: http://localhost:3000/static-sitemap.xml
+Sitemap: http://localhost:3000/sitemap-index.xml

@@ -8,7 +8,7 @@ export const carTransportationPageType = {
       name: 'title',
       title: 'Page Title',
       type: 'string',
-      validation: (Rule: unknown) => Rule.required()
+      validation: (Rule: any) => Rule.required()
     },
     {
       name: 'description',
@@ -432,7 +432,7 @@ export const carTransportationPageType = {
                   name: 'rating',
                   title: 'Rating (1-5)',
                   type: 'number',
-                  validation: (Rule: unknown) => Rule.min(1).max(5),
+                  validation: (Rule: any) => Rule.min(1).max(5),
                 },
                 {
                   name: 'image',

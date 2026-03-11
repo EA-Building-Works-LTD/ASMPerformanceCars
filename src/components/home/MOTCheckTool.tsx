@@ -15,13 +15,6 @@ import {
 import { Badge } from '@/components/ui/badge'
 import { CheckCircle, AlertCircle, ArrowRight, Car, History, Zap, ShieldCheck, CircleDollarSign } from 'lucide-react'
 
-type MotionDivProps = React.ComponentProps<typeof motion.div>
-
-// Wrapper avoids framer-motion className typing issues
-const MotionDiv: React.FC<MotionDivProps> = (props) => {
-  return <motion.div {...props} />
-}
-
 export const MOTCheckTool = () => {
   const [regNumber, setRegNumber] = useState('')
   const [isLoading, setIsLoading] = useState(false)
@@ -74,47 +67,49 @@ export const MOTCheckTool = () => {
       <div className="container mx-auto px-4">
         <div className="grid lg:grid-cols-2 gap-12 items-center">
           {/* Left Column - Tool Description */}
-          <MotionDiv
+          <motion.div
             initial={{ opacity: 0, x: -30 }}
             whileInView={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.6 }}
             viewport={{ once: true }}
-            className="text-white"
           >
-            <Badge variant="outline" className="mb-4 border-red-500 text-red-500 bg-transparent hover:bg-red-950">Free Tool</Badge>
-            <h2 className="text-3xl md:text-4xl font-bold mb-4">
-              Check Any Vehicle's MOT History
-            </h2>
-            <p className="text-lg text-gray-300 mb-8">
-              Get instant access to a vehicle's complete MOT test history, mileage records, and advisory notes to make informed decisions before purchasing.
-            </p>
-            
-            <div className="grid sm:grid-cols-2 gap-8">
-              {benefitPoints.map((point, index) => (
-                <MotionDiv
-                  key={index}
-                  initial={{ opacity: 0, y: 20 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.4, delay: index * 0.1 }}
-                  viewport={{ once: true }}
-                  className="flex gap-4"
-                >
-                  <div className="mt-1 flex-shrink-0 w-10 h-10 rounded-lg bg-gradient-to-br from-red-500 to-red-600 flex items-center justify-center shadow-md shadow-red-900/20">
-                    {point.icon}
-                  </div>
-                  <div>
-                    <h3 className="font-semibold text-gray-100 mb-2">{point.title}</h3>
-                    <p className="text-sm text-gray-400">
-                      {point.description}
-                    </p>
-                  </div>
-                </MotionDiv>
-              ))}
+            <div className="text-white">
+              <Badge variant="outline" className="mb-4 border-red-500 text-red-500 bg-transparent hover:bg-red-950">Free Tool</Badge>
+              <h2 className="text-3xl md:text-4xl font-bold mb-4">
+                Check Any Vehicle's MOT History
+              </h2>
+              <p className="text-lg text-gray-300 mb-8">
+                Get instant access to a vehicle's complete MOT test history, mileage records, and advisory notes to make informed decisions before purchasing.
+              </p>
+              
+              <div className="grid sm:grid-cols-2 gap-8">
+                {benefitPoints.map((point, index) => (
+                  <motion.div
+                    key={index}
+                    initial={{ opacity: 0, y: 20 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.4, delay: index * 0.1 }}
+                    viewport={{ once: true }}
+                  >
+                    <div className="flex gap-4">
+                      <div className="mt-1 flex-shrink-0 w-10 h-10 rounded-lg bg-gradient-to-br from-red-500 to-red-600 flex items-center justify-center shadow-md shadow-red-900/20">
+                        {point.icon}
+                      </div>
+                      <div>
+                        <h3 className="font-semibold text-gray-100 mb-2">{point.title}</h3>
+                        <p className="text-sm text-gray-400">
+                          {point.description}
+                        </p>
+                      </div>
+                    </div>
+                  </motion.div>
+                ))}
+              </div>
             </div>
-          </MotionDiv>
+          </motion.div>
           
           {/* Right Column - Search Card */}
-          <MotionDiv
+          <motion.div
             initial={{ opacity: 0, x: 30 }}
             whileInView={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.6 }}
@@ -189,7 +184,7 @@ export const MOTCheckTool = () => {
                 </div>
               </CardFooter>
             </Card>
-          </MotionDiv>
+          </motion.div>
         </div>
       </div>
     </section>
