@@ -161,7 +161,7 @@ export function EnquiryForm({ isOpen, onClose, chosenVehicle }: EnquiryFormProps
             Enquiry for {chosenVehicle}
           </DialogTitle>
           <p className="text-gray-400 text-sm mt-2">
-            Please fill the form below or call 07874 003 228
+            Please fill the form below or call 07392 615 847
           </p>
         </DialogHeader>
         

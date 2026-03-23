@@ -116,7 +116,7 @@ const schemaData = {
   "name": "ASM Performance Cars",
   "image": "https://asmperformancecars.co.uk/logo.jpg",
   "url": "https://asmperformancecars.co.uk",
-  "telephone": "+447874003228",
+  "telephone": "+447392615847",
   "address": {
     "@type": "PostalAddress",
     "streetAddress": "74 Cooperative Street",

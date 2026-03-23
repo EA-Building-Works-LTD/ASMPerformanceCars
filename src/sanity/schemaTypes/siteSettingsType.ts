@@ -145,7 +145,7 @@ export const siteSettingsType = defineType({
       name: 'phoneNumber',
       title: 'Primary Phone Number',
       type: 'string',
-      description: 'Main contact phone number shown in the header and footer (e.g., +44 7874 003 228)',
+      description: 'Main contact phone number shown in the header and footer (e.g., +44 7392 615 847)',
       validation: Rule => Rule.required()
     }),
     defineField({

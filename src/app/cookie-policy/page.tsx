@@ -228,7 +228,7 @@ export default function CookiePolicyPage() {
                 <ul className="list-disc pl-6 mb-4 space-y-2">
                   <li>By email: privacy@asmperformancecars.co.uk</li>
                   <li>By post: ASM Performance Cars, 74 Co-operative Street, Stafford ST16 3DA</li>
-                  <li>By phone: +44 7874 003 228</li>
+                  <li>By phone: +44 7392 615 847</li>
                 </ul>
               </div>
             </div>

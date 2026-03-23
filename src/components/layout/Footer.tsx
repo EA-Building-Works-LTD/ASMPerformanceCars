@@ -22,7 +22,7 @@ export const Footer = ({ seoContent }: FooterProps) => {
   const [email, setEmail] = useState('')
   const [isLoading, setIsLoading] = useState(false)
   const [isSubmitted, setIsSubmitted] = useState(false)
-  const [phoneNumber, setPhoneNumber] = useState('+44 7874 003 228')
+  const [phoneNumber, setPhoneNumber] = useState('+44 7392 615 847')
   const [contactEmail, setContactEmail] = useState('info@asmperformancecars.co.uk')
   
   // Form validation

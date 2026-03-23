@@ -402,7 +402,7 @@ export const TransportationCalculatorForm = () => {
             </label>
             <Input
               id="phone"
-              placeholder="E.g., 07123 456789"
+              placeholder="E.g., 07392 615 847"
               value={phone}
               onChange={(e) => setPhone(e.target.value)}
               className="text-lg placeholder:text-gray-400 border-gray-300 dark:border-gray-700 h-12"

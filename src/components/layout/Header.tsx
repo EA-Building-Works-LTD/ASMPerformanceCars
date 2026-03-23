@@ -125,7 +125,7 @@ export const Header = () => {
   const [searchModalOpen, setSearchModalOpen] = useState(false)
   const [expandedMobileItems, setExpandedMobileItems] = useState<string[]>([])
   const timeoutRef = useRef<NodeJS.Timeout | null>(null)
-  const [phoneNumber, setPhoneNumber] = useState('+44 7874 003 228')
+  const [phoneNumber, setPhoneNumber] = useState('+44 7392 615 847')
 
   useEffect(() => {
     const handleScroll = () => {
