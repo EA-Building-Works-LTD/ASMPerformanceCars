@@ -51,8 +51,16 @@ export default defineType({
                 fields: [
                   {
                     name: 'href',
-                    type: 'url',
+                    type: 'string',
                     title: 'URL',
+                    validation: (Rule) =>
+                      Rule.custom((value) => {
+                        if (!value) return true
+                        if (typeof value !== 'string') return 'Invalid link value'
+                        if (value.startsWith('/')) return true
+                        if (/^(https?:\/\/|mailto:|tel:)/i.test(value)) return true
+                        return 'Use an absolute URL, relative path (/path), mailto:, or tel:'
+                      }),
                   },
                   {
                     title: 'Open in new tab',

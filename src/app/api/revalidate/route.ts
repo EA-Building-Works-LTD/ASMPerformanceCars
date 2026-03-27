@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { revalidatePath } from 'next/cache';
+import { revalidatePath, revalidateTag } from 'next/cache';
 
 // Add this GET handler to allow direct browser testing
 export async function GET(request: NextRequest) {
@@ -20,6 +20,10 @@ export async function GET(request: NextRequest) {
     revalidatePath('/our-cars/luxury-supercars-for-sale');
     revalidatePath('/our-cars');
     revalidatePath('/');
+    revalidatePath('/contact');
+    revalidatePath('/privacy-policy');
+    revalidateTag('contactPage');
+    revalidateTag('privacyPolicy');
     
     console.log('GET revalidation completed successfully');
     
@@ -82,6 +86,16 @@ export async function POST(request: NextRequest) {
       if (slug?.current) {
         revalidatePath(`/our-cars/luxury-supercars-for-sale/${slug.current}`);
       }
+    }
+
+    if (_type === 'contactPage') {
+      revalidatePath('/contact');
+      revalidateTag('contactPage');
+    }
+
+    if (_type === 'privacyPolicy') {
+      revalidatePath('/privacy-policy');
+      revalidateTag('privacyPolicy');
     }
     
     // Always revalidate the home page and main car listing page

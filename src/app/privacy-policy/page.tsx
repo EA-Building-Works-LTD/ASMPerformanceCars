@@ -60,7 +60,7 @@ async function getPrivacyPolicyContent() {
       _updatedAt
     }`
     
-    return await client.fetch(query)
+    return await client.fetch(query, {}, { next: { tags: ['privacyPolicy'], revalidate: 60 } })
   } catch (error) {
     console.error("Error fetching privacy policy content:", error)
     return null

@@ -85,7 +85,7 @@ async function getContactData(): Promise<ContactPageData> {
     }`;
 
     const data = await import('@/sanity/lib/client').then(({ client }) =>
-      client.fetch(query, {}, { next: { tags: ['contactPage'] } })
+      client.fetch(query, {}, { next: { tags: ['contactPage'], revalidate: 60 } })
     );
     
     // Return the Sanity data if available, otherwise use mock data
