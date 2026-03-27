@@ -114,7 +114,7 @@ export default async function PrivacyPolicyPage() {
                   <ul className="list-disc pl-6 mb-4 space-y-2">
                     <li><strong className="font-semibold">Business Address:</strong> 74 Co-operative Street, Stafford ST16 3DA, UK</li>
                     <li><strong className="font-semibold">Contact Email:</strong> info@asmperformancecars.co.uk</li>
-                    <li><strong className="font-semibold">Telephone:</strong> +44 7392 615 847</li>
+                    <li><strong className="font-semibold">Telephone:</strong> 7392 615 847</li>
                     <li><strong className="font-semibold">ICO Registration Number:</strong> ZC123456 (for data protection purposes)</li>
                   </ul>
                   
@@ -277,7 +277,7 @@ export default async function PrivacyPolicyPage() {
                   
                   <ul className="list-disc pl-6 mb-4 space-y-2">
                     <li>Website: <a href="https://ico.org.uk/make-a-complaint/" className="text-red-600 hover:underline" target="_blank" rel="noopener noreferrer">ico.org.uk/make-a-complaint</a></li>
-                    <li>Telephone: 07392 615 847</li>
+                    <li>Telephone: 7392 615 847</li>
                     <li>Address: Information Commissioner's Office, Wycliffe House, Water Lane, Wilmslow, Cheshire, SK9 5AF</li>
                   </ul>
                   
@@ -294,7 +294,7 @@ export default async function PrivacyPolicyPage() {
                     <li>Data Protection Officer: privacy@asmperformancecars.co.uk</li>
                     <li>General enquiries: info@asmperformancecars.co.uk</li>
                     <li>By post: ASM Performance Cars, 74 Co-operative Street, Stafford ST16 3DA</li>
-                    <li>By phone: +44 7392 615 847</li>
+                    <li>By phone: 7392 615 847</li>
                   </ul>
                 </div>
               )}
